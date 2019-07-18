@@ -55,6 +55,13 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
+*.pyc
+*__pycache__
+Superdrogas/*/migrations/
+Superdrogas/**/migrations/
+Superdrogas/media/*
+.idea/
+*.bash
 
 # Flask stuff:
 instance/

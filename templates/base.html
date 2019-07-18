@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="es" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+
+	<title>{% block titulo %}{% endblock titulo %}</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/logo/favicon.png' %}"/>
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="{% static 'plugins/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/4.0.0/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/font-awesome/5.0/css/fontawesome-all.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/ionicons/css/ionicons.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/animate/animate.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/apple/style.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/apple/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/apple/theme/default.css' %}" rel="stylesheet" id="theme" />
+
+	<link href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap-eonasdan-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+	
+
+	<script src="{% static 'plugins/jquery/jquery-3.2.1.min.js' %}"></script>
+	<!-- ================== END BASE CSS STYLE ================== -->
+	{% block css %}{% endblock css %}
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+
+	<link href="{% static 'plugins/toastr/build/toastr.min.css' %}" rel="stylesheet">
+	<link href="{% static 'plugins/switchery/switchery.min.css' %}" rel="stylesheet" />
+	
+	{{form.media}}
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade show"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed">
+		<!-- begin #header -->
+		<div id="header" class="header navbar-default">
+			<!-- begin navbar-header -->
+			<div class="navbar-header">
+				<a href="#" class="navbar-brand">
+					<span class="navbar-logo" style="width: 500px">
+						<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" alt="logo_empresa">
+					</span>
+				</a>
+				<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- end navbar-header -->
+			
+			<!-- begin header-nav -->
+			<ul class="navbar-nav navbar-right">
+				<li class="dropdown navbar-user">
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+						<span class="user-image online"><img src="{% static 'img/user/user-13.jpg' %}" alt="" /></span>
+						<span class="d-none d-md-inline">{{request.user}}</span> <b class="caret"></b>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right">
+	                    
+					</div>
+				</li>
+			</ul>
+			<!-- end header navigation right -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar nav -->
+				<ul class="nav">
+					<li class="nav-header">Menú de navegación</li>
+					{% include "menus/base_menus.html" %}
+					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="ion-ios-arrow-back"></i> <span>Minimizar</span></a></li>
+				</ul>
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				{% block miga_pan %}
+					<li class="breadcrumb-item"><a href="javascript:;">Home</a></li>
+					<li class="breadcrumb-item"><a href="javascript:;">Page Options</a></li>
+					<li class="breadcrumb-item active">Blank Page</li>
+				{% endblock miga_pan %}
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">
+				{% block titulo_pagina %}Blank Page <small>header small text goes here...</small>{% endblock titulo_pagina %}
+			</h1>
+			<!-- end page-header -->
+			
+			<!-- begin panel -->
+			{% block contenido %}
+				<div class="panel panel-inverse">
+					<div class="panel-heading">
+						<div class="panel-heading-btn">
+							{% block botones_panel %}
+	                        {% endblock botones_panel %}
+						</div>
+						<h4 class="panel-title">{% block titulo_panel %}{% endblock titulo_panel %}</h4>
+					</div>
+					<div class="panel-body container">
+						{% block contenido_panel %}{% endblock contenido_panel %}
+					</div>
+				</div>
+			{% endblock contenido %}
+			<!-- end panel -->
+		</div>
+		<!-- end #content -->
+		
+        <!-- begin theme-panel -->
+        <div class="theme-panel">
+            <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="ion-ios-cog"></i></a>
+            <div class="theme-panel-content">
+                <h5 class="m-t-0">Color Theme</h5>
+                <ul class="theme-list clearfix">
+                    <li><a href="javascript:;" class="bg-green" data-theme="green" data-theme-file="{% static 'css/apple/theme/green.css' %}" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Green">&nbsp;</a></li>
+                    <li><a href="javascript:;" class="bg-red" data-theme="red" data-theme-file="{% static 'css/apple/theme/red.css' %}" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red">&nbsp;</a></li>
+                    <li class="active"><a href="javascript:;" class="bg-blue" data-theme="default" data-theme-file="{% static 'css/apple/theme/default.css' %}" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default">&nbsp;</a></li>
+                    <li><a href="javascript:;" class="bg-purple" data-theme="purple" data-theme-file="{% static 'css/apple/theme/purple.css' %}" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple">&nbsp;</a></li>
+                    <li><a href="javascript:;" class="bg-orange" data-theme="orange" data-theme-file="{% static 'css/apple/theme/orange.css' %}" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange">&nbsp;</a></li>
+                    <li><a href="javascript:;" class="bg-black" data-theme="black" data-theme-file="{% static 'css/apple/theme/black.css' %}" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black">&nbsp;</a></li>
+                </ul>
+                <div class="divider"></div>
+                <div class="row m-t-10">
+                    <div class="col-md-5 control-label double-line">Header Styling</div>
+                    <div class="col-md-7">
+                        <select name="header-styling" class="form-control form-control-sm">
+                            <option value="1">default</option>
+                            <option value="2">inverse</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-t-10">
+                    <div class="col-md-5 control-label">Header</div>
+                    <div class="col-md-7">
+                        <select name="header-fixed" class="form-control form-control-sm">
+                            <option value="1">fixed</option>
+                            <option value="2">default</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-t-10">
+                    <div class="col-md-5 control-label double-line">Sidebar Styling</div>
+                    <div class="col-md-7">
+                        <select name="sidebar-styling" class="form-control form-control-sm">
+                            <option value="1">default</option>
+                            <option value="2">grid</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-t-10">
+                    <div class="col-md-5 control-label">Sidebar</div>
+                    <div class="col-md-7">
+                        <select name="sidebar-fixed" class="form-control form-control-sm">
+                            <option value="1">fixed</option>
+                            <option value="2">default</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-t-10">
+                    <div class="col-md-5 control-label double-line">Sidebar Gradient</div>
+                    <div class="col-md-7">
+                        <select name="content-gradient" class="form-control form-control-sm">
+                            <option value="1">disabled</option>
+                            <option value="2">enabled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-t-10">
+                    <div class="col-md-12">
+                        <a href="javascript:;" class="btn btn-inverse btn-block btn-sm" data-click="reset-local-storage">Reset Local Storage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end theme-panel -->
+		
+		<!-- begin scroll to top btn -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/4.0.0/js/bootstrap.bundle.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'plugins/js-cookie/js.cookie.js' %}"></script>
+	<script src="{% static 'js/theme/apple.min.js' %}"></script>
+	<script src="{% static 'js/apps.min.js' %}"></script>
+
+	{# Contiene diferentes blockUI con diferentes mensajes, dependiendo de la operación deseada #}
+    <script src="{% static 'js/blockUI.js' %}"></script>
+    <script src="{% static 'js/apps/generales/blockUI-personalizado.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	<script src="{% static 'plugins/toastr/build/toastr.min.js' %}"></script>
+
+	<script src="{% static 'plugins/bootstrap-daterangepicker/moment.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-eonasdan-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+	<script src="{% static 'plugins/switchery/switchery.min.js' %}"></script>
+
+	{% block js %}{% endblock js %}
+	<script>
+		$(document).ready(function() {
+			App.init();
+
+			{% for msg in messages %}
+	            $(document).ready(function(){
+	                setTimeout(function() {
+	                    toastr.options = {
+	                        "closeButton": true,
+	                        "progressBar": true,
+	                        "showEasing": "swing",
+	                        "extendedTimeOut": 5000,
+	                        "timeOut": 3000,
+	                        "progressBar": true
+	                    }
+	                    toastr["{{ msg.tags }}"]("{{msg}}")
+	                },500);
+	            });
+	        {% endfor %}
+
+	        $('[data-render=switchery]').each(function() {
+	            var switchery = new Switchery(this, {
+	            	"color": COLOR_BLUE,
+	            	"secondaryColor": COLOR_RED
+	            });
+	        });
+	        $("span.switchery").each(function(){
+	        	$(this).parent().parent().append("<br/>");
+	        	$(this).appendTo($(this).parent().parent());
+	        });
+		});
+
+		$('.fecha').datepicker({
+	        todayHighlight: true,
+	        language: "es",
+	        startView: 2,
+	        format: "yyyy-mm-dd",
+	    });
+	    $('.fecha2').datepicker({
+	        todayHighlight: true,
+	        language: "es",
+	        startView: 2,
+	        format: "dd/mm/yyyy",
+	    });
+	    $('.hora').datetimepicker({
+	        format: 'LT'
+	    });
+	    $(".readonly").keydown(function(e){
+            e.preventDefault();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('form').attr('autocomplete','off');
+	</script>
+	{% block post_js %}{% endblock post_js %}
+</body>
+</html>

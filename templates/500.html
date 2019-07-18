@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Error 500</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="Nuestro Negocio DAnalytics" name="description" />
+	<meta content="DAnalytics" name="author" />
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/logo/favicon.png' %}"/>
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="{% static 'plugins/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/4.1.0/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/font-awesome/5.0/css/fontawesome-all.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/ionicons/css/ionicons.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/animate/animate.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/apple/style.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/apple/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/apple/theme/default.css' %}" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body class="pace-top">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade show"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+	    <!-- begin error -->
+        <div class="error">
+            <div class="error-code m-b-10">500</div>
+            <div class="error-content">
+                <div class="error-message">Sistema temporalmente fuera de servicio</div>
+                <div class="error-desc m-b-30">
+                    Por favor intentar ingresar en un par de minutos.
+                </div>
+            </div>
+        </div>
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+	</div>
+
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/4.1.0/js/bootstrap.bundle.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'plugins/js-cookie/js.cookie.js' %}"></script>
+	<script src="{% static 'js/theme/apple.min.js' %}"></script>
+	<script src="{% static 'js/apps.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+			App.init();
+		});
+	</script>
+</body>
+</html>

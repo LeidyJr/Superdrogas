@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include, handler404
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('medicamentos/', include ('apps.medicamentos.urls', namespace='medicamentos')),
+    url(r'^select2/', include('django_select2.urls')),
 ]

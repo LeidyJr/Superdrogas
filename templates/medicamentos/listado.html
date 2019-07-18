@@ -1,0 +1,57 @@
+{% extends "base_tablas.html" %}
+
+{% block titulo %}Listado de medicamentos{% endblock %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Medicamentos</a></li>
+    <li class="breadcrumb-item active">Listado</li>
+{% endblock miga_pan %}
+
+{% block titulo_pagina %}
+    Listado de medicamentos
+{% endblock titulo_pagina %}
+
+{% block titulo_panel %}
+    Listado de medicamentos
+{% endblock titulo_panel %}
+
+{% block botones_panel %}
+    <a href="{% url 'medicamentos:registrar' %}" class="btn btn-xs btn-pink">
+        <i class="ion-md-create"></i>
+        Registrar medicamento
+    </a>
+{% endblock botones_panel %}
+
+{% block contenido_panel %}
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover datatable">
+                    <thead>
+                        <tr>
+                            <th>Referencia</th>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for medicamento in medicamentos %}
+                            <tr>
+                                <td>{{medicamento.referencia}}</td>
+                                <td>{{medicamento.nombre}}</td>
+                                <td>{{medicamento.obtener_estado}}</td>
+                                <td>
+                                    <a class="btn btn-xs btn-purple" href="{% url 'medicamentos:modificar' medicamento.id %}">
+                                        <i class="fas fa-edit"></i>
+                                        Modificar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock contenido_panel %}

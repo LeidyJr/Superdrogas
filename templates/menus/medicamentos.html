@@ -1,0 +1,17 @@
+{% url 'medicamentos:registrar' as registrar %}
+{% url 'medicamentos:listado' as listado %}
+<li class="{% if "medicamentos/" in request.path %} active {% endif %}has-sub">
+    <a href="javascript:;">
+        <b class="caret"></b>
+        <i class="fas fa-lg fa-medkit bg-gradient-red"></i>
+        <span>Medicamentos</span>
+    </a>
+    <ul class="sub-menu">
+        <li class="{% if registrar in request.path %} active {% endif %}">
+        	<a href="{{registrar}}">Registrar</a>
+        </li>
+        <li class="{% if listado in request.path %} active {% endif %}">
+        	<a href="{{listado}}">Listado</a>
+        </li>
+    </ul>
+</li>
