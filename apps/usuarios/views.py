@@ -28,7 +28,6 @@ class Login(FormView):
                 login(self.request, usuario)
                 siguiente = self.request.GET.get("next", None)
                 self.success_url = self.success_url if siguiente == None else siguiente
-                LogApp.crear_log(self.request, "Inicio de sesión:%s"%(self.request.user.id))
                 messages.success(self.request, "Sesión iniciada correctamente")
                 return super(Login, self).form_valid(form)
             else:
@@ -45,7 +44,8 @@ class Login(FormView):
 
 @login_required
 def Logout(request):
-    LogApp.crear_log(request, "Cerrar de sesión:%s"%(request.user.id))
     logout(request)
     messages.success(request, "Sesión cerrada correctamente")
-    return redirect('inicio')
+    return redirect('usuarios:login')
+
+
