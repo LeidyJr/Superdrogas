@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block titulo %}
+    Formulario de creación de empresa
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Formulario de creación de empresa
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Empresas</a></li>
+    <li class="breadcrumb-item active">Registrar</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Formulario de creación de empresa
+{% endblock titulo_panel %}
+
+{% block js %}
+    <script type="text/javascript" src="{% static 'js/apps/empresas/formulario_empresa.js' %}"></script>
+{% endblock js %}
+
+{% block contenido_panel %}
+    <form class="bloquear-ui-enviar" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                <h4>Información básica de la empresa</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form.nombre %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form.schema_name %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-warning" href="{% url 'empresas:listado' %}">
+                    <i class="fa fa-angle-left"></i> Volver
+                </a>
+            </div>
+            <div class="col-6" align="right">
+                <button class="btn btn-primary" type="submit">
+                    Registrar <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock contenido_panel %}

@@ -1,1 +1,6 @@
-{% include "menus/medicamentos.html" %}
+{%  if request.tenant.schema_name == "public" %}
+    {% include "menus/empresas.html" %}
+{% else %}
+        {% include "menus/medicamentos.html" %}
+        {% include "menus/usuarios.html" %}
+{% endif %}

@@ -1,0 +1,57 @@
+{% extends "base_tablas.html" %}
+
+{% block titulo %}
+    Listado de empresas
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Listado de empresas
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Empresas</a></li>
+    <li class="breadcrumb-item active">Listado</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Listado de empresas
+{% endblock titulo_panel %}
+
+{% block botones_panel %}
+    <a href="{% url 'empresas:registrar' %}" class="btn btn-xs btn-warning">
+        Registrar empresa
+    </a>
+{% endblock botones_panel %}
+
+{% block contenido_panel %}
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover datatable">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Página web</th>
+                            <th>Fecha creación</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dominio in listado_dominios %}
+                            <tr>
+                                <td>{{dominio.tenant.nombre}}</td>
+                                <td>{{dominio.domain}}</td>
+                                <td>{{dominio.tenant.creado}}</td>
+                                <td>
+                                    <a class="btn btn-xs btn-warning" href="{% url 'empresas:modificar' dominio.tenant.id %}">
+                                        Modificar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock contenido_panel %}

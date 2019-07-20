@@ -25,33 +25,13 @@ SECRET_KEY = 'bl#5bnnaj_vy2ssr)j2o!mov*-ocl$*@jcz9ls!w%xy_flaq$f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', ]
 
-
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'bootstrap4',
-    'django_select2',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'apps.medicamentos',
-    'apps.franquicias',
-    'apps.usuarios',
-]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +41,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Superdrogas.urls'
+
+ROOT_URLCONF = 'Superdrogas.tenant_urls'
+PUBLIC_SCHEMA_URLCONF = 'Superdrogas.public_urls'
 
 TEMPLATES = [
     {
@@ -81,13 +63,51 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Superdrogas.wsgi.application'
 
+#--------------- APPS -----------------------------
+DJANGO_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.humanize',
+]
+THIRD_PARTY_APPS = [
+    'bootstrap4',
+    'django_select2',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+]
+PUBLIC_APPS = [
+    'django_tenants',
+    'apps.empresas',
+    'apps.usuarios',
+    #'apps.logs',
+]
+LOCAL_APPS = [
+    'apps.medicamentos',
+    'apps.empresas',
+    'apps.usuarios',
+    'apps.core',
+]
+
+SHARED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PUBLIC_APPS
+TENANT_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+TENANT_MODEL = "empresas.Empresa"
+TENANT_DOMAIN_MODEL = "empresas.Dominio"
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': 'superdrogas',
         'USER': 'superdrogas',
         'PASSWORD': 'superdrogas',
@@ -95,6 +115,10 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -166,6 +190,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 
-
-LOGIN_REDIRECT_URL = 'medicamentos:listado'
+LOGIN_REDIRECT_URL = 'usuarios:login'
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+LOGIN_URL = 'usuarios:login'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
+
+DOMAIN = '.localhost'

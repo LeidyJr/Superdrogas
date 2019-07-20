@@ -1,0 +1,11 @@
+{% url 'usuarios:registrar_trabajador' as registrar_trabajador %}
+{% url 'usuarios:listado' as listado %}
+<li class="{% if "usuarios/" in request.path %} active {% endif %}has-sub">
+    <a href="javascript:;">
+        <b class="caret"></b>
+        <i class="ion-ios-person bg-blue"></i>
+        <span>Usuarios</span>
+    </a>
+    <ul class="sub-menu">
+            </ul>
+</li>

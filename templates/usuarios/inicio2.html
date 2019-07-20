@@ -1,0 +1,684 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="es" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="es">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Nuestro Negocio</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="Nuestro Negocio DAnalytics" name="description" />
+    <meta content="DAnalytics" name="author" />
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/logo/favicon.png' %}"/>
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="{% static 'nuestronegocio/plugins/bootstrap3/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'nuestronegocio/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'nuestronegocio/plugins/animate/animate.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'nuestronegocio/css/one-page-parallax/style.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'nuestronegocio/css/one-page-parallax/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'nuestronegocio/css/one-page-parallax/theme/blue.css' %}" id="theme" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'nuestronegocio/plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body data-spy="scroll" data-target="#header-navbar" data-offset="51">
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade">
+        <!-- begin #header -->
+        <div id="header" class="header navbar navbar-transparent navbar-fixed-top">
+            <!-- begin container -->
+            <div class="container">
+                <!-- begin navbar-header -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                        <span class="brand-logo"></span>
+                        <span class="brand-text">
+                            <span class="text-theme"></span> Nuestro Negocio
+                        </span>
+                    </a>
+                </div>
+                <!-- end navbar-header -->
+                <!-- begin navbar-collapse -->
+                <div class="collapse navbar-collapse" id="header-navbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#home" data-click="scroll-to-target">Inicio</a></li>
+                        <li><a href="#beneficios" data-click="scroll-to-target">Beneficios</a></li>
+                        <li><a href="#modulos" data-click="scroll-to-target">Módulos</a></li>
+                        <li><a href="#planes" data-click="scroll-to-target">Planes</a></li>
+                        <li><a href="#about" data-click="scroll-to-target">Nosotros</a></li>
+                        <li><a href="#contact" data-click="scroll-to-target">Contáctanos</a></li>
+                    </ul>
+                </div>
+                <!-- end navbar-collapse -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #header -->
+        
+        <!-- begin #home -->
+        <div id="home" class="content has-bg home">
+            <!-- begin content-bg -->
+            <div class="content-bg">
+                <img src="{% static 'nuestronegocio/img/bg/bg-home2.jpg' %}" alt="Home" />
+            </div>
+            <!-- end content-bg -->
+            <!-- begin container -->
+            <div class="container home-content">
+                {% for msg in messages %}
+                    <h3 style="color: {% if msg.tags == "error" %}#FF3B30{% else %}#39a34b{% endif %} !important">{{msg}}</h3>
+                {% endfor %}
+                <h1>Bienvenido a Nuestro Negocio</h1>
+                <h2>Tu negocio nuestra razón de ser.</h2>
+                <h4>
+                    Nuestro Negocio es una aplicación que ayuda a las MIPYMES a organizarse y crecer brindándoles <br />
+                su propia página web en internet y módulos para la gestión administrativa de su negocio (ej. compras, ventas, domicilios).
+                </h4>
+                <a href="#beneficios" class="btn btn-theme">Quiero saber más</a> <a href="#planes" class="btn btn-outline">Ver planes</a><br />
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #home -->
+
+
+        <!-- beign #service -->
+        <div id="beneficios" class="content" data-scrollview="true">
+            <!-- begin container -->
+            <div class="container">
+                <h2 class="content-title">Beneficios</h2>
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/online-shop.png' %}"  alt="tienda" hspace="20" width="90" height="90">
+                                <h4 class="title" align="left"> <b>Página web</b></h4>
+                                <p  class="desc">  Tu negocio tendrá su página web en internet en la que podrás mostrar tus productos y servicios.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/food.png' %}"  alt="computador" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Domicilios</b></h4>
+                                <p class="desc">Tus clientes podrán hacerte pedidos a través de tu página web.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/stats.png' %}"  alt="stats" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Reportes</b></h4>
+                                <p class="desc">Reportes sencillos de entender que apoyan la toma de decisiones y aumentan la eficiencia de tu negocio.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/icon2.png' %}"  alt="computador" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Servicio en la nube</b></h4>
+                                <p class="desc">Accede a la aplicación desde tu celular, Tablet o computador.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                 <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/secure-data.png' %}"  alt="computador" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Seguridad</b></h4>
+                                <p class="desc">Respaldamos tu información en copias de seguridad y encriptamos información sensible de tu negocio.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                 <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/customer-service.png' %}"  alt="computador" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Soporte y capacitaciones</b></h4>
+                                <p class="desc">Te capacitamos a ti y a tu personal en el uso de la aplicación y te damos soporte cuando tengas dudas.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #service -->  
+
+
+        <!-- begin #milestone -->
+        <div id="milestone" class="content bg-black-darker has-bg" data-scrollview="true">
+            <!-- begin content-bg -->
+            <div class="content-bg">
+                <img src="{% static 'nuestronegocio/img/bg/bg-milestone2.jpg' %}" alt="Milestone" />
+            </div>
+            <!-- end content-bg -->
+            <!-- begin container -->
+            <div class="container">
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-3 milestone-col">
+                        <div class="milestone">
+                            <div class="number" data-animation="true" data-animation-type="number" data-final-number="60">60</div>
+                            <div class="title">Núm. de días de prueba gratis</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-3 milestone-col">
+                        <div class="milestone">
+                            <div class="number" data-animation="true" data-animation-type="number" data-final-number="200">200</div>
+                            <div class="title">Núm. ventas diarias en promedio</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-3 milestone-col">
+                        <div class="milestone">
+                            <div class="number" data-animation="true" data-animation-type="number" data-final-number="100">100</div>
+                            <div class="title">Productos registrados</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                    <!-- begin col-3 -->
+                    <div class="col-md-3 col-sm-3 milestone-col">
+                        <div class="milestone">
+                            <div class="number" data-animation="true" data-animation-type="number" data-final-number="8">8</div>
+                            <div class="title">Módulos disponibles</div>
+                        </div>
+                    </div>
+                    <!-- end col-3 -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #milestone -->
+
+
+        <!-- beign #Modulos -->
+        <div id="modulos" class="content" data-scrollview="true">
+            <!-- begin container -->
+            <div class="container">
+                <h2 class="content-title">Módulos</h2>
+                 <p class="content-desc">
+                    Si no está lo que necesitas, comunícanoslo, te lo cotizamos,<br />
+                    analizamos su viabilidad y de ser posible lo incluimos para tu negocio.
+                </p>
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                             <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/commerce.png' %}"  alt="ventas pos" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Ventas en tu negocio</b></h4>
+                                <p class="desc">Registra tus ventas (para consumir o para llevar) en tiempo real.  <br />Monitorea tus ventas desde cualquier lugar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                   <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                             <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/google.png' %}"  alt="google" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Ventas Domicilio</b></h4>
+                                <p class="desc">Gestiona tus domicilios desde tu página web.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/delivery-truck.png' %}"  alt="proveedor" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Proveedores</b></h4>
+                                <p class="desc">Administra la información de tus proveedores.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+                <!-- begin row -->
+                <div class="row">
+                <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/serving-dish.png' %}"  alt="productos" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Productos</b></h4>
+                                <p class="desc">Administra tus productos, con su descripción y precio. <br /> Activa e inactiva tus productos de acuerdo a su disponibilidad. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/user.png' %}"  alt="usuarios" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Gestión de usuarios</b></h4>
+                                <p class="desc">Otorga permisos de acuerdo al perfil de tus empleados.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/development.png' %}"  alt="computador" hspace="20" width="90" height="90">
+                                <h4 class="title">Muy pronto más módulos y funcionalidades.</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #service -->  
+
+  
+        <!-- begin #client -->
+        <div id="client" class="content has-bg bg-green" data-scrollview="true">
+            <!-- begin content-bg -->
+            <div class="content-bg">
+                <img src="{% static 'nuestronegocio/img/bg/bg-quote3.jpg' %}" alt="Client" />
+            </div>
+            <!-- end content-bg -->
+            <!-- begin container -->
+            <div class="container" data-animation="true" data-animation-type="fadeInUp">
+                <h2 class="content-title">Más beneficios</h2>
+                <!-- begin carousel -->
+                <div class="carousel testimonials slide" data-ride="carousel" id="testimonials">
+                    <!-- begin carousel-inner -->
+                    <div class="carousel-inner text-center">
+                        <!-- begin item -->
+                        <div class="item active">
+                            <blockquote>
+                                <i class="fa fa-quote-left"></i>
+                                Ya sea que estés en un viaje de negocios, disfrutando de tus vacaciones <br />
+                                o en la comodidad de tu casa, siempre que tengas tu celular conectado a internet<br />
+                                podrás monitorear la operación de tu negocio.
+                                <i class="fa fa-quote-right"></i>
+                            </blockquote>
+                        </div>
+                        <!-- end item -->
+                        <!-- begin item -->
+                        <div class="item">
+                            <blockquote>
+                                <i class="fa fa-quote-left"></i>
+                                Puedes construir tu base de datos de clientes y con esa información<br />
+                                diseñar e implementar estrategias de fidelización.
+                                <i class="fa fa-quote-right"></i>
+                            </blockquote>
+                        </div>
+                        <!-- end item -->
+                        <!-- begin item -->
+                        <div class="item">
+                            <blockquote>
+                                <i class="fa fa-quote-left"></i>
+                                Puedes conectar tus redes sociales a tu página web de nuestro negocio<br />
+                                subir fotos de tus productos, mostrar el horario de atención,<br />
+                                el costo de domicilio y mucho más.
+                                <i class="fa fa-quote-right"></i>
+                            </blockquote>
+                        </div>
+                        <!-- end item -->
+                    </div>
+                    <!-- end carousel-inner -->
+                    <!-- begin carousel-indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#testimonials" data-slide-to="0" class="active"></li>
+                        <li data-target="#testimonials" data-slide-to="1" class=""></li>
+                        <li data-target="#testimonials" data-slide-to="2" class=""></li>
+                    </ol>
+                    <!-- end carousel-indicators -->
+                </div>
+                <!-- end carousel -->
+            </div>
+            <!-- end containter -->
+        </div>
+        <!-- end #client -->
+
+      
+        <!-- begin #pricing -->
+        <div id="planes" class="content" data-scrollview="true">
+            <!-- begin container -->
+            <div class="container">
+                <h2 class="content-title">Planes</h2>
+                <!-- begin pricing-table -->
+                <ul class="pricing-table col-2" style="margin-left: 15%">
+                    <li data-animation="true" data-animation-type="fadeInUp">
+                        <div class="pricing-container">
+                            <h3>Básico</h3>
+                            <div class="price">
+                                <div class="price-figure">
+                                    <span class="price-number">Desde $50.000</span>
+                                    <span class="price-tenure">mensuales</span>
+                                </div>
+                            </div>
+                            <ul class="features">
+                                <li>15 días gratis</li>
+                                <li>1 sede </br> sede adicional $45000 c/u</li>
+                                <li>Todos los módulos</li>
+                                <li>500 recibos de ventas al mes; </br> paquete de 500 recibos adicionales por $20.000 </li>
+                                <li>1 Bodega </li>
+                                <li>80 imágenes de producto; </br> paquete de 10 imágenes adicionales por $1.000 </li>
+                                <li>Número de usuarios: ilimitado </li>
+                                <li>Soporte por email</li>
+                                <li>Visualizaciones básicas y especializadas online</li>
+                                <li>Reporte mensual de la operación de tu negocio<li>
+                            </ul>
+                            <div class="footer">
+                                <a href="#comofunciona" class="btn btn-inverse btn-block">Comprar</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-animation="true" data-animation-type="fadeInUp">
+                        <div class="pricing-container">
+                            <h3>Plus</h3>
+                            <div class="price">
+                                <div class="price-figure">
+                                    <span class="price-number">Desde $80.000</span>
+                                    <span class="price-tenure">mensuales</span>
+                                </div>
+                            </div>
+                            <ul class="features">
+                                <li>15 días gratis</li>
+                                <li>1 sede </br> sede adicional $72000 c/u</li>
+                                <li>Todos los módulos</li>
+                                <li>501 a 1500 recibos de ventas al mes; </br> paquete de 500 recibos adicionales por $20.000 </li>
+                                <li>2 Bodegas </li>
+                                <li>100 imágenes de producto; </br> paquete de 10 imágenes adicionales por $1.000 </li>
+                                <li>Número de usuarios: ilimitado </li>
+                                <li>Soporte por email y Whatsapp</li>
+                                <li>Visualizaciones básicas y especializadas online</li>
+                                <li>Reporte mensual de la operación de tu negocio<li>
+                            </ul>
+                            <div class="footer">
+                                <a href="#comofunciona" class="btn btn-inverse btn-block">Comprar</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #pricing -->
+
+        <!-- beign #como funciona -->
+        <div id="comofunciona" class="content" data-scrollview="true">
+            <!-- begin container -->
+            <div class="container">
+                <h2 class="content-title">¿Cómo puedes adquirir la aplicación Nuestro Negocio?</h2>
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                             <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/phone.png' %}"  alt="Llamada" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Paso 1. La Reunión</b></h4>
+                                <p class="desc">Escríbenos al contacto, llámanos o escríbenos por Whatsapp. Te responderemos lo más pronto posible para fijar una cita contigo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                   <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                             <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/conversation.png' %}"  alt="google" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Paso 2. El Demo</b></h4>
+                                <p class="desc">En la reunión resolvemos tus dudas, te mostramos un demo de la aplicación y te ayudamos a definir el mejor plan para tu negocio.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/doc.png' %}"  alt="doc" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Paso 3. La Información</b></h4>
+                                <p class="desc">Nos provees los datos de tu negocio (nombre, productos y precios, etc) y con esto montamos tu página web.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+                <!-- begin row -->
+                <div class="row">
+                <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/presentation.png' %}"  alt="capacitacion" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Paso 4. La Capacitación</b></h4>
+                                <p class="desc">Te capacitamos 1 hora a ti y a tu personal, y te acompañamos 1 hora en la operación del negocio. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/calendar.png' %}"  alt="15días" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Paso 5. Los 15 días</b></h4>
+                                <p class="desc">Utilizas la aplicación por 15 días de manera gratuita. El día 14 nos informas si decidiste seguir con nosotros</p>.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-4">
+                        <div class="service">
+                            <div class="info">
+                                <img style="float:left" src="{% static 'nuestronegocio/img/Imagenes/dollar-symbol.png' %}"  alt="pago" hspace="20" width="90" height="90">
+                                <h4 class="title"><b>Paso 6. El Pago</b></h4>
+                                <p class="desc">Si decidiste seguir con Nuestro Negocio, nos debes consignar el día 15 en una cuenta de ahorros de Bancolombia la tarifa fija de tu plan.</p>.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #como funciona -->  
+
+        <!-- begin #about -->
+        <div id="about" class="content" data-scrollview="true">
+            <!-- begin container -->
+            <div class="container" data-animation="true" data-animation-type="fadeInDown">
+                <h2 class="content-title">Acerca de nosotros</h2>
+            <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-6">
+                        <!-- begin about -->
+                        <div class="about">
+                            <h3>Nuestro origen</h3>
+                            <p>
+                                Nuestro Negocio es una aplicación en la nube que nace en el 2018 para apoyar a las microempresas y pequeñas empresas en la gestión de su negocio. Queremos que dejen  de lado las tareas rutinarias y manuales para que puedan aprovechar e invertir mejor su experiencia, conocimientos y tiempo en hacer crecer su negocio.
+                            </p>
+                            <p>
+                                Contamos con un equipo interdisciplinar, ingenieros de sistemas y administradores de empresas, entre otros , que buscan darte lo mejor para hacer más eficiente tu negocio.
+                            </p>
+                        </div>
+                        <!-- end about -->
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-6">
+                        <h3>Nuestra  filosofía</h3>
+                        <!-- begin about-author -->
+                        <div class="about-author">
+                            <div class="quote bg-silver">
+                                <i class="fa fa-quote-left"></i>
+                                <h3>Trabajar con pasión y dedicación para brindar<br /><span> una herramienta útil, intuitiva y sencilla de usar</span></h3>
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                            <div class="author">
+                                <div class="info">
+                                    Andrés Camilo Serna
+                                    <small>Gerente de Tecnología</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end about-author -->
+                    </div>
+                    <!-- end col-4 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4 col-sm-12">
+                        <h3>Nuestros clientes</h3>
+                            <p>
+                                Nos enfocamos en el sector de servicios de comida y bebidas:
+                            </p>
+                           <ul>
+                                  <li>Restaurantes</li>
+                                  <li>Food trucks</li>
+                                  <li>Puestos de comida rápida</li>
+                                  <li>Asaderos</li>
+                                  <li>Venta de comidas o alimentos (preparados o no) online</li>
+                            </ul>
+                            <p>
+                                Contamos con asesores que te capacitan y te dan soporte 24/7.
+                            </p>
+                    </div>
+                    <!-- end col-4 -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #about -->
+        
+        <!-- begin #contact -->
+        <div id="contact" class="content bg-silver-lighter" data-scrollview="true">
+            <!-- begin container -->
+            <div class="container">
+                <h2 class="content-title">Contáctanos</h2>
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-6 -->
+                    <div class="col-md-6" data-animation="true" data-animation-type="fadeInLeft">
+                        <h3>Deseas más información o un asesor que te ayude con Nuestro Negocio, escríbenos.</h3>
+                        <p>
+                            <strong>Nuestro Negocio</strong><br />
+                            Cali, Colombia<br />
+                            C: 319 639 3346 <br />
+                        </p>
+                    </div>
+                    <!-- end col-6 -->
+                    <!-- begin col-6 -->
+                    <div class="col-md-6 form-col" data-animation="true" data-animation-type="fadeInRight">
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center">
+                                {% for msg in messages %}
+                                    <h3 style="color: {% if msg.tags == "error" %}#FF3B30{% else %}#39a34b{% endif %} !important">{{msg}}</h3>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-theme btn-block">Enviar mensaje</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end col-6 -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #contact -->
+        
+        <!-- begin #footer -->
+        <div id="footer" class="footer">
+            <div class="container">
+                <div class="footer-brand">
+                    <div class="footer-brand-logo"></div>
+                    Nuestro Negocio
+                </div>
+                <p>
+                    &copy; Nuestro Negocio 2018 <br />
+                    Imágenes provistas por Vectors Market, Smashicons, Pixel perfect, Freepik, Becris en <a href="https://www.flaticon.com/">www.flaticon.com </a>
+                </p>
+                {% comment %}
+                <p class="social-list">
+                    <a href="#"><i class="fa fa-facebook fa-fw"></i></a>
+                    <a href="#"><i class="fa fa-instagram fa-fw"></i></a>
+                    <a href="#"><i class="fa fa-twitter fa-fw"></i></a>
+                    <a href="#"><i class="fa fa-google-plus fa-fw"></i></a>
+                    <a href="#"><i class="fa fa-dribbble fa-fw"></i></a>
+                </p>
+                {% endcomment %}
+            </div>
+        </div>
+        <!-- end #footer -->
+    </div>
+    <!-- end #page-container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'nuestronegocio/plugins/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'nuestronegocio/plugins/bootstrap3/js/bootstrap.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="assets/crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="assets/crossbrowserjs/respond.min.js' %}"></script>
+		<script src="assets/crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'nuestronegocio/plugins/js-cookie/js.cookie.js' %}"></script>
+	<script src="{% static 'nuestronegocio/plugins/scrollMonitor/scrollMonitor.js' %}"></script>
+	<script src="{% static 'nuestronegocio/js/one-page-parallax/apps.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<script>    
+	    $(document).ready(function() {
+	        App.init();
+	    });
+	</script>
+</body>
+</html>
