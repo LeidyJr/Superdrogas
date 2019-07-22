@@ -13,6 +13,7 @@ urlpatterns = [
     path("", Landing.as_view(), name='inicio'),
     path("empresas/", include("apps.empresas.urls", namespace="empresas")),
     path("usuarios/", include("apps.usuarios.urls", namespace="usuarios")),
+    path("medicamentos/", include("apps.medicamentos.urls", namespace="medicamentos")),
     path("accounts/", include("allauth.urls")),
     path('select2/', include('django_select2.urls')),
 ]
