@@ -32,6 +32,10 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Página web</th>
+                            <th>Eslogan</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Logo</th>
                             <th>Fecha creación</th>
                             <th>Opciones</th>
                         </tr>
@@ -41,6 +45,16 @@
                             <tr>
                                 <td>{{dominio.tenant.nombre}}</td>
                                 <td>{{dominio.domain}}</td>
+                                 <td>{{dominio.tenant.eslogan}}</td>
+                                <td>{{dominio.tenant.direccion}}</td>
+                                <td>{{dominio.tenant.telefono}}</td>
+                                <td>
+                                    {% if dominio.tenant.logo != "" %}
+                                        <img src="{{MEDIA_URL}}{{dominio.tenant.logo}}" alt="logo_{{dominio.tenant.nombre}}" style="width: 150px">
+                                    {% else %}
+                                        No ha sido definido
+                                    {% endif %}
+                                </td>
                                 <td>{{dominio.tenant.creado}}</td>
                                 <td>
                                     <a class="btn btn-xs btn-warning" href="{% url 'empresas:modificar' dominio.tenant.id %}">

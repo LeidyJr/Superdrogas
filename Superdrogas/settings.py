@@ -92,7 +92,6 @@ PUBLIC_APPS = [
 ]
 LOCAL_APPS = [
     'apps.medicamentos',
-    'apps.empresas',
     'apps.usuarios',
     'apps.core',
 ]
