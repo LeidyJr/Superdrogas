@@ -6,14 +6,17 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from django.urls import path
 
-from apps.usuarios.views import Landing
+from apps.core.views import Inicio, Landing
 
 urlpatterns = [
 	path('admin/', admin.site.urls),
-    path("", Landing.as_view(), name='inicio'),
+	path("", Inicio, name='inicio'),
+    path("inicio", Landing, name='landing'),
     path("empresas/", include("apps.empresas.urls", namespace="empresas")),
     path("usuarios/", include("apps.usuarios.urls", namespace="usuarios")),
     path("medicamentos/", include("apps.medicamentos.urls", namespace="medicamentos")),
     path("accounts/", include("allauth.urls")),
     path('select2/', include('django_select2.urls')),
-]
+]+ static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)
