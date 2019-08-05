@@ -56,6 +56,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -195,3 +197,23 @@ LOGIN_URL = 'usuarios:login'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.localhost'
+
+# MEDIA
+# ------------------------------------------------------------------------------
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'media' is my media folder
+MEDIA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'thetownofrock@gmail.com'
+EMAIL_HOST_PASSWORD = '22082011'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Leidy <thetownofrock@gmail.com>'
+
+ADMINS = (
+    ('Leidy', 'rivera.leidy@correounivalle.edu.co'),
+    ('Juan', 'tello.juan@correounivalle.edu.co'),
+)
+MANAGERS = ADMINS
+
+CORREO_CONTACTO = 'rivera.leidy@correounivalle.edu.co' 

@@ -1,0 +1,86 @@
+{% extends "base_tablas.html" %}
+
+{% block titulo %}
+    Listado de usuarios
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Listado de usuarios
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Usuarios</a></li>
+    <li class="breadcrumb-item active">Listado</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Listado de usuarios
+{% endblock titulo_panel %}
+
+{% block botones_panel %}
+    <a href="{% url 'usuarios:registrar_trabajador' %}" class="btn btn-xs btn-primary">
+        Registrar trabajador
+    </a>
+{% endblock botones_panel %}
+
+{% block contenido_panel %}
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover datatable">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo electrónico</th>
+                            <th>Rol</th>
+                            <th>Celular</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in listado_usuarios %}
+                            {% with usuario.obtener_datos_rol as datos_rol %}
+                                <tr>
+                                    <td>
+                                        {% if usuario.is_superuser %}
+                                            <span class="label label-primary"><i class="ion-ios-star"></i></span>
+                                        {% endif %}
+                                        {{usuario}}
+                                    </td>
+                                    <td>{{usuario.email}}</td>
+                                    <td>{{usuario.rol}}</td>
+                                    <td>{{datos_rol.celular}}</td>
+                                    <td>
+                                        {% if request.user.is_superuser and usuario.rol != "Cliente" %}
+                                            <a class="btn btn-xs btn-warning" href="{% url 'usuarios:asignacion_administrador' usuario.id %}">
+                                                {% if usuario.is_superuser %}
+                                                    Remover Administrador
+                                                {% else %}
+                                                    Promover a Administrador
+                                                {% endif %}
+                                            </a>
+                                        {% endif %}
+                                        {% if usuario.rol == "Trabajador" %}
+                                            <a class="btn btn-xs btn-primary" href="{% url 'usuarios:modificar_trabajador' usuario.id %}">
+                                                Modificar
+                                            </a>
+                                        {% endif %}
+                                        {% if usuario.is_active == True %}
+                                            <a class="btn btn-xs btn-danger" href="{% url 'usuarios:desactivar' usuario.id %}">
+                                                Desactivar
+                                            </a>
+                                        {% else %}
+                                            <a class="btn btn-xs btn-success" href="{% url 'usuarios:activar' usuario.id %}">
+                                                Activar
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock contenido_panel %}
