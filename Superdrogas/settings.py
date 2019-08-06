@@ -209,11 +209,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'media' is my media folder
 MEDIA_URL = '/media/'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'thetownofrock@gmail.com'
-EMAIL_HOST_PASSWORD = '22082011'
+EMAIL_HOST_USER = 'superdrogasfranquicias@gmail.com'
+EMAIL_HOST_PASSWORD = 'superdrogas2019'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Leidy <thetownofrock@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Superdrogas <superdrogasfranquicias@gmail.com>'#
 
 ADMINS = (
     ('Leidy', 'rivera.leidy@correounivalle.edu.co'),

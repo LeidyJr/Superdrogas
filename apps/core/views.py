@@ -32,7 +32,7 @@ def Landing(request):
             telefono = form.cleaned_data['telefono']
             mensaje = form.cleaned_data['mensaje']
             try:
-                email = EmailMessage('Mensaje de contacto Superdrogas', '%s con correo electrónico %s cuyo teléfono es %s ha enviado el siguiente mensaje: %s'%(nombre, email, telefono, mensaje), to=['rivera.leidy@correounivalle.edu.co'])
+                email = EmailMessage('Mensaje de contacto Superdrogas', '%s con correo electrónico %s cuyo teléfono es %s ha enviado el siguiente mensaje: %s'%(nombre, email, telefono, mensaje), to=['superdrogasfranquicias@gmail.com'])
                 print(email)
                 email.send()
                 messages.success(request, "Mensaje enviado correctamente, muy pronto nos comunicaremos contigo")
