@@ -50,8 +50,8 @@
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
 				<a href="#" class="navbar-brand">
-					<span class="navbar-logo" style="width: 500px">
-						<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" alt="logo_empresa">
+					<span class="navbar-logo" >
+						<img src="{% if request.tenant.logo == '' %}{% static 'img/logo/logo.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:50px; height: 40px" alt="logo_empresa">
 					</span>
 				</a>
 				<button type="button" class="navbar-toggle" data-click="sidebar-toggled">

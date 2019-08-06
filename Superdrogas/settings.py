@@ -56,8 +56,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -93,7 +93,6 @@ PUBLIC_APPS = [
 ]
 LOCAL_APPS = [
     'apps.medicamentos',
-    'apps.empresas',
     'apps.usuarios',
     'apps.core',
 ]
@@ -203,6 +202,29 @@ LOGIN_REDIRECT_URL = 'empresas:listado'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.localhost'
+<<<<<<< HEAD
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '817967202801-b9tm2bki0qs5fclg1uvdrhr0jbucq1a3.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '3brKtPkWUZwV5M277VMgMyHn'
+=======
+
+# MEDIA
+# ------------------------------------------------------------------------------
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'media' is my media folder
+MEDIA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'thetownofrock@gmail.com'
+EMAIL_HOST_PASSWORD = '22082011'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Leidy <thetownofrock@gmail.com>'
+
+ADMINS = (
+    ('Leidy', 'rivera.leidy@correounivalle.edu.co'),
+    ('Juan', 'tello.juan@correounivalle.edu.co'),
+)
+MANAGERS = ADMINS
+
+CORREO_CONTACTO = 'rivera.leidy@correounivalle.edu.co' 
+>>>>>>> f760761b97ce37cca4ceaf222f3db6101cea86e8

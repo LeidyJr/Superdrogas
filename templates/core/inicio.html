@@ -482,33 +482,20 @@
 					<!-- end col-6 -->
 					<!-- begin col-6 -->
 					<div class="col-md-6 form-col" data-animation="true" data-animation-type="fadeInRight">
-						<form class="form-horizontal">
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right">Nombre <span class="text-theme">*</span></label>
-								<div class="col-md-9">
-									<input type="text" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right">Correo <span class="text-theme">*</span></label>
-								<div class="col-md-9">
-									<input type="text" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right">Mensaje <span class="text-theme">*</span></label>
-								<div class="col-md-9">
-									<textarea class="form-control" rows="10"></textarea>
-								</div>
-							</div>
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right"></label>
-								<div class="col-md-9 text-left">
-									<button type="submit" class="btn btn-theme btn-block">Enviar</button>
-								</div>
-							</div>
-						</form>
-					</div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center">
+                                {% for msg in messages %}
+                                    <h3 style="color: {% if msg.tags == "error" %}#FF3B30{% else %}#39a34b{% endif %} !important">{{msg}}</h3>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-theme btn-block">Enviar mensaje</button>
+                            </div>
+                        </form>
+                    </div>
 					<!-- end col-6 -->
 				</div>
 				<!-- end row -->

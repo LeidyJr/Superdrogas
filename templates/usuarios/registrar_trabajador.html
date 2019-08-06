@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block titulo %}
+    Formulario de {{mensaje_formulario.0}} de trabajador
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Formulario de {{mensaje_formulario.0}} de trabajador
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Usuarios</a></li>
+    <li class="breadcrumb-item active">Registrar trabajador</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Formulario de {{mensaje_formulario.0}} de trabajador
+{% endblock titulo_panel %}
+
+{% block css %}
+    {{form_usuario.media}}
+{% endblock css %}
+
+{% block contenido_panel %}
+    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+
+        <div class="row">
+            <div class="col-12">
+                <h4>Información básica del trabajador</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_usuario.first_name %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_usuario.last_name %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_usuario.email %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h4>Información descriptora del trabajador</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_trabajador.tipo_documento %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_trabajador.numero_documento %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_trabajador.fecha_nacimiento %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_trabajador.genero %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_trabajador.celular %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>Permisos del trabajador</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_usuario.groups %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-warning" href="{% url 'usuarios:listado' %}">
+                    <i class="fa fa-angle-left"></i> Volver
+                </a>
+            </div>
+            <div class="col-6" align="right">
+                <button class="btn btn-primary" type="submit">
+                    {{mensaje_formulario.1}} <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock contenido_panel %}

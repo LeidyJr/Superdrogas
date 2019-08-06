@@ -9,6 +9,9 @@ class Usuario(AbstractUser):
     )
     rol = models.CharField(max_length=100, choices=ROLES)
 
+    def get_absolute_url(self):
+        return reverse("usuarios:detail", kwargs={"username": self.username})
+
     def __str__(self):
         return self.get_full_name()
 
@@ -18,11 +21,45 @@ class Usuario(AbstractUser):
             ("gestionar_usuarios", "Gestión de usuarios"),
         )
 
+    # def obtener_pagina_inicio(self):
+    #     if self.rol == "Trabajador":
+    #         return "ventas:inicio_empresa"
+    #     return "ventas:inicio"
+
+    def obtener_datos_rol(self):
+        if self.rol == "Trabajador":
+            return self.datos_trabajador
+        return self.datos_cliente
+
     def save(self, *args, **kwargs):
         self.username = self.email
         super(Usuario, self).save(*args, **kwargs)
 
+    @staticmethod
+    def crear_grupos():
+        total_grupos = Group.objects.all().count()
+        if total_grupos == 0:
+            Group.objects.create(name="Trabajador")
+            Group.objects.create(name="Cliente")
 
+    @staticmethod
+    def crear_usuario_inicial():
+        total_usuarios = Usuario.objects.all().count()
+        if total_usuarios == 0:
+            password = "administrador"
+            usuario = Usuario.objects.create_user('admin', 'admin@gmail.com', password)
+            usuario.set_password(password)
+            usuario.first_name = 'Administrador'
+            usuario.is_superuser = True
+            usuario.is_staff = True
+            usuario.rol = "Trabajador"
+            usuario.save()
+
+            grupo = Group.objects.get(name="Trabajador")
+            grupo.user_set.add(usuario)
+
+            Trabajador.objects.create(usuario=usuario, tipo_documento="Cédula de ciudadanía", numero_documento="123456789",
+                fecha_nacimiento="2019-01-01", genero="Mujer", celular="321654987")
 
 class Trabajador(models.Model):
     GENEROS = (
