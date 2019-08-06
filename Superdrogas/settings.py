@@ -202,11 +202,6 @@ LOGIN_REDIRECT_URL = 'empresas:listado'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.localhost'
-<<<<<<< HEAD
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '817967202801-b9tm2bki0qs5fclg1uvdrhr0jbucq1a3.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '3brKtPkWUZwV5M277VMgMyHn'
-=======
 
 # MEDIA
 # ------------------------------------------------------------------------------
@@ -226,5 +221,4 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-CORREO_CONTACTO = 'rivera.leidy@correounivalle.edu.co' 
->>>>>>> f760761b97ce37cca4ceaf222f3db6101cea86e8
+CORREO_CONTACTO = 'rivera.leidy@correounivalle.edu.co'
