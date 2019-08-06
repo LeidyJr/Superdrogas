@@ -7,5 +7,11 @@
         <span>Usuarios</span>
     </a>
     <ul class="sub-menu">
-            </ul>
+        <li class="{% if registrar_trabajador in request.path %} active {% endif %}">
+        	<a href="{% url 'usuarios:registrar_trabajador' %}">Registrar trabajador</a>
+        </li>
+        <li class="{% if listado in request.path %} active {% endif %}">
+        	<a href="{% url 'usuarios:listado' %}">Listado</a>
+        </li>
+    </ul>
 </li>

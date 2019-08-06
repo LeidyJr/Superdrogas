@@ -94,6 +94,7 @@ LOCAL_APPS = [
     'apps.medicamentos',
     'apps.usuarios',
     'apps.core',
+    'apps.grupos',
 ]
 
 SHARED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PUBLIC_APPS

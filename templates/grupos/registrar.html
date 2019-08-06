@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block titulo %}
+    Registrar grupo de usuarios
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Registrar grupo de usuarios
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Grupos de usuarios</a></li>
+    <li class="breadcrumb-item active">Registrar</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Registrar grupo de usuarios
+{% endblock titulo_panel %}
+
+{% block contenido_panel %}
+    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {% bootstrap_field form.name %}
+                <div class="row m-b-5">
+                    <div class="col-12">
+                        <label>Permisos</label>
+                    </div>
+                    {% for permiso in form.permissions %}
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            {{permiso}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-warning" href="{% url 'grupos:listado' %}">
+                    <i class="fa fa-angle-left"></i> Volver
+                </a>
+            </div>
+            <div class="col-6" align="right">
+                <button class="btn btn-primary" type="submit">
+                    Registrar <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock contenido_panel %}

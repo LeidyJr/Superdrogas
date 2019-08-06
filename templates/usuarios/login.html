@@ -52,7 +52,7 @@
                 <div class="login-header p-t-50">
                     <div class="brand">
                         <span class="logo">
-                            <img src="{% if request.tenant.logo == None %}{% static 'img/logo/favicon.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:100%; height: 40px" alt="logo_empresa">
+                            <img src="{% if request.tenant.logo == "" %}{% static 'img/logo/favicon.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:100%; height: 40px" alt="logo_empresa">
                         </span>
 
                         <small>{{request.tenant.eslogan}}</small>

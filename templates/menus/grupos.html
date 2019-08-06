@@ -1,0 +1,17 @@
+{% url 'grupos:registrar' as registrar %}
+{% url 'grupos:listado' as listado %}
+<li class="{% if "grupos/" in request.path %} active {% endif %}has-sub">
+    <a href="javascript:;">
+        <b class="caret"></b>
+        <i class="ion-ios-people bg-blue"></i>
+        <span>Grupos de usuarios</span>
+    </a>
+    <ul class="sub-menu">
+        <li class="{% if registrar in request.path %} active {% endif %}">
+        	<a href="{% url 'grupos:registrar' %}">Registrar</a>
+        </li>
+        <li class="{% if listado in request.path %} active {% endif %}">
+        	<a href="{% url 'grupos:listado' %}">Listado</a>
+        </li>
+    </ul>
+</li>

@@ -10,6 +10,9 @@ class Medicamento(models.Model):
 
 	class Meta:
 		ordering = ["nombre"]
+		permissions = (
+            ("gestionar_productos", "Gestión de productos"),
+        )
 
 	def __str__(self):
 		return ("%s"%(self.nombre))
