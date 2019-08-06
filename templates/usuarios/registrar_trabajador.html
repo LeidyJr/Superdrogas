@@ -23,7 +23,7 @@
 {% endblock css %}
 
 {% block contenido_panel %}
-    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+    <form class="bloquear-ui-enviar" method="post" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="row">
             <div class="col-12">
@@ -62,6 +62,9 @@
             </div>
             <div class="col-12 col-sm-6">
                 {% bootstrap_field form_trabajador.celular %}
+            </div>
+            <div class="col-12 col-sm-6">
+                {% bootstrap_field form_trabajador.imagen %}
             </div>
         </div>
         <div class="row">

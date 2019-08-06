@@ -96,7 +96,7 @@ class UsuarioForm(forms.ModelForm):
 class TrabajadorForm(forms.ModelForm):
     class Meta:
         model = Trabajador
-        fields = ("tipo_documento", "numero_documento", "fecha_nacimiento", "genero", "celular",)
+        fields = ("tipo_documento", "numero_documento", "fecha_nacimiento", "genero", "celular", "imagen",)
 
     def __init__(self, *args, **kwargs):
         super(TrabajadorForm, self).__init__(*args, **kwargs)

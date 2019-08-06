@@ -34,6 +34,7 @@
                             <th>Correo electrónico</th>
                             <th>Rol</th>
                             <th>Celular</th>
+                            <th>Imagen</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -50,6 +51,12 @@
                                     <td>{{usuario.email}}</td>
                                     <td>{{usuario.rol}}</td>
                                     <td>{{datos_rol.celular}}</td>
+                                    <td>
+                                    {% if usuario.imagen %}
+                                        <img src="{{usuario.obtener_imagen}}" alt="producto_{{usuario.nombre}}"
+                                        style="width:100px; max-height: 120px">
+                                    {% endif %}
+                                    </td>
                                     <td>
                                         {% if request.user.is_superuser and usuario.rol != "Cliente" %}
                                             <a class="btn btn-xs btn-warning" href="{% url 'usuarios:asignacion_administrador' usuario.id %}">

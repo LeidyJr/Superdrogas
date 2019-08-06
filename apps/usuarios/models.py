@@ -1,5 +1,9 @@
 from django.contrib.auth.models import AbstractUser, Group
+
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.urls import reverse
 
 class Usuario(AbstractUser):
@@ -28,6 +32,7 @@ class Usuario(AbstractUser):
 
     def obtener_datos_rol(self):
         if self.rol == "Trabajador":
+            print(self.datos_trabajador)
             return self.datos_trabajador
         return self.datos_cliente
 
@@ -61,6 +66,11 @@ class Usuario(AbstractUser):
             Trabajador.objects.create(usuario=usuario, tipo_documento="Cédula de ciudadanía", numero_documento="123456789",
                 fecha_nacimiento="2019-01-01", genero="Mujer", celular="321654987")
 
+
+
+def crear_ruta_trabajador(instance, filename):
+    return "empresas/empleados/%s"%(filename.encode('ascii','ignore'))
+
 class Trabajador(models.Model):
     GENEROS = (
         ("Mujer", "Mujer"),
@@ -79,6 +89,19 @@ class Trabajador(models.Model):
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento*")
     genero = models.CharField(max_length=20, choices=GENEROS, verbose_name="género*")
     celular = models.CharField(max_length=25, verbose_name="número de celular*")
+    imagen = models.ImageField(upload_to=crear_ruta_trabajador, blank=True, null=True, verbose_name="imagen del trabajador")
+
+    def obtener_imagen(self):
+        from django.conf import settings
+        if self.imagen in [None, ""]:
+            return ("%s%s")%(settings.MEDIA_URL, self.imagen)
+        return ("%s")%(self.imagen.url)
+
+@receiver(post_save, sender=Trabajador, dispatch_uid="minificar_imagen_trabajador")
+def comprimir_imagen(sender, **kwargs):
+    from apps.core.utils import comprimir_imagen
+    if kwargs["instance"].imagen:
+        comprimir_imagen(kwargs["instance"].imagen)
 
 class Cliente(models.Model):
     GENEROS = (

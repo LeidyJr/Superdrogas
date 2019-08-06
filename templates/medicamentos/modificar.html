@@ -19,7 +19,7 @@
 {% endblock titulo_panel %}
 
 {% block contenido_panel %}
-    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+    <form class="bloquear-ui-enviar" method="post" enctype="multipart/form-data">{% csrf_token %}
         <div class="row">
             {% for field in form %}
                 <div class="col-sm-12">

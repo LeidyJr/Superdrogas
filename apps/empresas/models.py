@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator
 from django_tenants.models import TenantMixin, DomainMixin
 
 def crear_ruta_logo(instance, filename):
+    print(instance, filename, "********************")
     return "empresas/logo/%s"%(filename.encode('ascii','ignore'))
 
 class Empresa(TenantMixin):

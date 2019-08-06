@@ -11,6 +11,8 @@ urlpatterns = [
     path("inicio", Landing, name='landing'),
     path('medicamentos/', include ('apps.medicamentos.urls', namespace='medicamentos')),
     path("usuarios/", include("apps.usuarios.urls", namespace="usuarios")),
+    path("grupos/", include("apps.grupos.urls", namespace="grupos")),
+    path("categorias/", include("apps.categorias.urls", namespace="categorias")),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

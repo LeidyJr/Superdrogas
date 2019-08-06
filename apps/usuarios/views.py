@@ -54,9 +54,6 @@ def Logout(request):
     messages.success(request, "Sesión cerrada correctamente")
     return redirect('usuarios:login')
 
-class Landing(TemplateView):
-    template_name = "usuarios/inicio.html"
-
 @login_required
 @permission_required('usuarios.gestionar_usuarios')
 def RegistrarTrabajador(request, id_trabajador=None):

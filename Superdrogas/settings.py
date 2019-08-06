@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+import environ
+import json
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ROOT_DIR = environ.Path(__file__) - 3
+APPS_DIR = ROOT_DIR.path('Superdrogas')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -45,23 +46,81 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'Superdrogas.tenant_urls'
 PUBLIC_SCHEMA_URLCONF = 'Superdrogas.public_urls'
 
+# STATIC
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = str(ROOT_DIR('staticfiles'))
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = '/static/'
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [
+    str(APPS_DIR.path('static')),
+]
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = str(APPS_DIR('media'))
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = '/media/'
+
+# TEMPLATES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#templates
 TEMPLATES = [
     {
+        # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join('templates')],
-        'APP_DIRS': True,
+        # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
+        'DIRS': [
+            str(APPS_DIR.path('templates')),
+        ],
         'OPTIONS': {
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
+            'debug': DEBUG,
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
+            # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+# FIXTURES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
+FIXTURE_DIRS = (
+    str(APPS_DIR.path('fixtures')),
+)
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# ADMIN
+# ------------------------------------------------------------------------------
+# Django Admin URL regex.
+ADMIN_URL = r'^admin/'
+# https://docs.djangoproject.com/en/dev/ref/settings/#admins
 
 WSGI_APPLICATION = 'Superdrogas.wsgi.application'
 
@@ -92,9 +151,11 @@ PUBLIC_APPS = [
     #'apps.logs',
 ]
 LOCAL_APPS = [
+    'apps.categorias',
     'apps.medicamentos',
     'apps.usuarios',
     'apps.core',
+    'apps.grupos',
 ]
 
 SHARED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PUBLIC_APPS
@@ -183,30 +244,20 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_URL = '/static/'
-
 SITE_ID = 1
 
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
-
+LOGIN_REDIRECT_URL = 'usuarios:login'
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = 'usuarios:login'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_REDIRECT_URL = 'empresas:listado'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.localhost'
-
-# MEDIA
-# ------------------------------------------------------------------------------
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'media' is my media folder
-MEDIA_URL = '/media/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'superdrogasfranquicias@gmail.com'

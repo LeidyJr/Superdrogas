@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block titulo %}
+    Registrar categoría de productos
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Registrar categoría de productos
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Categoría de producto</a></li>
+    <li class="breadcrumb-item active">Registrar</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Registrar categoría de productos
+{% endblock titulo_panel %}
+
+{% block contenido_panel %}
+    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {% bootstrap_form form %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-warning" href="{% url 'categorias:listado' %}">
+                    <i class="fa fa-angle-left"></i> Volver
+                </a>
+            </div>
+            <div class="col-6" align="right">
+                <button class="btn btn-primary" type="submit">
+                    Registrar <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock contenido_panel %}
