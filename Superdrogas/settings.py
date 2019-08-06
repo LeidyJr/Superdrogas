@@ -142,6 +142,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'social_django'
 ]
 PUBLIC_APPS = [
     'django_tenants',
@@ -188,6 +189,11 @@ AUTHENTICATION_BACKENDS = (
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
+    
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
 
 
 )
@@ -247,16 +253,18 @@ BOOTSTRAP4 = {
 LOGIN_REDIRECT_URL = 'usuarios:login'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = 'usuarios:login'
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+LOGIN_REDIRECT_URL = 'empresas:listado'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.localhost'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'thetownofrock@gmail.com'
-EMAIL_HOST_PASSWORD = '22082011'
+EMAIL_HOST_USER = 'superdrogasfranquicias@gmail.com'
+EMAIL_HOST_PASSWORD = 'superdrogas2019'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Leidy <thetownofrock@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Superdrogas <superdrogasfranquicias@gmail.com>'#
 
 ADMINS = (
     ('Leidy', 'rivera.leidy@correounivalle.edu.co'),
@@ -264,4 +272,4 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-CORREO_CONTACTO = 'rivera.leidy@correounivalle.edu.co' 
+CORREO_CONTACTO = 'rivera.leidy@correounivalle.edu.co'
