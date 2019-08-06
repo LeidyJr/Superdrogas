@@ -13,6 +13,10 @@ class Registrar(LoginRequiredMixin, CreateView):
     template_name = 'medicamentos/registrar.html'
     success_url = reverse_lazy('medicamentos:listado')
 
+    def form_valid(self, form):
+        form.save()
+        return super(Registrar, self).form_valid(form)
+
 class Listado(LoginRequiredMixin, ListView):
     context_object_name = "medicamentos"
     template_name = 'medicamentos/listado.html'

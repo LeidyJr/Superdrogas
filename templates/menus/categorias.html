@@ -1,0 +1,17 @@
+{% url 'categorias:registrar' as registrar %}
+{% url 'categorias:listado' as listado %}
+<li class="{% if "categorias/" in request.path %} active {% endif %}has-sub">
+    <a href="javascript:;">
+        <b class="caret"></b>
+        <i class="ion-ios-pricetags bg-blue"></i>
+        <span>Categorías</span>
+    </a>
+    <ul class="sub-menu">
+        <li class="{% if registrar in request.path %} active {% endif %}">
+        	<a href="{% url 'categorias:registrar' %}">Registrar</a>
+        </li>
+        <li class="{% if listado in request.path %} active {% endif %}">
+        	<a href="{% url 'categorias:listado' %}">Listado</a>
+        </li>
+    </ul>
+</li>

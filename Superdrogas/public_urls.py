@@ -17,6 +17,6 @@ urlpatterns = [
     path("medicamentos/", include("apps.medicamentos.urls", namespace="medicamentos")),
     path("accounts/", include("allauth.urls")),
     path('select2/', include('django_select2.urls')),
-]+ static(
+] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
