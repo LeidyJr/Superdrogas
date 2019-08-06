@@ -6,7 +6,6 @@ from apps.usuarios.models import Usuario
 from apps.categorias.models import Categoria
 
 def crear_ruta_medicamento(instance, filename):
-    print("***********",instance, filename)
     return "empresa-%s/productos/%s"%(instance.categoria.empresa.id, filename.encode('ascii','ignore'))
 
 class Medicamento(models.Model):
@@ -16,7 +15,7 @@ class Medicamento(models.Model):
     cantidad = models.PositiveIntegerField(verbose_name="cantidad actual*")
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="categoría del producto*", related_name="productos")
     descripcion = models.TextField(blank=True, verbose_name="descripción")
-    imagen = models.ImageField(upload_to="crear_ruta_medicamento", blank=True, verbose_name="imagen del producto")
+    imagen = models.ImageField(upload_to=crear_ruta_medicamento, blank=True, verbose_name="imagen del producto")
     activo = models.BooleanField(default=True, verbose_name="¿El producto está activo actualmente?")
 
     class Meta:
