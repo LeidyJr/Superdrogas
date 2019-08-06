@@ -1,5 +1,5 @@
 from django.db.models import Count, Q
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -8,6 +8,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 
 from apps.core.mixins import MensajeMixin
+from apps.usuarios.models import Usuario
+from apps.medicamentos.models import Medicamento
 from .models import Categoria
 from .forms import RegistrarCategoriaForm
 from .serializers import CategoriaSerializador
@@ -20,6 +22,24 @@ class APICategoria(generics.ListAPIView):
         queryset = self.get_queryset()
         serializer = CategoriaSerializador(queryset, many=True)
         return Response(serializer.data)
+
+class Inicio(TemplateView):
+    template_name = "categorias/inicio.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        from django.http import Http404
+        Usuario.crear_usuario_inicial()
+        return super(Inicio, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['empresa'] = self.request.tenant
+        print(context['empresa'])
+        context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
+        print(context['categorias'])
+        context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant)
+        print(context['productos'])
+        return context
 
 class RegistrarCategoria(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, CreateView):
     form_class = RegistrarCategoriaForm
@@ -51,3 +71,4 @@ class ListadoCategoria(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "categorias/listado.html"
     context_object_name = "listado_categorias"
     permission_required = ('categorias.gestionar_categorias',)
+

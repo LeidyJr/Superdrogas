@@ -1,0 +1,408 @@
+{% load static %}
+{% load bootstrap4 %}
+{% load humanize %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>{{request.tenant.nombre}} | {{request.tenant.eslogan}}}</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/4.0.0/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/font-awesome/5.0/css/fontawesome-all.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/animate/animate.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/e-commerce/style.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/e-commerce/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/e-commerce/theme/blue.css' %}" id="theme" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body>
+	<!-- BEGIN #page-container -->
+	<div id="page-container" class="fade">
+		<!-- BEGIN #header -->
+		<div id="header" class="header">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN header-container -->
+				<div class="header-container">
+					<!-- BEGIN navbar-header -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<div class="header-logo">
+							<a href="#" class="navbar-brand">
+								<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.jpg' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:130px; height: 60px" alt="logo_empresa">
+							</a>
+						</div>
+					</div>
+					<!-- END navbar-header -->
+					<!-- BEGIN header-nav -->
+					<div class="header-nav">
+						<div class=" collapse navbar-collapse" id="navbar-collapse">
+							<ul class="nav">
+								<li class="active"><a href="#">Inicio</a></li>
+								<li class="dropdown dropdown-full-width dropdown-hover">
+									<a href="#" data-toggle="dropdown">
+										Productos 
+										<b class="caret"></b>
+										<span class="arrow top"></span>
+									</a>
+									<!-- BEGIN dropdown-menu -->
+									<div class="dropdown-menu p-0">
+										<!-- BEGIN dropdown-menu-container -->
+										<div class="dropdown-menu-container">
+											<!-- BEGIN dropdown-menu-sidebar -->
+											<div class="dropdown-menu-sidebar">
+												<h4 class="title">Categorías</h4>
+												<ul class="dropdown-menu-list">
+													{% for categoria in categorias %}
+														<li><a href="#">{{categoria.nombre}}</a></li>
+													{% endfor %}
+												</ul>
+											</div>
+											<!-- END dropdown-menu-sidebar -->
+										</div>
+										<!-- END dropdown-menu-container -->
+									</div>
+									<!-- END dropdown-menu -->
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- END header-nav -->
+					<!-- BEGIN header-nav -->
+					<div class="header-nav">
+						<ul class="nav pull-right">
+							<li class="divider"></li>
+							<li>
+								<a href="#">
+									<span class="d-none d-xl-inline">Inicia sesión / Regístrate</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!-- END header-nav -->
+				</div>
+				<!-- END header-container -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #header -->
+		
+		<!-- BEGIN #slider -->
+		<div id="slider" class="section-container p-0 bg-black-darker">
+			<!-- BEGIN carousel -->
+			<div id="main-carousel" class="carousel slide" data-ride="carousel">
+				<!-- BEGIN carousel-inner -->
+				<div class="carousel-inner">
+					<!-- BEGIN item -->
+					<div class="carousel-item active" data-paroller="true" data-paroller-factor="0.3" data-paroller-factor-sm="0.01" data-paroller-factor-xs="0.01" style="background: url({% static 'img/banner.jpg' %}) center 0 / cover no-repeat;">
+						<div class="container">
+							<img src="../assets/img/slider/slider-1-product.png" class="product-img right bottom fadeInRight animated" alt="" />
+						</div>
+						<div class="carousel-caption carousel-caption-left">
+							<div class="container">
+								<h3 class="title m-b-5 fadeInLeftBig animated">Bienvenido a {{request.tenant.nombre}}</h3><br/>
+								<p class="m-b-15 fadeInLeftBig animated">{{request.tenant.eslogan}}</p>
+							</div>
+						</div>
+					</div>
+					<!-- END item -->
+					<!-- BEGIN item -->
+					<div class="carousel-item" data-paroller="true" data-paroller-factor="-0.3" data-paroller-factor-sm="0.01" data-paroller-factor-xs="0.01" style="background: url({% static 'img/banner2.jpg' %}) center 0 / cover no-repeat;">
+						<div class="carousel-caption">
+							<div class="container">
+								<!-- <h3 class="title m-b-5 fadeInDownBig animated">Macbook Air</h3>
+								<p class="m-b-15 fadeInDownBig animated">Thin.Light.Powerful.<br />And ready for anything</p>
+								<div class="price fadeInDownBig animated"><small>from</small> <span>$999.00</span></div>
+								<a href="product_detail.html" class="btn btn-outline btn-lg fadeInUpBig animated">Buy Now</a> -->
+							</div>
+						</div>
+					</div>
+					<!-- END item -->
+				</div>
+				<!-- END carousel-inner -->
+				<a class="carousel-control-prev" href="#main-carousel" data-slide="prev"> 
+				<i class="fa fa-angle-left"></i> 
+				</a>
+				<a class="carousel-control-next" href="#main-carousel" data-slide="next"> 
+				<i class="fa fa-angle-right"></i> 
+				</a>
+			</div>
+			<!-- END carousel -->
+		</div>
+		<!-- END #slider -->
+		<br/>
+		<!-- BEGIN #mobile-list -->
+		{% for categoria in categorias %}
+		{% if categoria.productos.count > 0 %}
+		<div id="{{categoria.nombre}}-list" class="section-container bg-silver ">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN section-title -->
+				<h4 class="section-title clearfix">
+					<a href="#" class="pull-right">Ver todos</a>
+					{{categoria.nombre}}
+					<small>{{categoria.descripcion}}</small>
+				</h4>
+				<!-- END section-title -->
+				<!-- BEGIN category-container -->
+				<div class="category-container">
+					
+					<!-- BEGIN category-detail -->
+					<div class="category-detail">
+						<div class="category-item list">
+							<!-- BEGIN item-row -->
+							<div class="item-row">
+								<!-- BEGIN item -->
+								{% for producto in productos %}
+									{% if producto.categoria == categoria %}
+								<div class="item item-thumbnail">
+									<a href="#" class="item-image">
+										{% if producto.imagen %}
+	                                        <img src="{{producto.obtener_imagen}}" alt="producto_{{producto.nombre}}"
+	                                        style="width:100px; max-height: 120px">
+                                    	{% endif %}
+										<div class="discount">15% OFF</div>
+									</a>
+									<div class="item-info">
+										<h4 class="item-title">
+											<a href="product_detail.html">{{producto.nombre}}<br />{{producto.unidad_medida}}</a>
+										</h4>
+										<p class="item-desc">{{producto.descripcion|linebreaksbr}}</p>
+										<div class="item-price">{{producto.precio|intcomma}}</div>
+										<div class="item-discount-price">$739.00</div>
+									</div>
+								</div>
+								{% endif %}
+								{% endfor %}
+								<!-- END item -->
+								
+							</div>
+							<!-- END item-row -->
+						</div>
+						<!-- END category-item -->
+					</div>
+					<!-- END category-detail -->
+				</div>
+				<!-- END category-container -->
+			</div>
+			<!-- END container -->
+		</div>
+		{% endif %}
+		{% endfor %}
+		<!-- END #mobile-list -->
+		
+		<!-- BEGIN #policy -->
+		<div id="policy" class="section-container p-t-30 p-b-30">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-4 -->
+					<div class="col-md-4 col-sm-4">
+						<!-- BEGIN policy -->
+						<div class="policy">
+							<div class="policy-icon"><i class="fa fa-truck"></i></div>
+							<div class="policy-info">
+								<h4>Envío gratis a partir de $100.000</h4>
+								<p>Recibe tus productos sin costos de envío a partir de $100.000.</p>
+							</div>
+						</div>
+						<!-- END policy -->
+					</div>
+					<!-- END col-4 -->
+					<!-- BEGIN col-4 -->
+					<div class="col-md-4 col-sm-4">
+						<!-- BEGIN policy -->
+						<div class="policy">
+							<div class="policy-icon"><i class="fa fa-shield"></i></div>
+							<div class="policy-info">
+								<h4>El mejor precio asegurado</h4>
+								<p>En nuestro negocio te aseguramos que <br />no encontrarás lo mismo a mejor precio.</p>
+							</div>
+						</div>
+						<!-- END policy -->
+					</div>
+					<!-- END col-4 -->
+					<!-- BEGIN col-4 -->
+					<div class="col-md-4 col-sm-4">
+						<!-- BEGIN policy -->
+						<div class="policy">
+							<div class="policy-icon"><i class="fa fa-user-md"></i></div>
+							<div class="policy-info">
+								<h4>La mejor calidad</h4>
+								<p>Todos nuestros medicamentos son garantizados.</p>
+							</div>
+						</div>
+						<!-- END policy -->
+					</div>
+					<!-- END col-4 -->
+				</div>
+				<!-- END row -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #policy -->
+		
+		<!-- BEGIN #subscribe -->
+		<div id="subscribe" class="section-container bg-silver p-t-30 p-b-30">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-6 -->
+					<div class="col-md-6 col-sm-6">
+						<!-- BEGIN subscription -->
+						<div class="subscription">
+							<div class="subscription-intro">
+								<h4> SUSCRÍBETE</h4>
+								<p>Obtén descuentos especiales.</p>
+							</div>
+							<div class="subscription-form">
+								<form name="subscription_form" action="index.html" method="POST">
+									<div class="input-group">
+										<input type="text" class="form-control" name="email" placeholder="Enter Email Address" />
+										<div class="input-group-append">
+											<button type="submit" class="btn btn-inverse"><i class="fa fa-angle-right"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- END subscription -->
+					</div>
+					<!-- END col-6 -->
+					<!-- BEGIN col-6 -->
+					<div class="col-md-6 col-sm-6">
+						<!-- BEGIN social -->
+						<div class="social">
+							<div class="social-intro">
+								<h4>SÍGUENOS</h4>
+								<p>Entérate de nuestras últimas novedades</p>
+							</div>
+							<div class="social-list">
+								<a href="#"><i class="fab fa-facebook"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-instagram"></i></a>
+								<a href="#"><i class="fab fa-dribbble"></i></a>
+								<a href="#"><i class="fab fa-google-plus"></i></a>
+							</div>
+						</div>
+						<!-- END social -->
+					</div>
+					<!-- END col-6 -->
+				</div>
+				<!-- END row -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #subscribe -->
+		
+		<!-- BEGIN #footer -->
+		<div id="footer" class="footer">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						<h4 class="footer-header">SOBRE NOSOTROS</h4>
+						<p>
+							{{request.tenant.sobre_nosotros}}
+						</p>
+					</div>
+					<!-- END col-3 -->
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						
+					</div>
+					<!-- END col-3 -->
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						
+					</div>
+					<!-- END col-3 -->
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						<h4 class="footer-header">CONTÁCTENOS</h4>
+						<address>
+							<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.jpg' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:130px; height: 60px" alt="logo_empresa"><br />
+							<strong>{{request.tenant.nombre}}</strong><br />
+							<strong>{{request.tenant.eslogan}}</strong><br />
+							<abbr title="Phone">Dirección:</abbr> {{request.tenant.direccion}}<br />
+							<abbr title="Phone">Teléfono:</abbr> {{request.tenant.telefono}}<br />
+							<abbr title="Email">Email:</abbr> <a href="mailto:sales@myshop.com">{{request.tenant.email}}</a><br />
+						</address>
+					</div>
+					<!-- END col-3 -->
+				</div>
+				<!-- END row -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #footer -->
+		
+	</div>
+	<!-- END #page-container -->
+
+	<!-- begin theme-panel -->
+	<div class="theme-panel">
+		<a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
+		<div class="theme-panel-content">
+			<ul class="theme-list clearfix">
+				<li><a href="javascript:;" class="bg-red" data-theme="red" data-theme-file="../assets/css/e-commerce/theme/red.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-pink" data-theme="pink" data-theme-file="../assets/css/e-commerce/theme/pink.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Pink" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-orange" data-theme="orange" data-theme-file="../assets/css/e-commerce/theme/orange.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-yellow" data-theme="yellow" data-theme-file="../assets/css/e-commerce/theme/yellow.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Yellow" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-lime" data-theme="lime" data-theme-file="../assets/css/e-commerce/theme/lime.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Lime" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-green" data-theme="green" data-theme-file="../assets/css/e-commerce/theme/green.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Green" data-original-title="" title="">&nbsp;</a></li>
+				<li class="active"><a href="javascript:;" class="bg-teal" data-theme="default" data-theme-file="../assets/css/e-commerce/theme/default.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-aqua" data-theme="aqua" data-theme-file="../assets/css/e-commerce/theme/aqua.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Aqua" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-blue" data-theme="blue" data-theme-file="../assets/css/e-commerce/theme/blue.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-purple" data-theme="purple" data-theme-file="../assets/css/e-commerce/theme/purple.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-indigo" data-theme="indigo" data-theme-file="../assets/css/e-commerce/theme/indigo.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Indigo" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-black" data-theme="black" data-theme-file="../assets/css/e-commerce/theme/black.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black" data-original-title="" title="">&nbsp;</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- end theme-panel -->
+	
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/jquery/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/4.0.0/js/bootstrap.bundle.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/js-cookie/js.cookie.js' %}"></script>
+	
+	<script src="{% static 'plugins/scrollMonitor/scrollMonitor.js' %}"></script>
+	<script src="{% static 'plugins/paroller/jquery.paroller.min.js' %}"></script>
+	<script src="{% static 'js/e-commerce/apps.min.js' %}"></script>
+
+
+	<script>
+		$(document).ready(function() {
+			App.init();
+		});
+	</script>
+</body>
+</html>

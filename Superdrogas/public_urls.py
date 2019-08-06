@@ -9,9 +9,11 @@ from django.urls import path
 from apps.core.views import Inicio, Landing
 
 urlpatterns = [
-	path('admin/', admin.site.urls),
-	path("", Inicio, name='inicio'),
-    path("inicio", Landing, name='landing'),
+    path('admin/', admin.site.urls),
+    # path("", Inicio, name='inicio'),
+ #    path("inicio", Landing, name='landing'),
+    url(r'^$', Inicio, name='inicio'),
+    url(r'^inicio$', Landing, name='landing'),
     path("empresas/", include("apps.empresas.urls", namespace="empresas")),
     path("usuarios/", include("apps.usuarios.urls", namespace="usuarios")),
     path("medicamentos/", include("apps.medicamentos.urls", namespace="medicamentos")),

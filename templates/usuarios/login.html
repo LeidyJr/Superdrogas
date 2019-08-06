@@ -7,7 +7,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>Ingreso a Superdrogas</title>
+    <title>Ingreso al sistema</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <link rel="shortcut icon" type="image/png" href="{% static 'img/logo/favicon.png' %}"/>
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
@@ -54,7 +54,7 @@
                         <span class="logo">
                             <img src="{% if request.tenant.logo == "" %}{% static 'img/logo/favicon.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:100%; height: 40px" alt="logo_empresa">
                         </span>
-
+                        <br/>
                         <small>{{request.tenant.eslogan}}</small>
                     </div>
                     <div class="icon">

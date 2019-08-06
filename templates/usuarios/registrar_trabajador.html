@@ -23,7 +23,7 @@
 {% endblock css %}
 
 {% block contenido_panel %}
-    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+    <form class="bloquear-ui-enviar" method="post" enctype="multipart/form-data">{% csrf_token %}
 
         <div class="row">
             <div class="col-12">
