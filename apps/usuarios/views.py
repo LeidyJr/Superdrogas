@@ -15,11 +15,11 @@ from .forms import *
 class Login(FormView):
     form_class = LoginForm
     template_name = 'usuarios/login.html'
-    success_url = reverse_lazy('medicamentos:listado')
+    success_url = reverse_lazy('empresas:listado')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect("medicamentos:listado")
+            return redirect("empresas:listado")
         return super(Login, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

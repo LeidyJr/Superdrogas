@@ -16,4 +16,5 @@ urlpatterns = [
     path("medicamentos/", include("apps.medicamentos.urls", namespace="medicamentos")),
     path("accounts/", include("allauth.urls")),
     path('select2/', include('django_select2.urls')),
+    url("", include('social_django.urls', namespace='social'))
 ]

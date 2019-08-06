@@ -9,5 +9,6 @@ from apps.usuarios.views import Landing
 urlpatterns = [
     path("", Landing.as_view(), name='inicio'),
     path('medicamentos/', include ('apps.medicamentos.urls', namespace='medicamentos')),
-    path("usuarios/", include("apps.usuarios.urls", namespace="usuarios")),
+    #path("usuarios/", include("apps.usuarios.urls", namespace="usuarios")),path('', include('social_django.urls', namespace='social')),
+
 ] 
