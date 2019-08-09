@@ -37,7 +37,7 @@ class Inicio(TemplateView):
         print(context['empresa'])
         context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
         print(context['categorias'])
-        context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant)
+        context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
         print(context['productos'])
         return context
 

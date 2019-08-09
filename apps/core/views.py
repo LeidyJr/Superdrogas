@@ -9,7 +9,7 @@ def Inicio(request):
 
     if request.tenant.schema_name == "public":
         if not request.user.is_authenticated:
-            return redirect("inicio")
+            return redirect("usuarios:login")
         return redirect("empresas:listado")
 
     if not request.user.is_authenticated:

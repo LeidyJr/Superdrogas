@@ -32,6 +32,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripción</th>
+                            <th>Estado</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -40,6 +41,13 @@
                             <tr>
                                 <td>{{categoria.nombre}}</td>
                                 <td>{{categoria.descripcion|linebreaksbr}}</td>
+                                <td>
+                                    {% if categoria.activo|lower == "true" %}
+                                        <span class="label label-primary" style="font-size: 100%">Activo</span>
+                                    {% else %}
+                                        <span class="label label-danger" style="font-size: 100%">Inactivo</span>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <a class="btn btn-xs btn-warning" href="{% url 'categorias:modificar' categoria.id %}">
                                         Modificar
