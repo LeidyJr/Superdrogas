@@ -73,14 +73,16 @@
                             <button type="submit" class="btn btn-primary btn-block btn-lg">Ingresar</button>
                         </div>
                         <br/>
+                        {% if request.tenant.nombre != "Superdrogas" %}
                         <div class="login-buttons">
-                            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-google btn-user btn-block">
+                            <a href="#" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Acceder con tu cuenta de Google
                             </a>
                         </div>
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
                             No tienes cuenta? Click <a href="{% url 'usuarios:regisrar_cliente' %}" class="text-info">aquí</a> para registrarte.
                         </div>
+                        {% endif %}
                         <hr />
                         <p class="text-center text-grey-darker">
                             Copyright &copy; CB:SaaS. All rights reserved. 2019
