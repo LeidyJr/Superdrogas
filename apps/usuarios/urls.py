@@ -7,7 +7,7 @@ app_name = "usuarios"
 urlpatterns = [
 	url(regex=r"^iniciar-sesion$", view=views.Login.as_view(), name='login'),
 	url(regex=r"^cerrar-sesion$", view=views.Logout, name='logout'),
-
+	url(regex=r"^registro-cliente$", view=views.RegistrarCliente, name='regisrar_cliente'),
 	url(regex=r"^registrar-trabajador$", view=views.RegistrarTrabajador, name='registrar_trabajador'),
 	url(regex=r"^modificar-trabajador/(\d+)$", view=views.RegistrarTrabajador, name='modificar_trabajador'),
 	url(regex=r"^listado$", view=views.ListadoUsuarios.as_view(), name='listado'),

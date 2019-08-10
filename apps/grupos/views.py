@@ -6,9 +6,10 @@ from django.urls import reverse_lazy
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from apps.core.mixins import MensajeMixin
+from apps.logs.mixins import LoggerFormMixin
 from .forms import GrupoForm 
 
-class RegistrarGrupo(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, CreateView):
+class RegistrarGrupo(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, CreateView):
     model = Group
     form_class = GrupoForm
     template_name = "grupos/registrar.html"
@@ -18,7 +19,7 @@ class RegistrarGrupo(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, 
     mensaje_exito = "Grupo de usuarios registrado correctamente"
     mensaje_error = "Hubo un error en el formulario de grupo de usuarios"
 
-class ModificarGrupo(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, UpdateView):
+class ModificarGrupo(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, UpdateView):
     model = Group
     form_class = GrupoForm
     template_name = "grupos/modificar.html"

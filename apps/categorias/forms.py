@@ -5,7 +5,7 @@ from .models import Categoria
 class RegistrarCategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
-        fields = ("nombre", "descripcion",)
+        fields = ("nombre", "descripcion", "activo", )
 
     def __init__(self, *args, **kwargs):
         super(RegistrarCategoriaForm, self).__init__(*args, **kwargs)

@@ -9,12 +9,12 @@ def Inicio(request):
 
     if request.tenant.schema_name == "public":
         if not request.user.is_authenticated:
-            return redirect("inicio")
+            return redirect("usuarios:login")
         return redirect("empresas:listado")
 
     if not request.user.is_authenticated:
         return redirect("usuarios:login")#cambiar x landing de la franquicia ("categorias:landing")
-    return redirect("medicamentos:listado")
+    return redirect("categorias:inicio")
 
 
 def Landing(request):

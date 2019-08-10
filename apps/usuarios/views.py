@@ -143,3 +143,34 @@ class UsuarioListado(generics.ListAPIView):
 
     def get_queryset(self):
         return Usuario.objects.filter(rol="Cliente")
+
+def RegistrarCliente(request):
+    usuario, cliente = None, None
+    mensaje_formulario = ["registro", "Registrar"]
+
+    form_usuario = CrearUsuarioForm(instance=usuario)
+    form_cliente = ClienteForm(instance=cliente)
+
+    if request.method == "POST":
+        form_usuario = CrearUsuarioForm(request.POST, instance=usuario)
+        form_cliente = ClienteForm(request.POST, instance=cliente)
+
+        if form_usuario.is_valid() and form_cliente.is_valid():
+            usuario = form_usuario.save()
+            usuario.rol = "Cliente"
+            usuario.save()
+
+            cliente = form_cliente.save(commit=False)
+            cliente.usuario = usuario
+            cliente.save()
+
+            messages.success(request, "Se ha registrado correctamente.")
+            return redirect("usuarios:login")
+        else:
+            messages.error(request, "Hubo un error en el formulario del cliente")
+
+    return render(request, "usuarios/registrar_cliente.html", {
+        "form_usuario": form_usuario,
+        "form_cliente": form_cliente,
+        "mensaje_formulario": mensaje_formulario,
+    })

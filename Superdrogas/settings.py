@@ -142,13 +142,13 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'social_django'
+    'social_django',
 ]
 PUBLIC_APPS = [
     'django_tenants',
     'apps.empresas',
     'apps.usuarios',
-    #'apps.logs',
+    'apps.logs',
 ]
 LOCAL_APPS = [
     'apps.categorias',
@@ -250,11 +250,11 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
-LOGIN_REDIRECT_URL = 'usuarios:login'
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = 'usuarios:login'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_REDIRECT_URL = 'empresas:listado'
+LOGIN_REDIRECT_URL = 'medicamentos:listado'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.localhost'

@@ -8,6 +8,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 
 from apps.core.mixins import MensajeMixin
+from apps.logs.mixins import LoggerFormMixin
 from apps.usuarios.models import Usuario
 from apps.medicamentos.models import Medicamento
 from .models import Categoria
@@ -37,11 +38,11 @@ class Inicio(TemplateView):
         print(context['empresa'])
         context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
         print(context['categorias'])
-        context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant)
+        context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
         print(context['productos'])
         return context
 
-class RegistrarCategoria(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, CreateView):
+class RegistrarCategoria(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, CreateView):
     form_class = RegistrarCategoriaForm
     template_name = "categorias/registrar.html"
     success_url = reverse_lazy("categorias:registrar")
@@ -56,7 +57,7 @@ class RegistrarCategoria(LoginRequiredMixin, PermissionRequiredMixin, MensajeMix
         self.object.save()
         return super(RegistrarCategoria, self).form_valid(form)
 
-class ModificarCategoria(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, UpdateView):
+class ModificarCategoria(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, UpdateView):
     model = Categoria
     form_class = RegistrarCategoriaForm
     template_name = "categorias/modificar.html"
