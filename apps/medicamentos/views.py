@@ -33,10 +33,10 @@ class Registrar(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, Me
         form.save()
         return super(Registrar, self).form_valid(form)
 
-class Listado(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+class Listado(LoginRequiredMixin, ListView):
     context_object_name = "medicamentos"
     template_name = 'medicamentos/listado.html'
-    permission_required = ('medicamentos.gestionar_productos',)
+    #permission_required = ('medicamentos.gestionar_productos',)
 
     def get_queryset(self):
         return Medicamento.obtener_listado()
