@@ -1,3 +1,7 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import get_object_or_404
+from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
@@ -5,11 +9,13 @@ from django.urls import reverse_lazy
 from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from apps.core.mixins import MensajeMixin
+from apps.logs.mixins import LoggerFormMixin
+from apps.logs.models import LogApp
 
 from .forms import RegistrarEmpresaForm, ModificarEmpresaForm
 from .models import Empresa, Dominio
 
-class RegistrarEmpresa(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, CreateView):
+class RegistrarEmpresa(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, CreateView):
     form_class = RegistrarEmpresaForm
     template_name = "empresas/registrar.html"
     success_url = reverse_lazy("empresas:listado")
@@ -29,7 +35,7 @@ class RegistrarEmpresa(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin
         )
         return super(RegistrarEmpresa, self).form_valid(form)
 
-class ModificarEmpresa(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, UpdateView):
+class ModificarEmpresa(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, UpdateView):
     model = Empresa
     form_class = ModificarEmpresaForm
     template_name = "empresas/modificar.html"
@@ -44,6 +50,12 @@ class ListadoEmpresa(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = "empresas/listado.html"
     context_object_name = "listado_empresas"
     permission_required = ('empresas.gestionar_empresas',)
+
+    def handle_no_permission(self):
+        from django.contrib.auth import logout
+        from django.core.exceptions import PermissionDenied
+        logout(self.request)
+        raise PermissionDenied
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

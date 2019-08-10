@@ -148,7 +148,7 @@ PUBLIC_APPS = [
     'django_tenants',
     'apps.empresas',
     'apps.usuarios',
-    #'apps.logs',
+    'apps.logs',
 ]
 LOCAL_APPS = [
     'apps.categorias',

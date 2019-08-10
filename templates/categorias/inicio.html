@@ -89,11 +89,20 @@
 					<div class="header-nav">
 						<ul class="nav pull-right">
 							<li class="divider"></li>
+							{% if not request.user.is_authenticated %}
 							<li>
 								<a href="{% url 'usuarios:login' %}">
 									<span class="d-none d-xl-inline">Inicia sesión / Regístrate</span>
 								</a>
 							</li>
+							{% endif %}
+							{% if request.user.is_authenticated %}
+							<li>
+								<a href="{% url 'usuarios:logout' %}">
+									<span class="d-none d-xl-inline">Cerrar sesión</span>
+								</a>
+							</li>
+							{% endif %}
 						</ul>
 					</div>
 					<!-- END header-nav -->

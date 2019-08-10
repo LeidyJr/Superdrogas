@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from simple_history.models import HistoricalRecords
+
 from apps.usuarios.models import Usuario
 from apps.categorias.models import Categoria
 
@@ -18,6 +20,8 @@ class Medicamento(models.Model):
     imagen = models.ImageField(upload_to=crear_ruta_medicamento, blank=True, verbose_name="imagen del producto")
     activo = models.BooleanField(default=True, verbose_name="¿El producto está activo actualmente?")
 
+    historial = HistoricalRecords()
+    
     class Meta:
         ordering = ["nombre"]
         permissions = (
