@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block titulo %}
+    Formulario para restablecer contraseña
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Restablecer contraseña de: {{usuario}}
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Usuarios</a></li>
+    <li class="breadcrumb-item active">Restablecer contraseña</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Formulario para restablecer contraseña
+{% endblock titulo_panel %}
+
+{% block contenido_panel %}
+    <form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {% bootstrap_form form %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-warning" href="{% url 'usuarios:listado' %}">
+                    <i class="fa fa-angle-left"></i> Volver
+                </a>
+            </div>
+            <div class="col-6" align="right">
+                <button class="btn btn-primary" type="submit">
+                    Restablecer <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% endblock contenido_panel %}

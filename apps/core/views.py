@@ -14,7 +14,7 @@ def Inicio(request):
 
     if not request.user.is_authenticated:
         return redirect("usuarios:login")#cambiar x landing de la franquicia ("categorias:landing")
-    return redirect("categorias:inicio")
+    return redirect("medicamentos:listado")
 
 
 def Landing(request):

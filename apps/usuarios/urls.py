@@ -11,6 +11,8 @@ urlpatterns = [
 	url(regex=r"^registrar-trabajador$", view=views.RegistrarTrabajador, name='registrar_trabajador'),
 	url(regex=r"^modificar-trabajador/(\d+)$", view=views.RegistrarTrabajador, name='modificar_trabajador'),
 	url(regex=r"^listado$", view=views.ListadoUsuarios.as_view(), name='listado'),
+	url(regex=r"^restablecer-clave/(?P<pk>\d+)$", view=views.RestablecerPassword.as_view(), name="restablecer_clave"),
+    url(regex=r"^cambiar-clave$", view=auth_views.password_change, kwargs={'template_name': 'usuarios/cambiar_contrasena.html', 'post_change_redirect': 'inicio'}, name="cambiar_clave"),
     url(regex=r'^desactivar/(?P<id_usuario>\d+)$', view=views.DesactivarUsuario, name="desactivar"),
     url(regex=r'^activar/(?P<id_usuario>\d+)$', view=views.ActivarUsuario, name="activar"),
     url(regex=r'^asignacion-administrador/(?P<id_usuario>\d+)$', view=views.AsignacionAdministrador, name="asignacion_administrador"),

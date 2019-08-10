@@ -11,6 +11,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from apps.core.utils import superuser_required
+from apps.core.mixins import MensajeMixin
+from apps.logs.mixins import LoggerFormMixin
+from apps.logs.models import LogApp
 
 from .serializers import UsuarioSerializador
 from .models import *
@@ -174,3 +177,25 @@ def RegistrarCliente(request):
         "form_cliente": form_cliente,
         "mensaje_formulario": mensaje_formulario,
     })
+
+class RestablecerPassword(LoginRequiredMixin, PermissionRequiredMixin, MensajeMixin, LoggerFormMixin, FormView):
+    form_class = RestablecerContrasenaForm
+    template_name = "usuarios/restablecer_contrasena.html"
+    success_url = reverse_lazy('usuarios:listado')
+    permission_required = ('usuarios.gestionar_usuarios',)
+    mensaje_log = "Restablecer contraseña"
+    mensaje_exito = "Contraseña restablecida correctamente"
+    mensaje_error = "Hubo un error en el formulario para restrablecer la contraseña"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RestablecerPassword, self).get_context_data(**kwargs)
+        context['usuario'] = get_object_or_404(Usuario, pk=self.kwargs['pk'])
+        return context
+
+    def form_valid(self, form):
+        password = form.cleaned_data['password1']
+        usuario = get_object_or_404(Usuario, pk=self.kwargs['pk'])
+        usuario.set_password(password)
+        usuario.save()
+        self.object = usuario
+        return super(RestablecerPassword, self).form_valid(form)

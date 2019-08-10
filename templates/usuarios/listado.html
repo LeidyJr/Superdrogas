@@ -72,6 +72,9 @@
                                                 Modificar
                                             </a>
                                         {% endif %}
+                                        <a class="btn btn-xs btn-primary" href="{% url 'usuarios:restablecer_clave' usuario.id %}">
+                                            Restablecer contraseña
+                                        </a>
                                         {% if usuario.is_active == True %}
                                             <a class="btn btn-xs btn-danger" href="{% url 'usuarios:desactivar' usuario.id %}">
                                                 Desactivar
