@@ -9,7 +9,7 @@ from apps.medicamentos.models import Medicamento
 class Lote(models.Model):
     fecha_fabricacion = models.DateField()
     fecha_vencimiento = models.DateField()
-    producto = models.ForeignKey(Medicamento, on_delete=models.CASCADE, verbose_name="producto del lote*", related_name="productos")
+    producto = models.ForeignKey(Medicamento, on_delete=models.CASCADE, verbose_name="producto del lote*", related_name="lotes")
     cantidad = models.PositiveIntegerField(verbose_name="cantidad actual*")
     activo = models.BooleanField(default=True, verbose_name="¿El lote está activo actualmente?")
 
@@ -45,6 +45,3 @@ class Lote(models.Model):
         if self.activo:
             return "Activo"
         return "Inactivo"
-
-    def obtener_nombre_producto(self):
-        return self.producto.nombre

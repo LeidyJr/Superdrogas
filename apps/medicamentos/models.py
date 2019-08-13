@@ -56,6 +56,10 @@ class Medicamento(models.Model):
             return "Activo"
         return "Inactivo"
 
+    def obtener_fecha_vencimiento(self):
+        print(self.lotes)
+        return Medicamento.objects.all()
+
 @receiver(post_save, sender=Medicamento, dispatch_uid="minificar_imagen_medicamento")
 def comprimir_imagen(sender, **kwargs):
     from apps.core.utils import comprimir_imagen
