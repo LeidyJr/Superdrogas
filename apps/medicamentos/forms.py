@@ -5,7 +5,7 @@ from .models import Medicamento
 class MedicamentoForm(forms.ModelForm):
     class Meta:
         model = Medicamento
-        fields = ("nombre", "precio", "categoria", "imagen", "descripcion", "cantidad", "unidad_medida",)
+        fields = ("nombre", "precio", "categoria", "imagen", "descripcion", "activo", )
 
     def __init__(self, *args, **kwargs):
         super(MedicamentoForm, self).__init__(*args, **kwargs)

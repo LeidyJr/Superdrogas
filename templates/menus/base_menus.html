@@ -2,6 +2,7 @@
     {% include "menus/empresas.html" %}
 {% else %}
         {% include "menus/medicamentos.html" %}
+        {% include "menus/lotes.html" %}
     {% if perms.categorias.gestionar_categorias %}
         {% include "menus/categorias.html" %}
     {% endif %}

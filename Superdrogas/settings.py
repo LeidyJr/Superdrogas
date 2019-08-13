@@ -156,6 +156,7 @@ LOCAL_APPS = [
     'apps.usuarios',
     'apps.core',
     'apps.grupos',
+    'apps.lotes',
 ]
 
 SHARED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PUBLIC_APPS

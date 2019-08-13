@@ -1,0 +1,68 @@
+{% extends "base_tablas.html" %}
+{% load humanize %}
+
+{% block titulo %}Listado de lotes{% endblock %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Lotes</a></li>
+    <li class="breadcrumb-item active">Listado</li>
+{% endblock miga_pan %}
+
+{% block titulo_pagina %}
+    Listado de lotes
+{% endblock titulo_pagina %}
+
+{% block titulo_panel %}
+    Listado de lotes
+{% endblock titulo_panel %}
+
+{% block botones_panel %}
+    <a href="{% url 'lotes:registrar' %}" class="btn btn-xs btn-pink">
+        <i class="ion-md-create"></i>
+        Registrar medicamento
+    </a>
+{% endblock botones_panel %}
+
+{% block contenido_panel %}
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover datatable">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Fecha de fabricación</th>
+                            <th>Fecha de vencimiento</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lote in lotes %}
+                            <tr>
+                                <td>{{lote.producto}}</td>
+                                <td>{{lote.fecha_fabricacion}}</td>
+                                <td>{{lote.fecha_vencimiento}}</td>
+                                <td>{{lote.cantidad}}</td>
+                                <td>
+                                    {% if lote.activo|lower == "true" %}
+                                        <span class="label label-primary" style="font-size: 100%">Activo</span>
+                                    {% else %}
+                                        <span class="label label-danger" style="font-size: 100%">Inactivo</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-xs btn-purple" href="{% url 'lotes:modificar' lote.id %}">
+                                        <i class="fas fa-edit"></i>
+                                        Modificar
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock contenido_panel %}
