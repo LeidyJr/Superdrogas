@@ -12,7 +12,9 @@ def crear_ruta_medicamento(instance, filename):
 
 class Medicamento(models.Model):
     nombre = models.CharField(max_length=50, verbose_name="nombre del producto*", unique=True)
+    unidad_medida = models.CharField(max_length=50, verbose_name="unidad de medida*")
     precio = models.PositiveIntegerField(verbose_name="precio de venta*")
+    cantidad = models.PositiveIntegerField(verbose_name="cantidad actual*")
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, verbose_name="categoría del producto*", related_name="productos")
     descripcion = models.TextField(blank=True, verbose_name="descripción")
     imagen = models.ImageField(upload_to=crear_ruta_medicamento, blank=True, verbose_name="imagen del producto")
@@ -55,10 +57,6 @@ class Medicamento(models.Model):
         if self.activo:
             return "Activo"
         return "Inactivo"
-
-    def obtener_fecha_vencimiento(self):
-        print(self.lotes)
-        return Medicamento.objects.all()
 
 @receiver(post_save, sender=Medicamento, dispatch_uid="minificar_imagen_medicamento")
 def comprimir_imagen(sender, **kwargs):
