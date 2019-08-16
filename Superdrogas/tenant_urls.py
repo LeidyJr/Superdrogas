@@ -14,6 +14,7 @@ urlpatterns = [
     path("grupos/", include("apps.grupos.urls", namespace="grupos")),
     path("categorias/", include("apps.categorias.urls", namespace="categorias")),
     path("lotes/", include("apps.lotes.urls", namespace="lotes")),
+    path("ventas/", include("apps.ventas.urls", namespace="ventas")),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

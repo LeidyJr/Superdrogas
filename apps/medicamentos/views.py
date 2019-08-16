@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import CreateView, UpdateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import CreateView, UpdateView, DetailView, View
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -50,3 +50,11 @@ class Modificar(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, Me
     mensaje_log = "Modificación de producto"
     mensaje_exito = "Producto modificado correctamente"
     mensaje_error = "Hubo un error en el formulario del producto"
+
+class Consultar(View):
+    def get(self, request, *args, **kwargs):
+        from apps.categorias.models import Categoria
+        producto = get_object_or_404(Medicamento, pk=kwargs['pk'])
+        categorias = Categoria.objects.all()
+        context = {'producto': producto, 'categorias':categorias}
+        return render(request, 'medicamentos/consultar.html', context)

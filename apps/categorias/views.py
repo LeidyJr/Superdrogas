@@ -11,6 +11,7 @@ from apps.core.mixins import MensajeMixin
 from apps.logs.mixins import LoggerFormMixin
 from apps.usuarios.models import Usuario
 from apps.medicamentos.models import Medicamento
+from apps.ventas.models import VentaProducto, Venta
 from .models import Categoria
 from .forms import RegistrarCategoriaForm
 from .serializers import CategoriaSerializador
@@ -40,6 +41,9 @@ class Inicio(TemplateView):
         print(context['categorias'])
         context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
         print(context['productos'])
+        venta_activa = Venta.obtener_venta(self.request)
+        context['cantidad_carrito'] = venta_activa.productos_comprados.count()
+        context['productos_carrito'] = venta_activa.productos_comprados.all()
         return context
 
 class RegistrarCategoria(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, CreateView):
