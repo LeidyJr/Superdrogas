@@ -156,7 +156,6 @@ LOCAL_APPS = [
     'apps.usuarios',
     'apps.core',
     'apps.grupos',
-    'apps.lotes',
     'apps.ventas',
 ]
 
