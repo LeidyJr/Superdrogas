@@ -99,25 +99,32 @@
 										<h4 class="cart-title">Productos en carrito ({{cantidad_carrito}}) </h4>
 									</div>
 									<div class="cart-body">
-										{% for producto in productos_carrito %}
 										<ul class="cart-item">
+											{% for producto in productos_carrito %}
+												<li>
+													<div class="cart-item-image"><img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/></div>
+													<div class="cart-item-info">
+														<h4>{{producto.producto.nombre}} ({{producto.cantidad}})</h4>
+														<p class="price">${{producto.precio|intcomma}}</p>
+													</div>
+													<div class="cart-item-close">
+														<a href="{% url 'ventas:eliminar' producto.id %}" data-toggle="tooltip" data-title="Remove">&times;</a>
+													</div>
+												</li>
+											{% endfor %}
+											<hr>
 											<li>
-												<div class="cart-item-image"><img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/></div>
-												<div class="cart-item-info">
-													<h4>{{producto.producto.nombre}}</h4>
-													<p class="price">${{producto.precio|intcomma}}</p>
-												</div>
-												<div class="cart-item-close">
-													<a href="{% url 'ventas:eliminar' producto.id %}" data-toggle="tooltip" data-title="Remove">&times;</a>
-												</div>
+												<b>Subtotal: {{subtotal|intcomma}} </b>
 											</li>
-										{% endfor %}
 										</ul>
 									</div>
 									<div class="cart-footer">
 										<div class="row row-space-10">
 											<div class="col-xs-6">
-												<a href="checkout_cart.html" class="btn btn-inverse btn-block">Finalizar</a>
+												<a href="#" class="btn btn-default btn-block">Ver carrito</a>
+											</div>
+											<div class="col-xs-6">
+												<a href="{% url 'ventas:finalizar_venta' %}" class="btn btn-inverse btn-block">Finalizar</a>
 											</div>
 										</div>
 									</div>
@@ -158,11 +165,104 @@
 		<div class="section-container" id="checkout-cart">
 			<!-- BEGIN container -->
 			<div class="container">
-				<form method="post">
-					{% csrf_token %}
-					{% bootstrap_form form %}
-					<button type="submit" class="btn btn-info">Finalizar venta</button>
-				</form>
+				<!-- BEGIN checkout -->
+				<div class="checkout">
+					
+						<!-- BEGIN checkout-header -->
+						<div class="checkout-header">
+							<!-- BEGIN row -->
+							<div class="row">
+								<!-- BEGIN col-3 -->
+								<div class="col-md-3 col-sm-3">
+									<div class="step active">
+										<a href="#">
+											<div class="number">1</div>
+											<div class="info">
+												<div class="title">Delivery Options</div>
+												<div class="desc">Lorem ipsum dolor sit amet.</div>
+											</div>
+										</a>
+									</div>
+								</div>
+								<!-- END col-3 -->
+							</div>
+							<!-- END row -->
+						</div>
+						<!-- END checkout-header -->
+						<!-- BEGIN checkout-body -->
+						<div class="checkout-body">
+							<div class="table-responsive">
+								<table class="table table-cart">
+									<thead>
+										<tr>
+											<th>Producto</th>
+											<th class="text-center">Precio</th>
+											<th class="text-center">Cantidad</th>
+											<th class="text-center">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for producto in productos_carrito %}
+										<tr>
+											<td class="cart-product">
+												<div class="product-img">
+													<img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/>
+												</div>
+												<div class="product-info">
+													<div class="title">{{producto.producto.nombre}}</div>
+													<div class="desc">
+														{% if producto.producto.descripcion %}
+															{{producto.producto.descripcion}}
+														{% else %}
+															No hay descripción.
+														{% endif %}
+												</div>
+												</div>
+											</td>
+											<td class="cart-price text-center">			
+												${{producto.producto.precio|intcomma}}</td>
+											<td class="cart-qty text-center">
+												{{producto.cantidad}}	
+											</td>
+											<td class="cart-total text-center">
+												${{producto.precio|intcomma}}
+											</td>
+										</tr>
+										{% endfor %}
+										<tr>
+											<td class="cart-summary" colspan="4">
+												<div class="summary-container">
+													<div class="summary-row">
+														<div class="field">Subtotal</div>
+														<div class="value">${{subtotal|intcomma}}</div>
+													</div>
+													<div class="summary-row text-danger">
+														<div class="field">IVA</div>
+														<div class="value">${{iva|intcomma}}</div>
+													</div>
+													<div class="summary-row total">
+														<div class="field">Total</div>
+														<div class="value">{{total|intcomma}}</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- END checkout-body -->
+						<!-- BEGIN checkout-footer -->
+						<div class="checkout-footer">
+							<form method="post">
+								{% csrf_token %}
+								{% bootstrap_form form %}
+								<button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Finalizar venta</button>
+							</form>
+						</div>
+						<!-- END checkout-footer -->
+				</div>
+				<!-- END checkout -->
 			</div>
 			<!-- END container -->
 		</div>

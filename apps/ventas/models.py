@@ -26,22 +26,9 @@ class Venta(models.Model):
     def save(self, *args, **kwargs):
         
         if not self.id:
-            self.fecha = timezone.now().date()
+            self.fecha = timezone.now()
         return super(Venta, self).save(*args, **kwargs)
 
-
-    def finalizar(self, request):
-        if "venta_id" in request.session:
-            del request.session["venta_id"]
-
-        self.confirmada = True
-        self.save()
-
-    def eliminar_item(self, item):
-        producto = item.producto
-        producto.cantidad += 1
-        producto.save()
-        item.delete()
 
 
     def cancelar(self, motivo):
@@ -97,6 +84,9 @@ class VentaProducto(models.Model):
     descuento = models.PositiveIntegerField(default=0)
 
     historial = HistoricalRecords()
+
+    def __str__(self):
+        return ("%s (%s)"%(self.producto.nombre, self.cantidad))
 
     def cerrar_venta(self):
         print(self.producto.cantidad)

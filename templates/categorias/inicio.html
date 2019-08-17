@@ -99,25 +99,34 @@
 										<h4 class="cart-title">Productos en carrito ({{cantidad_carrito}}) </h4>
 									</div>
 									<div class="cart-body">
-										{% for producto in productos_carrito %}
 										<ul class="cart-item">
+											{% for producto in productos_carrito %}
+												<li>
+													<div class="cart-item-image"><img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/></div>
+													<div class="cart-item-info">
+														<h4>{{producto.producto.nombre}} ({{producto.cantidad}})</h4>
+														<p class="price">${{producto.precio|intcomma}}</p>
+													</div>
+													<div class="cart-item-close">
+														<a href="{% url 'ventas:eliminar' producto.id %}" data-toggle="tooltip" data-title="Remove">&times;</a>
+													</div>
+												</li>
+											{% endfor %}
+											<hr>
 											<li>
-												<div class="cart-item-image"><img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/></div>
-												<div class="cart-item-info">
-													<h4>{{producto.producto.nombre}}</h4>
-													<p class="price">${{producto.precio|intcomma}}</p>
-												</div>
-												<div class="cart-item-close">
-													<a href="{% url 'ventas:eliminar' producto.id %}" data-toggle="tooltip" data-title="Remove">&times;</a>
-												</div>
+												<b>Subtotal: {{subtotal|intcomma}} </b>
 											</li>
-										{% endfor %}
 										</ul>
 									</div>
 									<div class="cart-footer">
 										<div class="row row-space-10">
 											<div class="col-xs-6">
+												<a href="#" class="btn btn-default btn-block">Ver carrito</a>
+											</div>
+											<div class="col-xs-6">
+												{% if productos_carrito %}
 												<a href="{% url 'ventas:finalizar_venta' %}" class="btn btn-inverse btn-block">Finalizar</a>
+												{% endif %}
 											</div>
 										</div>
 									</div>
