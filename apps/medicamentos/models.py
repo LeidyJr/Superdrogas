@@ -58,6 +58,13 @@ class Medicamento(models.Model):
             return "Activo"
         return "Inactivo"
 
+    def verificar_disponibilidad(self):
+        if self.cantidad == 0:
+            self.activo = False
+        else:
+            self.activo = True
+        self.save()
+
 @receiver(post_save, sender=Medicamento, dispatch_uid="minificar_imagen_medicamento")
 def comprimir_imagen(sender, **kwargs):
     from apps.core.utils import comprimir_imagen

@@ -21,19 +21,24 @@ def nueva_venta(request, id_producto):
     producto = get_object_or_404(Medicamento, pk=id_producto)
     venta = Venta.obtener_venta(request)
     productos_carrito = venta.productos_comprados.filter(venta=venta, producto=id_producto).first()
-    if productos_carrito == None:
-        vp = VentaProducto.objects.create(venta=venta, producto=producto, cantidad=1, precio=producto.precio, descuento=0)
-        vp.venta.subtotal += producto.precio
-        vp.venta.save()
-        vp.save()
+    if producto.cantidad >= 1:
+        if productos_carrito == None:
+            vp = VentaProducto.objects.create(venta=venta, producto=producto, cantidad=1, precio=producto.precio, descuento=0)
+            vp.venta.subtotal += producto.precio
+            vp.venta.save()
+            vp.save()
+        else:
+            vp = VentaProducto.objects.get(venta=venta, producto=producto)
+            vp.cantidad +=1
+            if vp.producto.cantidad >= vp.cantidad:
+                vp.precio += producto.precio
+                vp.venta.subtotal += producto.precio
+                vp.venta.save()
+                vp.save()
+            else:
+                messages.error(request, 'La cantidad seleccionada no está disponible. ')
     else:
-        vp = VentaProducto.objects.get(venta=venta, producto=producto)
-        vp.cantidad +=1
-        vp.precio += producto.precio
-        vp.venta.subtotal += producto.precio
-        vp.venta.save()
-        vp.save()
-
+        messages.error(request, 'La cantidad seleccionada no está disponible. ')
     return redirect('categorias:inicio')
 
 
@@ -76,9 +81,13 @@ def finalizar_venta(request):
             venta_activa.total = total
             venta_activa.terminada = timezone.now()
             venta_activa.save()
+            for producto in productos_carrito:
+                producto.producto.cantidad -= producto.cantidad
+                producto.producto.verificar_disponibilidad()
+                producto.producto.save()
             del request.session['venta_activa']
             messages.success(request, 'Venta realizada exitosamente.')#pendiente por resolver
-            #return redirect('ventas:factura', venta_activa.id)
+            return redirect('categorias:inicio')
     else:
         form = SeleccionarClienteForm()
     venta_activa = Venta.obtener_venta(request)

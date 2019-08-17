@@ -27,6 +27,9 @@
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
 	<!-- ================== END BASE JS ================== -->
+
+	<link href="{% static 'plugins/toastr/build/toastr.min.css' %}" rel="stylesheet">
+	<link href="{% static 'plugins/switchery/switchery.min.css' %}" rel="stylesheet" />
 </head>
 <body>
 	<!-- BEGIN #page-container -->
@@ -147,6 +150,14 @@
 							</li>
 							{% endif %}
 							{% if request.user.is_authenticated %}
+							{% if request.user.rol == "Trabajador" %}
+								<li>
+								<a href="{% url 'medicamentos:listado' %}">
+									<span class="d-none d-xl-inline">Interfaz administrativa</span>
+								</a>
+								</li>
+								<li class="divider"></li>
+							{% endif %}
 							<li>
 								<a href="{% url 'usuarios:logout' %}">
 									<span class="d-none d-xl-inline">Cerrar sesión</span>
@@ -456,12 +467,67 @@
 	<script src="{% static 'plugins/scrollMonitor/scrollMonitor.js' %}"></script>
 	<script src="{% static 'plugins/paroller/jquery.paroller.min.js' %}"></script>
 	<script src="{% static 'js/e-commerce/apps.min.js' %}"></script>
+	{# Contiene diferentes blockUI con diferentes mensajes, dependiendo de la operación deseada #}
+    <script src="{% static 'js/blockUI.js' %}"></script>
+    <script src="{% static 'js/apps/generales/blockUI-personalizado.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	<script src="{% static 'plugins/toastr/build/toastr.min.js' %}"></script>
+
+	<script src="{% static 'plugins/switchery/switchery.min.js' %}"></script>
 
 
-	<script>
+		<script>
 		$(document).ready(function() {
 			App.init();
+
+			{% for msg in messages %}
+	            $(document).ready(function(){
+	                setTimeout(function() {
+	                    toastr.options = {
+	                        "closeButton": true,
+	                        "progressBar": true,
+	                        "showEasing": "swing",
+	                        "extendedTimeOut": 5000,
+	                        "timeOut": 3000,
+	                        "progressBar": true
+	                    }
+	                    toastr["{{ msg.tags }}"]("{{msg}}")
+	                },500);
+	            });
+	        {% endfor %}
+
+	        $('[data-render=switchery]').each(function() {
+	            var switchery = new Switchery(this, {
+	            	"color": COLOR_BLUE,
+	            	"secondaryColor": COLOR_RED
+	            });
+	        });
+	        $("span.switchery").each(function(){
+	        	$(this).parent().parent().append("<br/>");
+	        	$(this).appendTo($(this).parent().parent());
+	        });
 		});
+
+		$('.fecha').datepicker({
+	        todayHighlight: true,
+	        language: "es",
+	        startView: 2,
+	        format: "yyyy-mm-dd",
+	    });
+	    $('.fecha2').datepicker({
+	        todayHighlight: true,
+	        language: "es",
+	        startView: 2,
+	        format: "dd/mm/yyyy",
+	    });
+	    $('.hora').datetimepicker({
+	        format: 'LT'
+	    });
+	    $(".readonly").keydown(function(e){
+            e.preventDefault();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('form').attr('autocomplete','off');
 	</script>
 
 </body>

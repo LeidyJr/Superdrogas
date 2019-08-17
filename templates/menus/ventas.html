@@ -1,0 +1,13 @@
+{% url 'categorias:inicio' as inicio %}
+<li class="{% if "ventas/" in request.path %} active {% endif %}has-sub">
+	<a href="javascript:;">
+		<b class="caret"></b>
+		<i class="ion-ios-briefcase bg-pink"></i> 
+		<span>Ventas</span>
+	</a>
+	<ul class="sub-menu">
+	    <li class="{% if inicio in request.path %} active {% endif %}">
+	    	<a href="{{inicio}}">Interfaz de ventas</a>
+	    </li>
+	</ul>
+</li>
