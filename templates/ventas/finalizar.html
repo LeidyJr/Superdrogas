@@ -186,10 +186,10 @@
 								<div class="col-md-3 col-sm-3">
 									<div class="step active">
 										<a href="#">
-											<div class="number">1</div>
+											<div class="number">*</div>
 											<div class="info">
-												<div class="title">Delivery Options</div>
-												<div class="desc">Lorem ipsum dolor sit amet.</div>
+												<div class="title">Finalizar</div>
+												<div class="desc">Gracias por tu compra.</div>
 											</div>
 										</a>
 									</div>
@@ -264,10 +264,15 @@
 						<!-- END checkout-body -->
 						<!-- BEGIN checkout-footer -->
 						<div class="checkout-footer">
-							<form method="post">
-								{% csrf_token %}
-								{% bootstrap_form form %}
-								<button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Finalizar venta</button>
+							<form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+								<div class="col-6">
+								<div class="col-8 col-sm-6 ">
+					                {% bootstrap_field form.cliente %}
+					            </div>
+					            <div class="col-6 col-sm-6 ">
+					                <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Finalizar venta</button>
+					            </div>
+								</div>
 							</form>
 						</div>
 						<!-- END checkout-footer -->
