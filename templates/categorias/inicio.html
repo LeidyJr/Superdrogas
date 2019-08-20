@@ -248,8 +248,11 @@
 	                                        <img src="{{producto.obtener_imagen}}" alt="producto_{{producto.nombre}}"
 	                                        style="width:100px; max-height: 120px">
                                     	{% endif %}
-										<div class="discount">15% OFF</div>
 									</a>
+									<div align="center">
+										<a href="{% url 'ventas:agregar' producto.id %}">	<span class="btn btn-inverse btn-lg">Agregar</span>
+										</a>
+										</div>
 									<div class="item-info">
 										<h4 class="item-title">
 											<a href="{% url 'medicamentos:consultar' producto.id %}">{{producto.nombre}}<br />{{producto.unidad_medida}}</a>
