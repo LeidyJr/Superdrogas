@@ -1,0 +1,539 @@
+{% load static %}
+{% load bootstrap4 %}
+{% load humanize %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>{{request.tenant.nombre}} | {{request.tenant.eslogan}}}</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/4.0.0/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/font-awesome/5.0/css/fontawesome-all.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/animate/animate.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/e-commerce/style.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/e-commerce/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/e-commerce/theme/default.css' %}" id="theme" rel="stylesheet" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	<link href="{% static 'plugins/toastr/build/toastr.min.css' %}" rel="stylesheet">
+	<link href="{% static 'plugins/switchery/switchery.min.css' %}" rel="stylesheet" />
+</head>
+<body>
+	<!-- BEGIN #page-container -->
+	<div id="page-container" class="fade">
+		<!-- BEGIN #header -->
+		<div id="header" class="header">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN header-container -->
+				<div class="header-container">
+					<!-- BEGIN navbar-header -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<div class="header-logo">
+							<a href="#" class="navbar-brand">
+								<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.jpg' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:130px; height: 60px" alt="logo_empresa">
+							</a>
+						</div>
+					</div>
+					<!-- END navbar-header -->
+					<!-- BEGIN header-nav -->
+					<div class="header-nav">
+						<div class=" collapse navbar-collapse" id="navbar-collapse">
+							<ul class="nav">
+								<li class="active"><a href="{% url 'categorias:inicio' %}">Inicio</a></li>
+								<li class="dropdown dropdown-full-width dropdown-hover">
+									<a href="#" data-toggle="dropdown">
+										Productos 
+										<b class="caret"></b>
+										<span class="arrow top"></span>
+									</a>
+									<!-- BEGIN dropdown-menu -->
+									<div class="dropdown-menu p-0">
+										<!-- BEGIN dropdown-menu-container -->
+										<div class="dropdown-menu-container">
+											<!-- BEGIN dropdown-menu-sidebar -->
+											<div class="dropdown-menu-sidebar">
+												<h4 class="title">Categorías</h4>
+												<ul class="dropdown-menu-list">
+													{% for categoria in categorias %}
+														<li><a href="#">{{categoria.nombre}}</a></li>
+													{% endfor %}
+												</ul>
+											</div>
+											<!-- END dropdown-menu-sidebar -->
+										</div>
+										<!-- END dropdown-menu-container -->
+									</div>
+									<!-- END dropdown-menu -->
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- END header-nav -->
+					<!-- BEGIN header-nav -->
+					<div class="header-nav">
+						<ul class="nav pull-right">
+							<li class="dropdown dropdown-hover">
+								<a href="#" class="header-cart" data-toggle="dropdown">
+									<i class="fa fa-shopping-bag"></i>
+									<span class="total">{{cantidad_carrito}}</span>
+									<span class="arrow top"></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-cart p-0">
+									<div class="cart-header">
+										<h4 class="cart-title">Productos en carrito ({{cantidad_carrito}}) </h4>
+									</div>
+									<div class="cart-body">
+										<ul class="cart-item">
+											{% for producto in productos_carrito %}
+												<li>
+													<div class="cart-item-image"><img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/></div>
+													<div class="cart-item-info">
+														<h4>{{producto.producto.nombre}} ({{producto.cantidad}})</h4>
+														<p class="price">${{producto.precio|intcomma}}</p>
+													</div>
+													<div class="cart-item-close">
+														<a href="{% url 'ventas:eliminar' producto.id %}" data-toggle="tooltip" data-title="Remove">&times;</a>
+													</div>
+												</li>
+											{% endfor %}
+											<hr>
+											<li>
+												<b>Subtotal: {{subtotal|intcomma}} </b>
+											</li>
+										</ul>
+									</div>
+									<div class="cart-footer">
+										<div class="row row-space-10">
+											<div class="col-xs-6">
+												<a href="#" class="btn btn-default btn-block">Ver carrito</a>
+											</div>
+											<div class="col-xs-6">
+												<a href="{% url 'ventas:finalizar_venta' %}" class="btn btn-inverse btn-block">Finalizar</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!-- END header-nav -->
+					<!-- BEGIN header-nav -->
+					<div class="header-nav">
+						<ul class="nav pull-right">
+							<li class="divider"></li>
+							{% if not request.user.is_authenticated %}
+							<li>
+								<a href="{% url 'usuarios:login' %}">
+									<span class="d-none d-xl-inline">Inicia sesión / Regístrate</span>
+								</a>
+							</li>
+							{% endif %}
+							{% if request.user.is_authenticated %}
+							{% if request.user.rol == "Trabajador" %}
+								<li>
+								<a href="{% url 'medicamentos:listado' %}">
+									<span class="d-none d-xl-inline">Interfaz administrativa</span>
+								</a>
+								</li>
+								<li class="divider"></li>
+							{% endif %}
+							<li>
+								<a href="{% url 'usuarios:logout' %}">
+									<span class="d-none d-xl-inline">Cerrar sesión</span>
+								</a>
+							</li>
+							{% endif %}
+						</ul>
+					</div>
+					<!-- END header-nav -->
+				</div>
+				<!-- END header-container -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #header -->
+		
+		<!-- BEGIN #checkout-cart -->
+		<div class="section-container" id="checkout-cart">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN checkout -->
+				<div class="checkout">
+					
+						<!-- BEGIN checkout-header -->
+						<div class="checkout-header">
+							<!-- BEGIN row -->
+							<div class="row">
+								<!-- BEGIN col-3 -->
+								<div class="col-md-3 col-sm-3">
+									<div class="step active">
+										<a href="#">
+											<div class="number">*</div>
+											<div class="info">
+												<div class="title">Finalizar</div>
+												<div class="desc">Gracias por tu compra.</div>
+											</div>
+										</a>
+									</div>
+								</div>
+								<!-- END col-3 -->
+							</div>
+							<!-- END row -->
+						</div>
+						<!-- END checkout-header -->
+						<!-- BEGIN checkout-body -->
+						<div class="checkout-body">
+							<div class="table-responsive">
+								<table class="table table-cart">
+									<thead>
+										<tr>
+											<th>Producto</th>
+											<th class="text-center">Precio</th>
+											<th class="text-center">Cantidad</th>
+											<th class="text-center">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for producto in productos_carrito %}
+										<tr>
+											<td class="cart-product">
+												<div class="product-img">
+													<img src="{{producto.producto.obtener_imagen}}" alt="producto_{{producto.producto.nombre}}"/>
+												</div>
+												<div class="product-info">
+													<div class="title">{{producto.producto.nombre}}</div>
+													<div class="desc">
+														{% if producto.producto.descripcion %}
+															{{producto.producto.descripcion}}
+														{% else %}
+															No hay descripción.
+														{% endif %}
+												</div>
+												</div>
+											</td>
+											<td class="cart-price text-center">			
+												${{producto.producto.precio|intcomma}}</td>
+											<td class="cart-qty text-center">
+												{{producto.cantidad}}	
+											</td>
+											<td class="cart-total text-center">
+												${{producto.precio|intcomma}}
+											</td>
+										</tr>
+										{% endfor %}
+										<tr>
+											<td class="cart-summary" colspan="4">
+												<div class="summary-container">
+													<div class="summary-row">
+														<div class="field">Subtotal</div>
+														<div class="value">${{subtotal|intcomma}}</div>
+													</div>
+													<div class="summary-row text-danger">
+														<div class="field">IVA</div>
+														<div class="value">${{iva|intcomma}}</div>
+													</div>
+													<div class="summary-row total">
+														<div class="field">Total</div>
+														<div class="value">{{total|intcomma}}</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- END checkout-body -->
+						<!-- BEGIN checkout-footer -->
+						<div class="checkout-footer">
+							<form class="bloquear-ui-enviar" method="post">{% csrf_token %}
+								<div class="col-6">
+								<div class="col-8 col-sm-6 ">
+					                {% bootstrap_field form.cliente %}
+					            </div>
+					            <div class="col-6 col-sm-6 ">
+					                <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Finalizar venta</button>
+					            </div>
+								</div>
+							</form>
+						</div>
+						<!-- END checkout-footer -->
+				</div>
+				<!-- END checkout -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #checkout-cart -->
+		
+		<!-- BEGIN #policy -->
+		<div id="policy" class="section-container p-t-30 p-b-30">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-4 -->
+					<div class="col-md-4 col-sm-4">
+						<!-- BEGIN policy -->
+						<div class="policy">
+							<div class="policy-icon"><i class="fa fa-truck"></i></div>
+							<div class="policy-info">
+								<h4>Envío gratis a partir de $100.000</h4>
+								<p>Recibe tus productos sin costos de envío a partir de $100.000.</p>
+							</div>
+						</div>
+						<!-- END policy -->
+					</div>
+					<!-- END col-4 -->
+					<!-- BEGIN col-4 -->
+					<div class="col-md-4 col-sm-4">
+						<!-- BEGIN policy -->
+						<div class="policy">
+							<div class="policy-icon"><i class="fas fa-dollar-sign"></i></div>
+							<div class="policy-info">
+								<h4>El mejor precio asegurado</h4>
+								<p>En nuestro negocio te aseguramos que <br />no encontrarás lo mismo a mejor precio.</p>
+							</div>
+						</div>
+						<!-- END policy -->
+					</div>
+					<!-- END col-4 -->
+					<!-- BEGIN col-4 -->
+					<div class="col-md-4 col-sm-4">
+						<!-- BEGIN policy -->
+						<div class="policy">
+							<div class="policy-icon"><i class="fa fa-user-md"></i></div>
+							<div class="policy-info">
+								<h4>La mejor calidad</h4>
+								<p>Todos nuestros medicamentos son garantizados.</p>
+							</div>
+						</div>
+						<!-- END policy -->
+					</div>
+					<!-- END col-4 -->
+				</div>
+				<!-- END row -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #policy -->
+		
+		<!-- BEGIN #subscribe -->
+		<div id="subscribe" class="section-container bg-silver p-t-30 p-b-30">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-6 -->
+					<div class="col-md-6 col-sm-6">
+						<!-- BEGIN subscription -->
+						<div class="subscription">
+							<div class="subscription-intro">
+								<h4> SUSCRÍBETE</h4>
+								<p>Obtén descuentos especiales.</p>
+							</div>
+							<div class="subscription-form">
+								<form name="subscription_form" action="index.html" method="POST">
+									<div class="input-group">
+										<input type="text" class="form-control" name="email" placeholder="Enter Email Address" />
+										<div class="input-group-append">
+											<button type="submit" class="btn btn-inverse"><i class="fa fa-angle-right"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- END subscription -->
+					</div>
+					<!-- END col-6 -->
+					<!-- BEGIN col-6 -->
+					<div class="col-md-6 col-sm-6">
+						<!-- BEGIN social -->
+						<div class="social">
+							<div class="social-intro">
+								<h4>SÍGUENOS</h4>
+								<p>Entérate de nuestras últimas novedades</p>
+							</div>
+							<div class="social-list">
+								<a href="#"><i class="fab fa-facebook"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-instagram"></i></a>
+								<a href="#"><i class="fab fa-dribbble"></i></a>
+								<a href="#"><i class="fab fa-google-plus"></i></a>
+							</div>
+						</div>
+						<!-- END social -->
+					</div>
+					<!-- END col-6 -->
+				</div>
+				<!-- END row -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #subscribe -->
+		
+		<!-- BEGIN #footer -->
+		<div id="footer" class="footer">
+			<!-- BEGIN container -->
+			<div class="container">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						<h4 class="footer-header">SOBRE NOSOTROS</h4>
+						<p>
+							{{request.tenant.sobre_nosotros}}
+						</p>
+					</div>
+					<!-- END col-3 -->
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						
+					</div>
+					<!-- END col-3 -->
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						
+					</div>
+					<!-- END col-3 -->
+					<!-- BEGIN col-3 -->
+					<div class="col-md-3">
+						<h4 class="footer-header">CONTÁCTENOS</h4>
+						<address>
+							<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.jpg' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:130px; height: 60px" alt="logo_empresa"><br />
+							<strong>{{request.tenant.nombre}}</strong><br />
+							<strong>{{request.tenant.eslogan}}</strong><br />
+							<abbr title="Phone">Dirección:</abbr> {{request.tenant.direccion}}<br />
+							<abbr title="Phone">Teléfono:</abbr> {{request.tenant.telefono}}<br />
+							<abbr title="Email">Email:</abbr> <a href="mailto:sales@myshop.com">{{request.tenant.email}}</a><br />
+						</address>
+					</div>
+					<!-- END col-3 -->
+				</div>
+				<!-- END row -->
+			</div>
+			<!-- END container -->
+		</div>
+		<!-- END #footer -->
+		
+	</div>
+	<!-- END #page-container -->
+
+	<!-- begin theme-panel -->
+	<div class="theme-panel">
+		<a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
+		<div class="theme-panel-content">
+			<ul class="theme-list clearfix">
+				<li><a href="javascript:;" class="bg-red" data-theme="red" data-theme-file="../assets/css/e-commerce/theme/red.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-pink" data-theme="pink" data-theme-file="../assets/css/e-commerce/theme/pink.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Pink" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-orange" data-theme="orange" data-theme-file="../assets/css/e-commerce/theme/orange.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-yellow" data-theme="yellow" data-theme-file="../assets/css/e-commerce/theme/yellow.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Yellow" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-lime" data-theme="lime" data-theme-file="../assets/css/e-commerce/theme/lime.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Lime" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-green" data-theme="green" data-theme-file="../assets/css/e-commerce/theme/green.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Green" data-original-title="" title="">&nbsp;</a></li>
+				<li class="active"><a href="javascript:;" class="bg-teal" data-theme="default" data-theme-file="../assets/css/e-commerce/theme/default.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-aqua" data-theme="aqua" data-theme-file="../assets/css/e-commerce/theme/aqua.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Aqua" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-blue" data-theme="blue" data-theme-file="../assets/css/e-commerce/theme/blue.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-purple" data-theme="purple" data-theme-file="../assets/css/e-commerce/theme/purple.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-indigo" data-theme="indigo" data-theme-file="../assets/css/e-commerce/theme/indigo.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Indigo" data-original-title="" title="">&nbsp;</a></li>
+				<li><a href="javascript:;" class="bg-black" data-theme="black" data-theme-file="../assets/css/e-commerce/theme/black.css" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black" data-original-title="" title="">&nbsp;</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- end theme-panel -->
+	
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/jquery/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/4.0.0/js/bootstrap.bundle.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/js-cookie/js.cookie.js' %}"></script>
+	
+	<script src="{% static 'plugins/scrollMonitor/scrollMonitor.js' %}"></script>
+	<script src="{% static 'plugins/paroller/jquery.paroller.min.js' %}"></script>
+	<script src="{% static 'js/e-commerce/apps.min.js' %}"></script>
+	{# Contiene diferentes blockUI con diferentes mensajes, dependiendo de la operación deseada #}
+    <script src="{% static 'js/blockUI.js' %}"></script>
+    <script src="{% static 'js/apps/generales/blockUI-personalizado.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	<script src="{% static 'plugins/toastr/build/toastr.min.js' %}"></script>
+
+	<script src="{% static 'plugins/switchery/switchery.min.js' %}"></script>
+
+
+		<script>
+		$(document).ready(function() {
+			App.init();
+
+			{% for msg in messages %}
+	            $(document).ready(function(){
+	                setTimeout(function() {
+	                    toastr.options = {
+	                        "closeButton": true,
+	                        "progressBar": true,
+	                        "showEasing": "swing",
+	                        "extendedTimeOut": 5000,
+	                        "timeOut": 3000,
+	                        "progressBar": true
+	                    }
+	                    toastr["{{ msg.tags }}"]("{{msg}}")
+	                },500);
+	            });
+	        {% endfor %}
+
+	        $('[data-render=switchery]').each(function() {
+	            var switchery = new Switchery(this, {
+	            	"color": COLOR_BLUE,
+	            	"secondaryColor": COLOR_RED
+	            });
+	        });
+	        $("span.switchery").each(function(){
+	        	$(this).parent().parent().append("<br/>");
+	        	$(this).appendTo($(this).parent().parent());
+	        });
+		});
+
+		$('.fecha').datepicker({
+	        todayHighlight: true,
+	        language: "es",
+	        startView: 2,
+	        format: "yyyy-mm-dd",
+	    });
+	    $('.fecha2').datepicker({
+	        todayHighlight: true,
+	        language: "es",
+	        startView: 2,
+	        format: "dd/mm/yyyy",
+	    });
+	    $('.hora').datetimepicker({
+	        format: 'LT'
+	    });
+	    $(".readonly").keydown(function(e){
+            e.preventDefault();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('form').attr('autocomplete','off');
+	</script>
+
+</body>
+</html>

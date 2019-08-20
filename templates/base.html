@@ -50,9 +50,9 @@
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
 				<a href="#" class="navbar-brand">
-					<span class="navbar-logo" style="width: 500px">
-						<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" alt="logo_empresa">
-					</span>
+					
+						<img src="{% if request.tenant.logo == '' %}{% static 'img/logo/logo.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:60px; height: 60px" alt="logo_empresa">
+					
 				</a>
 				<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 					<span class="icon-bar"></span>
@@ -67,10 +67,10 @@
 				<li class="dropdown navbar-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<span class="user-image online"><img src="{% static 'img/user/user-13.jpg' %}" alt="" /></span>
-						<span class="d-none d-md-inline">{{request.user}}</span> <b class="caret"></b>
+						<span class="d-none d-md-inline">{{request.user}} ({{request.user.rol}})</span> <b class="caret"></b>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right">
-	                    
+	                    <a href="{% url 'usuarios:cambiar_clave' %}" class="dropdown-item">Cambiar contraseña</a>
 						<div class="dropdown-divider"></div>
 						<a href="{% url 'usuarios:logout' %}" class="dropdown-item">Cerrar sesión</a>
 					</div>

@@ -1,4 +1,5 @@
 {% extends "base_tablas.html" %}
+{% load humanize %}
 
 {% block titulo %}Listado de medicamentos{% endblock %}
 
@@ -29,18 +30,35 @@
                 <table class="table table-bordered table-hover datatable">
                     <thead>
                         <tr>
-                            <th>Referencia</th>
                             <th>Nombre</th>
+                            <th>Imagen</th>
+                            <th>Precio ($/unidad)</th>
                             <th>Estado</th>
+                            <th>Categoría</th>
+                            <th>Descripción</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for medicamento in medicamentos %}
                             <tr>
-                                <td>{{medicamento.referencia}}</td>
                                 <td>{{medicamento.nombre}}</td>
-                                <td>{{medicamento.obtener_estado}}</td>
+                                <td>
+                                    {% if medicamento.imagen %}
+                                        <img src="{{medicamento.obtener_imagen}}" alt="producto_{{medicamento.nombre}}"
+                                        style="width:100px; max-height: 120px">
+                                    {% endif %}
+                                </td>
+                                <td>{{medicamento.precio|intcomma}}</td>
+                                <td>
+                                    {% if medicamento.activo|lower == "true" %}
+                                        <span class="label label-primary" style="font-size: 100%">Activo</span>
+                                    {% else %}
+                                        <span class="label label-danger" style="font-size: 100%">Inactivo</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{medicamento.categoria}}</td>
+                                <td>{{medicamento.descripcion|linebreaksbr}}</td>
                                 <td>
                                     <a class="btn btn-xs btn-purple" href="{% url 'medicamentos:modificar' medicamento.id %}">
                                         <i class="fas fa-edit"></i>

@@ -7,7 +7,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>Ingreso a Superdrogas</title>
+    <title>{{request.tenant.nombre}} | Ingreso al sistema</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <link rel="shortcut icon" type="image/png" href="{% static 'img/logo/favicon.png' %}"/>
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
@@ -42,7 +42,10 @@
             <div class="news-feed">
                 <div class="news-image" style="background-image: url({% static 'img/superdrogas.jpg' %})"></div>
                 <div class="news-caption">
-                    
+                    <h4 class="caption-title">Bienvenido a <b>{{request.tenant.nombre}}</b></h4>
+                    <p>
+                        {{request.tenant.sobre_nosotros}}
+                    </p>
                 </div>
             </div>
             <!-- end news-feed -->
@@ -51,11 +54,10 @@
                 <!-- begin login-header -->
                 <div class="login-header p-t-50">
                     <div class="brand">
-                        <span class="logo">
-                            <img src="{% if request.tenant.logo == None %}{% static 'img/logo/favicon.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:100%; height: 40px" alt="logo_empresa">
-                        </span>
-
-                        <small>request.tenant.eslogan</small>
+                       
+                            <img src="{% if request.tenant.logo == "" %}{% static 'img/logo/favicon.png' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:60%; height: 60px" alt="logo_empresa">
+                        
+                        <br/>
                     </div>
                     <div class="icon">
                         <i class="fa fa-sign-in"></i>
@@ -71,14 +73,19 @@
                             <button type="submit" class="btn btn-primary btn-block btn-lg">Ingresar</button>
                         </div>
                         <br/>
+                        {% if request.tenant.nombre != "Superdrogas" %}
                         <div class="login-buttons">
-                            <a href="/accounts/google/login" class="btn btn-google btn-user btn-block">
+                            <a href="#" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Acceder con tu cuenta de Google
                             </a>
                         </div>
+                        <div class="m-t-20 m-b-40 p-b-40 text-inverse">
+                            No tienes cuenta? Click <a href="{% url 'usuarios:regisrar_cliente' %}" class="text-info">aquí</a> para registrarte.
+                        </div>
+                        {% endif %}
                         <hr />
                         <p class="text-center text-grey-darker">
-                            Copyright &copy; SaaS. All rights reserved. 2019
+                            Copyright &copy; CB:SaaS. All rights reserved. 2019
                         </p>
                     </form>
                 </div>

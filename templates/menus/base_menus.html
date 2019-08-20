@@ -2,5 +2,14 @@
     {% include "menus/empresas.html" %}
 {% else %}
         {% include "menus/medicamentos.html" %}
+        {% include "menus/ventas.html" %}
+    {% if perms.categorias.gestionar_categorias %}
+        {% include "menus/categorias.html" %}
+    {% endif %}
+  	{% if perms.usuarios.gestionar_usuarios %}
         {% include "menus/usuarios.html" %}
+    {% endif %}
+    {% if perms.grupos.gestionar_grupos %}
+        {% include "menus/grupos.html" %}
+    {% endif %}
 {% endif %}

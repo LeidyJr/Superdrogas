@@ -7,7 +7,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>Superdrogas | Gestión de frnquicias</title>
+	<title>Superdrogas | Gestión de franquicias</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -60,9 +60,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#home" data-click="scroll-to-target">Inicio</a></li>
                         <li><a href="#about" data-click="scroll-to-target">Nosotros</a></li>
-                        <li><a href="#milestone" data-click="scroll-to-target">Beneficios</a></li>
-                        <li><a href="#team" data-click="scroll-to-target">Módulos</a></li>
-                        <li><a href="#service" data-click="scroll-to-target">Planes</a></li>
+                        <li><a href="#team" data-click="scroll-to-target">Nuestro Equipo</a></li>
+                        <li><a href="#service" data-click="scroll-to-target">Servicios</a></li>
+                        <li><a href="#pricing" data-click="scroll-to-target">Planes</a></li>
                         <li><a href="#contact" data-click="scroll-to-target">Contáctanos</a></li>
                         <li><a href="{% url 'usuarios:login' %}" class="btn btn-outline ">Iniciar Sesión</a></li>
                     </ul>
@@ -102,10 +102,6 @@
 			<!-- begin container -->
 			<div class="container" data-animation="true" data-animation-type="fadeInDown">
 				<h2 class="content-title">Sobre nosotros</h2>
-				<p class="content-desc">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consectetur eros dolor,<br />
-					sed bibendum turpis luctus eget
-				</p>
 				<!-- begin row -->
 				<div class="row">
 					<!-- begin col-4 -->
@@ -114,18 +110,9 @@
 						<div class="about">
 							<h3>Nuestra historia</h3>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-								Vestibulum posuere augue eget ante porttitor fringilla. 
-								Aliquam laoreet, sem eu dapibus congue, velit justo ullamcorper urna, 
-								non rutrum dolor risus non sapien. Vivamus vel tincidunt quam. 
-								Donec ultrices nisl ipsum, sed elementum ex dictum nec. 
-							</p>
-							<p>
-								In non libero at orci rutrum viverra at ac felis. 
-								Curabitur a efficitur libero, eu finibus quam. 
-								Pellentesque pretium ante vitae est molestie, ut faucibus tortor commodo. 
-								Donec gravida, eros ac pretium cursus, est erat dapibus quam, 
-								sit amet dapibus nisl magna sit amet orci. 
+								Superdrogas nace de la necesidad de desarrollar
+								un proyecto de un curso universitario bajo el modelo
+								de negocio SaaS. 
 							</p>
 						</div>
 						<!-- end about -->
@@ -138,7 +125,7 @@
 						<div class="about-author">
 							<div class="quote bg-silver">
 								<i class="fa fa-quote-left"></i>
-								<h3>Work hard,<br /><span>play hard.</span></h3>
+								<h3>Trabajar con dedicación para<br /><span>desarrollar un servicio que facilite la gestión de su negocio.</span></h3>
 								<i class="fa fa-quote-right"></i>
 							</div>
 							<div class="author">
@@ -146,8 +133,8 @@
 									<img src="{% static 'img/juan.png' %}" alt="Sean Ngu" />
 								</div>
 								<div class="info">
-									Juan Tello
-									<small>Gerente</small>
+									Juan David Tello
+									<small>Desarrollador</small>
 								</div>
 							</div>
 						</div>
@@ -203,10 +190,10 @@
 				<div class="row">
 					<!-- begin col-12 -->
 					<div class="col-md-12 quote">
-						<i class="fa fa-quote-left"></i> Passion leads to design, design leads to performance, <br />
-						performance leads to <span class="text-theme">success</span>!  
+						<i class="fa fa-quote-left"></i> ¡Pasión por la eficiencia, eficiencia para el desarrollo, <br />
+						desarrollo para el <span class="text-theme">éxito</span>!  
 						<i class="fa fa-quote-right"></i>
-						<small>Juan Tello, Gerente.</small>
+						<small>Juan David Tello, Desarrollador.</small>
 					</div>
 					<!-- end col-12 -->
 				</div>
@@ -222,7 +209,7 @@
 			<div class="container">
 				<h2 class="content-title">Nuestro equipo</h2>
 				<p class="content-desc">
-					Somos dos estudiantes de Tecbología en Sistemas de Información de la Universidad del Valle, <br /> 
+					Somos dos estudiantes de Tecnología en Sistemas de Información de la Universidad del Valle, <br /> 
 					capacitados para el desarrollo de soluciones eficientes para su negocio.
 				</p>
 				<!-- begin row -->
@@ -235,7 +222,7 @@
 								<img src="{% static 'img/juan.png' %}" alt="Ryan Teller" />
 							</div>
 							<div class="info">
-								<h3 class="name">Juan Tello</h3>
+								<h3 class="name">Juan David Tello</h3>
 								<div class="title text-theme">Web Developer</div>
 								<p>Estudiante de séptimo semestre, con experiencia en desarrollo de software.</p>
 								<div class="social">
@@ -306,7 +293,7 @@
 							<div class="info">
 								<img style="float:left" src="{% static 'img/seguridad.png' %}"  alt="seguridad" hspace="20" width="90" height="90">
 								<h4 class="title">Seguridad y control de acceso</h4>
-								<p class="desc">Mantenga al tanto de todos los movimientos realizados en el <br/>sistema de su droguería.</p>
+								<p class="desc">Mantenga al tanto de todos los movimientos realizados.</p>
 							</div>
 						</div>
 					</div>
@@ -330,7 +317,7 @@
 					<div class="col-md-4 col-sm-12">
 						<div class="service">
 							<div class="info">
-								<img style="float:left" src="{% static 'img/ventas.png' %}"  alt="ventas" hspace="20" width="90" height="90">ventas
+								<img style="float:left" src="{% static 'img/ventas.png' %}"  alt="ventas" hspace="20" width="90" height="90">
 								<h4 class="title">Gestión de ventas</h4>
 								<p class="desc">Realice sus ventas desde la aplicación y permita que sus clientes compren desde casa.</p>
 							</div>
@@ -343,7 +330,7 @@
 							<div class="info">
 								<img style="float:left" src="{% static 'img/reportes.png' %}"  alt="reportes" hspace="20" width="90" height="90">
 								<h4 class="title">Reportes</h4>
-								<p class="desc">Tenga a su alcance los reportes más importantes del estado de su droguería, los cuales le apoyarán en la toma de decisiones.</p>
+								<p class="desc">Obtenga los reportes más importantes del estado de su droguería. </p>
 							</div>
 						</div>
 					</div>
@@ -484,49 +471,31 @@
 					<div class="col-md-6" data-animation="true" data-animation-type="fadeInLeft">
 						<h3>Si deseas más información, comunícate con nosotros.</h3>
 						<p>
-							Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu pulvinar risus, vitae facilisis libero dolor a purus.
+							<strong>Saas:Superdrogas</strong><br />
+							Universidad del Valle<br />
+							Cali, Colombia<br />
 						</p>
 						<p>
-							<strong>Saas:CB</strong><br />
-							795 Folsom Ave, Suite 600<br />
-							San Francisco, CA 94107<br />
-							P: (123) 456-7890<br />
-						</p>
-						<p>
-							<span class="phone">+11 (0) 123 456 78</span><br />
 							<a href="mailto:hello@emailaddress.com">superdrogas@support.com</a>
 						</p>
 					</div>
 					<!-- end col-6 -->
 					<!-- begin col-6 -->
 					<div class="col-md-6 form-col" data-animation="true" data-animation-type="fadeInRight">
-						<form class="form-horizontal">
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right">Nombre <span class="text-theme">*</span></label>
-								<div class="col-md-9">
-									<input type="text" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right">Correo <span class="text-theme">*</span></label>
-								<div class="col-md-9">
-									<input type="text" class="form-control" />
-								</div>
-							</div>
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right">Mensaje <span class="text-theme">*</span></label>
-								<div class="col-md-9">
-									<textarea class="form-control" rows="10"></textarea>
-								</div>
-							</div>
-							<div class="form-group row m-b-15">
-								<label class="col-form-label col-md-3 text-md-right"></label>
-								<div class="col-md-9 text-left">
-									<button type="submit" class="btn btn-theme btn-block">Enviar</button>
-								</div>
-							</div>
-						</form>
-					</div>
+                        <div class="row">
+                            <div class="col-xs-12" style="text-align: center">
+                                {% for msg in messages %}
+                                    <h3 style="color: {% if msg.tags == "error" %}#FF3B30{% else %}#39a34b{% endif %} !important">{{msg}}</h3>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                            {% bootstrap_form form %}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-theme btn-block">Enviar mensaje</button>
+                            </div>
+                        </form>
+                    </div>
 					<!-- end col-6 -->
 				</div>
 				<!-- end row -->
