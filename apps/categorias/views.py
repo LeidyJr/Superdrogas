@@ -11,6 +11,7 @@ from apps.core.mixins import MensajeMixin
 from apps.logs.mixins import LoggerFormMixin
 from apps.usuarios.models import Usuario
 from apps.medicamentos.models import Medicamento
+from apps.ventas.models import VentaProducto, Venta
 from .models import Categoria
 from .forms import RegistrarCategoriaForm
 from .serializers import CategoriaSerializador
@@ -33,13 +34,20 @@ class Inicio(TemplateView):
         return super(Inicio, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        from django.db.models import Sum
+        from django.db.models.functions import Coalesce
+
         context = super().get_context_data(**kwargs)
         context['empresa'] = self.request.tenant
-        print(context['empresa'])
         context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
-        print(context['categorias'])
         context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
-        print(context['productos'])
+        venta_activa = Venta.obtener_venta_activa(self.request, None, self.request.user)
+        productos_carrito = venta_activa.productos_comprados.all()
+        if productos_carrito == None:
+            return 0
+        context['cantidad_carrito'] = productos_carrito.aggregate(cant_carrito=Coalesce(Sum("cantidad"),0))["cant_carrito"]
+        context['productos_carrito'] = productos_carrito
+        context['subtotal'] = venta_activa.subtotal
         return context
 
 class RegistrarCategoria(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, MensajeMixin, CreateView):

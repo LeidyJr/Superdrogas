@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import CreateView, UpdateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import CreateView, UpdateView, DetailView, View
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -50,3 +50,23 @@ class Modificar(LoginRequiredMixin, PermissionRequiredMixin, LoggerFormMixin, Me
     mensaje_log = "Modificación de producto"
     mensaje_exito = "Producto modificado correctamente"
     mensaje_error = "Hubo un error en el formulario del producto"
+
+class Consultar(View):
+    def get(self, request, *args, **kwargs):
+        from apps.categorias.models import Categoria
+        from apps.ventas.models import Venta
+        from django.db.models import Sum
+        from django.db.models.functions import Coalesce
+        
+        producto = get_object_or_404(Medicamento, pk=kwargs['pk'])
+        categorias = Categoria.objects.filter(empresa=self.request.tenant)
+        productos = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
+        venta_activa = Venta.obtener_venta_activa(self.request, None, self.request.user)
+        productos_carrito = venta_activa.productos_comprados.all()
+        if productos_carrito == None:
+            return 0
+        cantidad_carrito = productos_carrito.aggregate(cant_carrito=Coalesce(Sum("cantidad"),0))["cant_carrito"]
+        productos_carrito = productos_carrito
+        subtotal = venta_activa.subtotal
+        context = {'producto': producto, 'categorias':categorias, 'productos':productos, 'venta_activa': venta_activa, 'productos_carrito':productos_carrito, 'cantidad_carrito': cantidad_carrito, 'subtotal':subtotal,}
+        return render(request, 'medicamentos/consultar.html', context)
