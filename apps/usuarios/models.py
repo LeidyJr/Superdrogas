@@ -109,6 +109,14 @@ class Cliente(models.Model):
         ("Hombre", "Hombre"),
         ("Otro", "Otro"),
     )
+    TIPOS_DOCUMENTOS = (
+        ("Cédula de ciudadanía", "Cédula de ciudadanía"),
+        ("Cédula de extranjería", "Cédula de extranjería"),
+        ("Tarjeta de identidad", "Tarjeta de identidad"),
+        ("Pasaporte", "Pasaporte"),
+    )
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="datos_cliente")
+    tipo_documento = models.CharField(max_length=50, choices=TIPOS_DOCUMENTOS, verbose_name="tipo de documento de identidad*")
+    numero_documento = models.PositiveIntegerField(verbose_name="número de documento de identidad*")
     genero = models.CharField(max_length=20, choices=GENEROS, verbose_name="género", blank=True)
     acepto_terminos_condiciones = models.DateTimeField(auto_now_add=True)
