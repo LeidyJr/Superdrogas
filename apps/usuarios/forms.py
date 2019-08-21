@@ -108,7 +108,7 @@ class ClienteForm(forms.ModelForm):
     terminos_condiciones = forms.BooleanField()
     class Meta:
         model = Cliente
-        fields = ("genero",)
+        fields = ("tipo_documento", "numero_documento", "genero",)
 
     def __init__(self, *args, **kwargs):
         from django.utils.safestring import mark_safe
