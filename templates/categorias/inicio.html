@@ -13,6 +13,7 @@
 	<meta content="" name="description" />
 	<meta content="" name="author" />
 	
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/logo/favicon.png' %}"/>
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -183,7 +184,6 @@
 					<!-- BEGIN item -->
 					<div class="carousel-item active" data-paroller="true" data-paroller-factor="0.3" data-paroller-factor-sm="0.01" data-paroller-factor-xs="0.01" style="background: url({% static 'img/banner.jpg' %}) center 0 / cover no-repeat;">
 						<div class="container">
-							<img src="../assets/img/slider/slider-1-product.png" class="product-img right bottom fadeInRight animated" alt="" />
 						</div>
 						<div class="carousel-caption carousel-caption-left">
 							<div class="container">
@@ -250,7 +250,7 @@
                                     	{% endif %}
 									</a>
 									<div align="center">
-										<a href="{% url 'ventas:agregar' producto.id %}">	<span class="btn btn-inverse btn-lg">Agregar</span>
+										<a href="{% url 'ventas:agregar' producto.id %}">	<span class="btn btn-inverse btn-lg">Agregar <i class="fas fa-cart-plus fa-xs"></i></span>
 										</a>
 										</div>
 									<div class="item-info">
