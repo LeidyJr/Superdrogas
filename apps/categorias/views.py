@@ -41,7 +41,7 @@ class Inicio(TemplateView):
         context['empresa'] = self.request.tenant
         context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
         context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
-        venta_activa = Venta.obtener_venta_activa(self.request, None, self.request.user)
+        venta_activa = Venta.obtener_venta_activa(self.request, None, self.request.user)#cambiar aqui
         productos_carrito = venta_activa.productos_comprados.all()
         if productos_carrito == None:
             return 0
