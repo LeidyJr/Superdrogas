@@ -182,7 +182,7 @@ def finalizar_compra(request):
             producto.producto.save()
         del request.session['venta_activa']
         messages.success(request, 'Compra realizada exitosamente.')#pendiente por resolver
-        return redirect('categorias:inicio_compras')
+        return redirect('ventas:factura', venta_activa.id)
     else:
         pass
     venta_activa = Venta.obtener_venta(request)
@@ -197,3 +197,10 @@ def finalizar_compra(request):
         'total': total,
         'iva':iva,
     })
+
+def ver_factura(request, pk):
+    try:
+        venta = get_object_or_404(Venta, pk=pk)
+    except Venta.DoesNotExist:
+        raise Http404("Venta no existe")
+    return render(request,'ventas/factura.html', context={'venta':venta,})
