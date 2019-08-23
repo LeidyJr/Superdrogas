@@ -143,6 +143,8 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'social_django',
+    'rest_framework',
+    'simple_history',
 ]
 PUBLIC_APPS = [
     'django_tenants',

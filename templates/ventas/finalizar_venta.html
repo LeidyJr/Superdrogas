@@ -58,7 +58,11 @@
 					<div class="header-nav">
 						<div class=" collapse navbar-collapse" id="navbar-collapse">
 							<ul class="nav">
-								<li class="active"><a href="{% url 'categorias:inicio' %}">Inicio</a></li>
+								{% if request.user.rol == "Trabajador" %}
+								<li class="active"><a href="{% url 'categorias:inicio_ventas' %}">Inicio</a></li>
+								{% else %}
+								<li class="active"><a href="{% url 'categorias:inicio_compras' %}">Inicio</a></li>
+								{% endif %}
 								<li class="dropdown dropdown-full-width dropdown-hover">
 									<a href="#" data-toggle="dropdown">
 										Productos 
@@ -267,12 +271,20 @@
 						<div class="checkout-footer">
 							<form class="bloquear-ui-enviar" method="post">{% csrf_token %}
 								<div class="col-6">
+								{% if request.user.rol == "Trabajador" %}
 								<div class="col-8 col-sm-6 ">
 					                {% bootstrap_field form.cliente %}
 					            </div>
+					            {% endif %}
+					            {% if request.user.rol == "Trabajador" %}
 					            <div class="col-6 col-sm-6 ">
 					                <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Finalizar venta</button>
 					            </div>
+					            {% else %}
+					            <div class="col-6 col-sm-6 ">
+					                <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Finalizar compra</button>
+					            </div>
+					            {% endif %}
 								</div>
 							</form>
 						</div>
