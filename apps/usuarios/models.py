@@ -25,10 +25,10 @@ class Usuario(AbstractUser):
             ("gestionar_usuarios", "Gestión de usuarios"),
         )
 
-    # def obtener_pagina_inicio(self):
-    #     if self.rol == "Trabajador":
-    #         return "ventas:inicio_empresa"
-    #     return "ventas:inicio"
+    def obtener_pagina_inicio(self):
+        if self.rol == "Trabajador":
+            return "medicamentos:listado"
+        return "categorias:inicio_compras"
 
     def obtener_datos_rol(self):
         if self.rol == "Trabajador":
