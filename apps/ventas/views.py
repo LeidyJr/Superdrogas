@@ -46,7 +46,7 @@ def nueva_venta(request, id_producto):
     else:
         messages.error(request, 'La cantidad seleccionada no está disponible. ')
         return Response(["Error"])
-    return redirect('categorias:inicio')
+    return redirect('categorias:inicio_ventas')
 
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, NoClientePermission, ))
@@ -59,8 +59,8 @@ def eliminar_producto_carrito(request, id_producto):
         producto.delete()
         messages.success(request, 'Producto eliminado exitosamente.')
     else:
-        return redirect("categorias:inicio")
-    return redirect("categorias:inicio")
+        return redirect("categorias:inicio_ventas")
+    return redirect("categorias:inicio_ventas")
 
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, NoClientePermission, ))
@@ -97,11 +97,11 @@ def finalizar_venta(request):
                 producto.producto.save()
             del request.session['venta_activa']
             messages.success(request, 'Venta realizada exitosamente.')#pendiente por resolver
-            return redirect('categorias:inicio')
+            return redirect('categorias:inicio_ventas')
     else:
         form = SeleccionarClienteForm()
     venta_activa = Venta.obtener_venta(request)
-    return render(request, 'ventas/finalizar.html', {
+    return render(request, 'ventas/finalizar_venta.html', {
         'form': form,
         'venta_activa': venta_activa,
         'categorias':categorias,
@@ -138,7 +138,7 @@ def nueva_compra(request, id_producto):
                 messages.error(request, 'La cantidad seleccionada no está disponible. ')
     else:
         messages.error(request, 'La cantidad seleccionada no está disponible. ')
-    return redirect('categorias:inicio')
+    return redirect('categorias:inicio_compras')
 
 def eliminar_producto_carrito_compra(request, id_producto):
     venta_activa = Venta.obtener_venta(request)
@@ -149,8 +149,8 @@ def eliminar_producto_carrito_compra(request, id_producto):
         producto.delete()
         messages.success(request, 'Producto eliminado exitosamente.')
     else:
-        return redirect("categorias:inicio")
-    return redirect("categorias:inicio")
+        return redirect("categorias:inicio_compras")
+    return redirect("categorias:inicio_compras")
 
 
 def finalizar_compra(request):
@@ -182,11 +182,11 @@ def finalizar_compra(request):
             producto.producto.save()
         del request.session['venta_activa']
         messages.success(request, 'Compra realizada exitosamente.')#pendiente por resolver
-        return redirect('categorias:inicio')
+        return redirect('categorias:inicio_compras')
     else:
         pass
     venta_activa = Venta.obtener_venta(request)
-    return render(request, 'ventas/finalizar.html', {
+    return render(request, 'ventas/finalizar_venta.html', {
         'venta_activa': venta_activa,
         'categorias':categorias,
         'activa': activa,

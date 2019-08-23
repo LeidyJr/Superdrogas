@@ -1,4 +1,5 @@
-{% url 'categorias:inicio' as inicio %}
+{% url 'categorias:inicio_ventas' as inicio_ventas %}
+{% url 'categorias:inicio_compras' as inicio_compras %}
 <li class="{% if "ventas/" in request.path %} active {% endif %}has-sub">
 	<a href="javascript:;">
 		<b class="caret"></b>
@@ -6,8 +7,14 @@
 		<span>Ventas</span>
 	</a>
 	<ul class="sub-menu">
-	    <li class="{% if inicio in request.path %} active {% endif %}">
-	    	<a href="{{inicio}}">Interfaz de ventas</a>
+		{% if request.user.rol == "Trabajador" %}
+	    <li class="{% if inicio_ventas in request.path %} active {% endif %}">
+	    	<a href="{{inicio_ventas}}">Interfaz de ventas</a>
 	    </li>
+	    {% else %}
+	    <li class="{% if inicio_compras in request.path %} active {% endif %}">
+	    	<a href="{{inicio_compras}}">Interfaz de compras</a>
+	    </li>
+	    {% endif %}
 	</ul>
 </li>

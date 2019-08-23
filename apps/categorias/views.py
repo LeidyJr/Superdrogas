@@ -25,13 +25,13 @@ class APICategoria(generics.ListAPIView):
         serializer = CategoriaSerializador(queryset, many=True)
         return Response(serializer.data)
 
-class Inicio(TemplateView):
-    template_name = "categorias/inicio.html"
+class InicioVentas(TemplateView):
+    template_name = "categorias/inicio_ventas.html"
 
     def dispatch(self, request, *args, **kwargs):
         from django.http import Http404
         Usuario.crear_usuario_inicial()
-        return super(Inicio, self).dispatch(request, *args, **kwargs)
+        return super(InicioVentas, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         from django.db.models import Sum
@@ -41,7 +41,32 @@ class Inicio(TemplateView):
         context['empresa'] = self.request.tenant
         context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
         context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
-        venta_activa = Venta.obtener_venta_activa(self.request, None, self.request.user)#cambiar aqui
+        venta_activa = Venta.obtener_venta_activa(self.request, None, self.request.user)
+        productos_carrito = venta_activa.productos_comprados.all()
+        if productos_carrito == None:
+            return 0
+        context['cantidad_carrito'] = productos_carrito.aggregate(cant_carrito=Coalesce(Sum("cantidad"),0))["cant_carrito"]
+        context['productos_carrito'] = productos_carrito
+        context['subtotal'] = venta_activa.subtotal
+        return context
+
+class InicioCompras(TemplateView):
+    template_name = "categorias/inicio_compras.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        from django.http import Http404
+        Usuario.crear_usuario_inicial()
+        return super(InicioCompras, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        from django.db.models import Sum
+        from django.db.models.functions import Coalesce
+
+        context = super().get_context_data(**kwargs)
+        context['empresa'] = self.request.tenant
+        context['categorias'] = Categoria.objects.filter(empresa=self.request.tenant)
+        context['productos'] = Medicamento.objects.filter(categoria__empresa=self.request.tenant, activo=True)
+        venta_activa = Venta.obtener_venta_activa(self.request, self.request.user, None)
         productos_carrito = venta_activa.productos_comprados.all()
         if productos_carrito == None:
             return 0
