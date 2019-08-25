@@ -11,6 +11,7 @@ class Usuario(AbstractUser):
         ("Cliente", "Cliente"),
         ("Trabajador", "Trabajador"),
     )
+    
     rol = models.CharField(max_length=100, choices=ROLES)
 
     def get_absolute_url(self):
@@ -85,7 +86,7 @@ class Trabajador(models.Model):
     )
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="datos_trabajador")
     tipo_documento = models.CharField(max_length=50, choices=TIPOS_DOCUMENTOS, verbose_name="tipo de documento de identidad*")
-    numero_documento = models.CharField(max_length=50, verbose_name="número de documento de identidad*")
+    numero_documento = models.CharField(max_length=50, verbose_name="número de documento de identidad*", unique=True)
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento*")
     genero = models.CharField(max_length=20, choices=GENEROS, verbose_name="género*")
     celular = models.CharField(max_length=25, verbose_name="número de celular*")
@@ -117,6 +118,6 @@ class Cliente(models.Model):
     )
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name="datos_cliente")
     tipo_documento = models.CharField(max_length=50, choices=TIPOS_DOCUMENTOS, verbose_name="tipo de documento de identidad*")
-    numero_documento = models.PositiveIntegerField(verbose_name="número de documento de identidad*")
+    numero_documento = models.PositiveIntegerField(verbose_name="número de documento de identidad*", unique=True)
     genero = models.CharField(max_length=20, choices=GENEROS, verbose_name="género", blank=True)
     acepto_terminos_condiciones = models.DateTimeField(auto_now_add=True)

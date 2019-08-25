@@ -8,7 +8,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>{{request.tenant.nombre}} | {{request.tenant.eslogan}}}</title>
+	<title>{{request.tenant.nombre}} | {{request.tenant.eslogan}}</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
@@ -136,6 +136,8 @@
 						<!-- END checkout-header -->
 						<!-- BEGIN checkout-body -->
 						<div class="checkout-body">
+							<span><b>Vendedor:</b> {{venta.vendedor|default_if_none:''}}<br/></span>
+							<span><b>Cliente:</b> {{venta.cliente}} <b>Cédula: </b>{{venta.cliente.datos_cliente.numero_documento}}</span><br/>
 							<div class="table-responsive">
 								<table class="table table-cart">
 									<thead>
