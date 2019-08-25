@@ -120,12 +120,20 @@
 								<div class="col-md-3 col-sm-3">
 									<div class="step active">
 										<a href="#">
-											<div class="number">*</div>
-											<div class="info">
-												<div class="title">Factura de compra # 0012{{venta.id}}</div>
-												<div class="desc">Fecha: {{venta.fecha.date}}</div>
-												<div class="desc">Hora: {{venta.fecha.time}}</div>
-											</div>
+											<table width="180%">
+												<tr>
+													<td>
+														<div>
+															<img src="{% if request.tenant.logo == None %}{% static 'img/logo/logo.jpg' %}{% else %}{{MEDIA_URL}}{{request.tenant.logo}}{% endif %}" style="width:140px; height: 60px" alt="logo_empresa">
+														</div>
+													</td>
+													<td colspan="4">
+															<div class="title">Factura de compra # 0012{{venta.id}}</div>
+															<div class="desc">Fecha: {{venta.fecha.date}}</div>
+															<div class="desc">Hora: {{venta.fecha.time}}</div>
+													</td>
+												</tr>
+											</table>
 										</a>
 									</div>
 								</div>
