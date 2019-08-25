@@ -1,0 +1,19 @@
+{% extends "base_tablas.html" %}
+
+{% load static %}
+
+{% block js %}
+	{{ block.super }}
+	<script src="{% static 'plugins/amcharts/amcharts/amcharts.js' %}"></script>
+	<script src="{% static 'plugins/amcharts/amcharts/serial.js' %}"></script>
+	<script src="{% static 'plugins/amcharts/amcharts/themes/light.js' %}"></script>
+	<script src="{% static 'plugins/amcharts/amcharts/lang/es.js' %}"></script>
+	<script src="{% static 'plugins/amcharts/amcharts/plugins/export/export.min.js' %}"></script>
+
+	<script src="{% static 'plugins/amcharts/generar_graficos.js' %}"></script>
+{% endblock js %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'plugins/amcharts/amcharts/plugins/export/export.css' %}" type="text/css" media="all" />
+{% endblock css %}
