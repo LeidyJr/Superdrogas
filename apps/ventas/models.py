@@ -6,8 +6,8 @@ from apps.medicamentos.models import Medicamento
 from apps.usuarios.models import Usuario
 
 class Venta(models.Model):
-    cliente = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE, related_name="cliente")
-    trabajador = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE, related_name="trabajador")
+    cliente = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE, related_name="compras_del_cliente")
+    trabajador = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE, related_name="ventas_del_trabajador")
     fecha = models.DateTimeField()
     subtotal = models.PositiveIntegerField(default=0)
     iva = models.PositiveIntegerField(default=0)

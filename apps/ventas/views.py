@@ -21,6 +21,7 @@ from apps.ventas.models import Venta, VentaProducto, VentaCancelacion
 from apps.usuarios.models import Usuario
 from apps.ventas.forms import VentaProductoForm, SeleccionarClienteForm
 
+@login_required
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, NoClientePermission, ))
 def nueva_venta(request, id_producto):
@@ -48,6 +49,7 @@ def nueva_venta(request, id_producto):
         return Response(["Error"])
     return redirect('categorias:inicio_ventas')
 
+@login_required
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, NoClientePermission, ))
 def eliminar_producto_carrito(request, id_producto):
@@ -62,6 +64,7 @@ def eliminar_producto_carrito(request, id_producto):
         return redirect("categorias:inicio_ventas")
     return redirect("categorias:inicio_ventas")
 
+@login_required
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated, NoClientePermission, ))
 def finalizar_venta(request):
@@ -114,8 +117,13 @@ def finalizar_venta(request):
         'iva':iva,
     })
 
-#--------------------- Compras ---------------------------
+@login_required
+def mis_ventas(request):
+    ventas = request.user.ventas_del_trabajador.exclude(terminada__isnull=True)
+    return render(request, 'ventas/listado_ventas.html',{'ventas':ventas})
 
+#--------------------- Compras ---------------------------
+@login_required
 def nueva_compra(request, id_producto):
     producto = get_object_or_404(Medicamento, pk=id_producto)
     venta = Venta.obtener_venta(request)
@@ -140,6 +148,7 @@ def nueva_compra(request, id_producto):
         messages.error(request, 'La cantidad seleccionada no está disponible. ')
     return redirect('categorias:inicio_compras')
 
+@login_required
 def eliminar_producto_carrito_compra(request, id_producto):
     venta_activa = Venta.obtener_venta(request)
     producto = get_object_or_404(VentaProducto, pk=id_producto)
@@ -152,7 +161,7 @@ def eliminar_producto_carrito_compra(request, id_producto):
         return redirect("categorias:inicio_compras")
     return redirect("categorias:inicio_compras")
 
-
+@login_required
 def finalizar_compra(request):
     from django.db.models import Sum
     from django.db.models.functions import Coalesce
@@ -198,9 +207,15 @@ def finalizar_compra(request):
         'iva':iva,
     })
 
+@login_required
 def ver_factura(request, pk):
     try:
         venta = get_object_or_404(Venta, pk=pk)
     except Venta.DoesNotExist:
         raise Http404("Venta no existe")
     return render(request,'ventas/factura.html', context={'venta':venta,})
+
+@login_required
+def mis_compras(request):
+    compras = request.user.compras_del_cliente.filter(terminada!=None)
+    return render(request, 'ventas/listado_compras.html',{'compras':compras})

@@ -58,7 +58,10 @@ db.sqlite3
 *.pyc
 *__pycache__
 Superdrogas/*/migrations/
+Superdrogas/apps/migrations/*
 Superdrogas/**/migrations/
+Superdrogas/***/migrations/
+Superdrogas/****/migrations/
 Superdrogas/media/*
 .idea/
 *.bash
