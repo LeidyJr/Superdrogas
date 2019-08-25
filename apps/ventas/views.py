@@ -18,7 +18,7 @@ from apps.categorias.models import Categoria
 from apps.core.permissions import NoClientePermission
 from apps.medicamentos.models import Medicamento
 from apps.ventas.models import Venta, VentaProducto, VentaCancelacion
-from apps.usuarios.models import Usuario
+from apps.usuarios.models import Usuario, Cliente, Trabajador
 from apps.ventas.forms import VentaProductoForm, SeleccionarClienteForm
 
 @login_required
@@ -219,3 +219,17 @@ def ver_factura(request, pk):
 def mis_compras(request):
     compras = request.user.compras_del_cliente.filter(terminada!=None)
     return render(request, 'ventas/listado_compras.html',{'compras':compras})
+
+def grafico_ventas_trabajadores(request):
+    trabajadores = Usuario.objects.filter(rol=Trabajador)
+    ventas_de_trabajadores = []
+    for trabajador in trabajadores:
+        ventas_del_trabajador = trabajador.ventas_del_trabajador.count()
+        ventas_de_trabajadores.append(ventas_del_trabajador)
+
+    datos = list(ventas_de_trabajadores)
+
+    return render(request, "ventas/grafico_ventas_trabajadores.html", {
+        "datos": datos,
+        "titulo": "Ventas por trabajador",
+    })
