@@ -1,4 +1,5 @@
 {% url 'categorias:inicio_ventas' as inicio_ventas %}
+{% url 'ventas:mis_ventas' as mis_ventas %}
 {% url 'categorias:inicio_compras' as inicio_compras %}
 <li class="{% if "ventas/" in request.path %} active {% endif %}has-sub">
 	<a href="javascript:;">
@@ -10,6 +11,9 @@
 		{% if request.user.rol == "Trabajador" %}
 	    <li class="{% if inicio_ventas in request.path %} active {% endif %}">
 	    	<a href="{{inicio_ventas}}">Interfaz de ventas</a>
+	    </li>
+	    <li class="{% if mis_ventas in request.path %} active {% endif %}">
+	    	<a href="{{mis_ventas}}">Mis ventas</a>
 	    </li>
 	    {% else %}
 	    <li class="{% if inicio_compras in request.path %} active {% endif %}">
