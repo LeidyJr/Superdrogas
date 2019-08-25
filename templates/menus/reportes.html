@@ -1,0 +1,24 @@
+{% url 'reportes:detalles_ventas_diarias' as detalles_ventas_diarias %}
+{% url 'reportes:ventas_por_productos' as ventas_por_productos %}
+{% url 'reportes:ventas_diarias' as ventas_diarias %}
+
+<li class="{% if "reportes/" in request.path %} active {% endif %}has-sub">
+    <a href="javascript:;">
+        <b class="caret"></b>
+        <i class="ion-ios-pulse bg-blue"></i>
+        <span>Reportes</span>
+    </a>
+    <ul class="sub-menu">
+        <li class="{% if detalles_ventas_diarias in request.path %} active {% endif %}">
+            <a href="{% url 'reportes:detalles_ventas_diarias' %}">Registro de ventas</a>
+        </li>
+        {% if perms.reportes.gestionar_reportes %}
+            <li class="{% if ventas_por_productos in request.path %} active {% endif %}">
+                <a href="{% url 'reportes:ventas_por_productos' %}">Ventas por productos</a>
+            </li>
+            <li class="{% if ventas_diarias in request.path %} active {% endif %}">
+            	<a href="{% url 'reportes:ventas_diarias' %}">Ventas diarias</a>
+            </li>
+        {% endif %}
+    </ul>
+</li>
