@@ -23,7 +23,9 @@
 {% block js %}
     {{ block.super }}
     <script type="text/javascript">
-        
+        datos = {{datos|safe}};
+        titulo = "{{titulo}}";
+        reporte_ventas_productos("chartdiv", datos, titulo);
     </script>
 {% endblock js %}
 
@@ -68,7 +70,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for producto in productos %}
+                        {% for producto in datos %}
                             <tr>
                                 <td>{{producto.nombre}}</td>
                                 <td>{{producto.total|intcomma}}</td>
@@ -77,6 +79,16 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+        <div class="col-12" style="text-align: center;">
+            <hr>
+            {% if datos|length > 0 %}
+              <div id="chartdiv" style="width: 100%; height: 500px"></div>
+            {% else %}
+                <h4>No hay datos disponibles</h4>
+            {% endif %}
+        </div>
+    </div>
         </div>
     </div>
 {% endblock contenido_panel %}
