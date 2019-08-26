@@ -60,3 +60,106 @@ function reporte_datos_diarios(id_div, datos, titulo){
         chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
     }
 }
+
+
+function reporte_ventas_productos(id_div, datos, titulo){
+    var chart = AmCharts.makeChart(id_div, {
+        "language": "es",
+        "type": "serial",
+        "theme": "light",
+        "marginRight": 80,
+        "autoMarginOffset": 20,
+        "marginTop": 7,
+        "mouseWheelZoomEnabled":true,
+        "valueAxes": [{
+          "axisAlpha": 0,
+          "position": "left",
+          "title": titulo
+        }],
+        "startDuration": 1,
+        "graphs": [{
+          "balloonText": "<b>[[category]]: [[value]]</b>",
+          "fillColorsField": "color",
+          "fillAlphas": 0.9,
+          "lineAlpha": 0.2,
+          "type": "column",
+          "valueField": "total"
+        }],
+        "depth3D": 20,
+  "angle": 30,
+        "chartCursor": {
+          "categoryBalloonEnabled": false,
+          "cursorAlpha": 0,
+          "zoomable": false
+        },
+        "categoryField": "nombre",
+        "categoryAxis": {
+          "gridPosition": "start",
+          "labelRotation": 90
+        },
+        "export": {
+          "enabled": true
+        },
+        "dataProvider": datos,
+    });
+
+    chart.addListener("rendered", zoomChart);
+
+    zoomChart();
+
+    function zoomChart() {
+        chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+    }
+}
+
+
+function reporte_ventas_categorias(id_div, datos, titulo){
+    var chart = AmCharts.makeChart(id_div, {
+        "language": "es",
+        "type": "serial",
+        "theme": "light",
+        "marginRight": 80,
+        "autoMarginOffset": 20,
+        "marginTop": 7,
+        "mouseWheelZoomEnabled":true,
+        "valueAxes": [{
+          "axisAlpha": 0,
+          "position": "left",
+          "title": titulo
+        }],
+        "startDuration": 1,
+        "graphs": [{
+          "balloonText": "<b>[[category]]: [[value]]</b>",
+          "fillColorsField": "color",
+          "fillAlphas": 0.9,
+          "lineAlpha": 0.2,
+          "type": "column",
+          "valueField": "total"
+        }],
+        "depth3D": 20,
+  "angle": 30,
+        "chartCursor": {
+          "categoryBalloonEnabled": false,
+          "cursorAlpha": 0,
+          "zoomable": false
+        },
+        "categoryField": "producto__categoria__nombre",
+        "categoryAxis": {
+          "gridPosition": "start",
+          "labelRotation": 90
+        },
+        "export": {
+          "enabled": true
+        },
+        "dataProvider": datos,
+    });
+
+    chart.addListener("rendered", zoomChart);
+
+    zoomChart();
+
+    function zoomChart() {
+        chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+        console.log(datos)
+    }
+}

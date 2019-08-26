@@ -38,3 +38,13 @@ def VentasDiarias(inicio="", fin=""):
         dia = ventas[id_venta]["dia_venta"]
         ventas[id_venta]["dia_venta"] = dia.strftime("%Y-%m-%d")
     return ventas
+
+def VentasCategorias(inicio="", fin=""):
+
+    total_de_ventas_por_categoria =  VentaProducto.objects.exclude(Q(venta__terminada=None) | Q(venta__cancelado=True)).\
+        filter(venta__fecha__gte=inicio, venta__fecha__lte=fin).prefetch_related("producto__categoria").\
+        values('producto__categoria__nombre').annotate(total=Sum(F('precio') * F('cantidad'))).order_by('producto__categoria__nombre')
+        
+    valor_total = list(total_de_ventas_por_categoria.aggregate(Sum('total')).values())[0]
+    print(total_de_ventas_por_categoria)
+    return total_de_ventas_por_categoria
