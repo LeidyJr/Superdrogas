@@ -37,7 +37,7 @@ pyparsing==2.3.1
 PySocks==1.6.8
 python3-openid==3.1.0
 pytz==2018.4
-pywin32==223
+#pywin32==223
 redis==3.2.0
 regex==2019.2.21
 requests==2.21.0
