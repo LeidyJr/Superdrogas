@@ -1,5 +1,6 @@
 {% url 'reportes:detalles_ventas_diarias' as detalles_ventas_diarias %}
 {% url 'reportes:ventas_por_productos' as ventas_por_productos %}
+{% url 'reportes:ventas_por_categoria' as ventas_por_categoria %}
 {% url 'reportes:ventas_diarias' as ventas_diarias %}
 
 <li class="{% if "reportes/" in request.path %} active {% endif %}has-sub">
@@ -15,6 +16,9 @@
         {% if perms.reportes.gestionar_reportes %}
             <li class="{% if ventas_por_productos in request.path %} active {% endif %}">
                 <a href="{% url 'reportes:ventas_por_productos' %}">Ventas por productos</a>
+            </li>
+            <li class="{% if ventas_por_categoria in request.path %} active {% endif %}">
+                <a href="{% url 'reportes:ventas_por_categoria' %}">Ventas por categoria</a>
             </li>
             <li class="{% if ventas_diarias in request.path %} active {% endif %}">
             	<a href="{% url 'reportes:ventas_diarias' %}">Ventas diarias</a>
