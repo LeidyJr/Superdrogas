@@ -100,7 +100,7 @@ def finalizar_venta(request):
                 producto.producto.save()
             del request.session['venta_activa']
             messages.success(request, 'Venta realizada exitosamente.')#pendiente por resolver
-            return redirect('categorias:inicio_ventas')
+            return redirect('ventas:factura', venta_activa.id)
     else:
         form = SeleccionarClienteForm()
     venta_activa = Venta.obtener_venta(request)
