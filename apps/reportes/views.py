@@ -108,3 +108,34 @@ def VentasPorCategoria(request):
         "datos": list(total_de_ventas_por_categoria),
         "titulo": "Ventas por categoría",
     })
+
+@login_required
+@permission_required('reportes.gestionar_reportes')
+def VentasPorCliente(request):
+    import datetime
+    from datetime import timedelta
+
+    hoy = timezone.localdate()
+    ayer = hoy - timedelta(days=1)
+
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
+    if "fecha_inicio" in request.GET:
+        form = PeriodoTiempoForm(request.GET)
+        if form.is_valid():
+            total_de_ventas_por_cliente = VentasClientes(fecha_inicio, fecha_fin)
+        else:
+            for campo, error in form.errors.items():
+                messages.error(request, error[0])
+            total_de_ventas_por_cliente = VentasClientes(fecha_inicio, fecha_fin)
+    else:
+        total_de_ventas_por_cliente = VentasClientes(fecha_inicio, fecha_fin)
+    print(list(total_de_ventas_por_cliente))
+    return render(request, "reportes/ventas_por_clientes.html", {
+        "form": form,
+        "total_de_ventas_por_cliente": total_de_ventas_por_cliente,
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin" : fecha_fin,
+        "datos": list(total_de_ventas_por_cliente),
+        "titulo": "Ventas por cliente",
+    })
