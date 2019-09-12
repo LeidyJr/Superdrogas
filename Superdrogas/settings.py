@@ -26,7 +26,7 @@ SECRET_KEY = 'bl#5bnnaj_vy2ssr)j2o!mov*-ocl$*@jcz9ls!w%xy_flaq$f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost', '127.0.0.1', ]
+ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '.superdrogas.ga', ]
 
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
@@ -261,7 +261,7 @@ LOGIN_URL = 'usuarios:login'
 LOGIN_REDIRECT_URL = 'medicamentos:listado'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
-DOMAIN = '.localhost'
+DOMAIN = '.superdrogas.ga'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'superdrogasfranquicias@gmail.com'
