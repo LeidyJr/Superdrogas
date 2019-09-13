@@ -169,3 +169,15 @@ def VentasPorVendedor(request):
         "datos": list(total_de_ventas_por_vendedor),
         "titulo": "Ventas por cliente",
     })
+
+@login_required
+@permission_required('reportes.gestionar_reportes')
+def DisponibilidadProductos(request):
+    productos =  Medicamento.objects.exclude(Q(activo=False)).\
+        values('nombre').annotate(total=F('cantidad')).order_by('-total')
+    print(productos)
+    return render(request, "reportes/disponibilidad_productos.html", {
+        "datos": list(productos),
+        "titulo": "Unidades disponibles",
+    })
+

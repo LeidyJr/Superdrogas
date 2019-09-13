@@ -69,3 +69,11 @@ def VentasVendedores(inicio="", fin=""):
     valor_total = list(total_de_ventas_por_vendedor.aggregate(Sum('total')).values())[0]
     print(total_de_ventas_por_vendedor)
     return total_de_ventas_por_vendedor
+
+def DisponibilidadProductos():
+    productos =  Medicamento.objects.exclude(Q(activo=False)).\
+        values('nombre').annotate(total=F('cantidad')).order_by('-total')
+    
+    productos = list(productos)
+    print(productos)
+    return productos
