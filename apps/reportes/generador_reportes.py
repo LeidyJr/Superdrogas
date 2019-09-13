@@ -58,3 +58,14 @@ def VentasClientes(inicio="", fin=""):
     valor_total = list(total_de_ventas_por_cliente.aggregate(Sum('total')).values())[0]
     print(total_de_ventas_por_cliente)
     return total_de_ventas_por_cliente
+
+
+def VentasVendedores(inicio="", fin=""):
+
+    total_de_ventas_por_vendedor =  VentaProducto.objects.exclude(Q(venta__terminada=None) | Q(venta__cancelado=True)| Q(venta__trabajador=None)).\
+        filter(venta__fecha__gte=inicio, venta__fecha__lte=fin).prefetch_related("venta__trabajador").\
+        values('venta__trabajador__first_name').annotate(total=Sum('cantidad')).order_by('venta__trabajador__first_name')
+    print(total_de_ventas_por_vendedor)
+    valor_total = list(total_de_ventas_por_vendedor.aggregate(Sum('total')).values())[0]
+    print(total_de_ventas_por_vendedor)
+    return total_de_ventas_por_vendedor
