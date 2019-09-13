@@ -139,3 +139,33 @@ def VentasPorCliente(request):
         "datos": list(total_de_ventas_por_cliente),
         "titulo": "Ventas por cliente",
     })
+
+
+def VentasPorVendedor(request):
+    import datetime
+    from datetime import timedelta
+
+    hoy = timezone.localdate()
+    ayer = hoy - timedelta(days=1)
+
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
+    if "fecha_inicio" in request.GET:
+        form = PeriodoTiempoForm(request.GET)
+        if form.is_valid():
+            total_de_ventas_por_vendedor = VentasVendedores(fecha_inicio, fecha_fin)
+        else:
+            for campo, error in form.errors.items():
+                messages.error(request, error[0])
+            total_de_ventas_por_vendedor = VentasVendedores(fecha_inicio, fecha_fin)
+    else:
+        total_de_ventas_por_vendedor = VentasVendedores(fecha_inicio, fecha_fin)
+    print(list(total_de_ventas_por_vendedor))
+    return render(request, "reportes/ventas_por_vendedores.html", {
+        "form": form,
+        "total_de_ventas_por_vendedor": total_de_ventas_por_vendedor,
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin" : fecha_fin,
+        "datos": list(total_de_ventas_por_vendedor),
+        "titulo": "Ventas por cliente",
+    })
