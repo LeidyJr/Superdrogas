@@ -37,6 +37,7 @@ def VentasDiarias(inicio="", fin=""):
     for id_venta in range(len(ventas)):
         dia = ventas[id_venta]["dia_venta"]
         ventas[id_venta]["dia_venta"] = dia.strftime("%Y-%m-%d")
+    print("------", ventas)
     return ventas
 
 def VentasCategorias(inicio="", fin=""):
@@ -70,10 +71,17 @@ def VentasVendedores(inicio="", fin=""):
     print(total_de_ventas_por_vendedor)
     return total_de_ventas_por_vendedor
 
-def DisponibilidadProductos():
-    productos =  Medicamento.objects.exclude(Q(activo=False)).\
-        values('nombre').annotate(total=F('cantidad')).order_by('-total')
-    
-    productos = list(productos)
-    print(productos)
-    return productos
+def VentasSitu(inicio="", fin=""):
+    try:
+        ventas = Venta.objects.exclude(Q(terminada=None) | Q(cancelado=True)| Q(trabajador=None)).filter(fecha__gte=inicio, fecha__lte=fin)
+    except ValidationError as e:
+        ventas = Venta.objects.exclude(Q(terminada=None) | Q(cancelado=True))
+
+    ventas = ventas.order_by() \
+        .annotate(dia_venta=TruncDate('fecha', output_field=models.DateField())) \
+        .values('dia_venta').annotate(total=Count('total'))
+    ventas = list(ventas)
+    for id_venta in range(len(ventas)):
+        dia = ventas[id_venta]["dia_venta"]
+        ventas[id_venta]["dia_venta"] = dia.strftime("%Y-%m-%d")
+    return ventas

@@ -1,0 +1,90 @@
+
+{% extends "reportes/base_reportes.html" %}
+
+{% load bootstrap4 %}
+{% load humanize %}
+
+{% block titulo %}
+    Reporte de ventas por vendedores
+{% endblock titulo %}
+
+{% block titulo_pagina %}
+    Reporte de ventas por vendedores
+{% endblock titulo_pagina %}
+
+{% block miga_pan %}
+    <li class="breadcrumb-item"><a href="javascript:;">Reportes</a></li>
+    <li class="breadcrumb-item active">Ventas por vendedores</li>
+{% endblock miga_pan %}
+
+{% block titulo_panel %}
+    Reporte de ventas por vendedores 
+{% endblock titulo_panel %}
+
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript">
+        datos = {{datos|safe}};
+        titulo = "{{titulo}}";
+        reporte_ventas_situ("chartdiv", datos, titulo);
+    </script>
+{% endblock js %}
+
+{% block contenido_panel %}
+    <form method="get">
+        <div class="row">
+            <div class="col-12 col-sm-4 offset-sm-1">
+                <div class="form-group">
+                    <label for="id_fecha_inicio">Fecha de inicio</label>
+                    <div class="input-group date fecha">
+                        <input type="text" class="form-control readonly {% if form.fecha_inicio.errors|length > 0 %}is-invalid{% endif %}" id="id_fecha_inicio" name="fecha_inicio" required value="{{form.fecha_inicio.value|default:""}}" />
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="invalid-tooltip">
+                            {% for error in form.fecha_inicio.errors %}
+                                {{error}}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <div class="form-group">
+                    <label for="id_fecha_fin">Fecha de fin</label>
+                    <div class="input-group date fecha">
+                        <input type="text" class="form-control readonly {% if form.fecha_fin.errors|length > 0 %}is-invalid{% endif %}" id="id_fecha_fin" name="fecha_fin" required value="{{form.fecha_fin.value|default:""}}" />
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="invalid-tooltip">
+                            {% for error in form.fecha_fin.errors %}
+                                {{error}}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-3" align="center">
+                <button class="btn btn-primary m-t-25" type="submit">
+                    Generar reporte
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-12">
+            <hr>
+        </div>
+        <div class="col-12">
+            <div class="col-12" style="text-align: center;">
+            <hr>
+            {% if datos|length > 0 %}
+              <div id="chartdiv" style="width: 100%; height: 500px"></div>
+            {% else %}
+                <h4>No hay datos disponibles</h4>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+{% endblock contenido_panel %}

@@ -140,7 +140,8 @@ def VentasPorCliente(request):
         "titulo": "Ventas por cliente",
     })
 
-
+@login_required
+@permission_required('reportes.gestionar_reportes')
 def VentasPorVendedor(request):
     import datetime
     from datetime import timedelta
@@ -181,3 +182,33 @@ def DisponibilidadProductos(request):
         "titulo": "Unidades disponibles",
     })
 
+@login_required
+@permission_required('reportes.gestionar_reportes')
+def VentasInSitu(request):
+    import datetime
+    from datetime import timedelta
+
+    hoy = timezone.localdate()
+    ayer = hoy - timedelta(days=1)
+
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
+    if "fecha_inicio" in request.GET:
+        form = PeriodoTiempoForm(request.GET)
+        if form.is_valid():
+            ventas = VentasSitu(fecha_inicio, fecha_fin)
+        else:
+            for campo, error in form.errors.items():
+                messages.error(request, error[0])
+            ventas = VentasSitu(fecha_inicio, fecha_fin)
+    else:
+        ventas = VentasSitu(fecha_inicio, fecha_fin)
+    print(list(ventas))
+    return render(request, "reportes/ventas_in_situ.html", {
+        "form": form,
+        "ventas": ventas,
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin" : fecha_fin,
+        "datos": list(ventas),
+        "titulo": "Ventas in situ",
+    })
