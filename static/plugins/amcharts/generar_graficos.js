@@ -51,9 +51,8 @@ function reporte_datos_diarios(id_div, datos, titulo){
         },
         "dataProvider": datos,
     });
-
+    console.log(datos)
     chart.addListener("rendered", zoomChart);
-
     zoomChart();
 
     function zoomChart() {
@@ -339,6 +338,66 @@ function reporte_ventas_situ(id_div, datos, titulo){
 
     chart.addListener("rendered", zoomChart);
     console.log(datos)
+    zoomChart();
+
+    function zoomChart() {
+        chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+    }
+}
+
+function reporte_datos_mensuales(id_div, datos, titulo){
+    var chart = AmCharts.makeChart(id_div, {
+        "language": "es",
+        "type": "serial",
+        "theme": "light",
+        "marginRight": 80,
+        "autoMarginOffset": 20,
+        "marginTop": 7,
+        "mouseWheelZoomEnabled":true,
+        "dataDateFormat": "MM",
+        "valueAxes": [{
+            "axisAlpha": 0.2,
+            "position": "left",
+            "dashLength": 1,
+            "title": titulo
+        }],
+        "graphs": [{
+            "id": "g1",
+            "balloonText": "[[value]]",
+            "balloon":{
+              "drop":true,
+            },
+            "bullet": "round",
+            "bulletBorderAlpha": 1,
+            "bulletColor": "#FFFFFF",
+            "hideBulletsCount": 50,
+            "title": "red line",
+            "useLineColorForBulletBorder": true,
+            "valueField": "total_venta",
+            "connect": false,
+        }],
+        "chartScrollbar": {
+            "autoGridCount": true,
+            "graph": "g1",
+            "scrollbarHeight": 40
+        },
+        "chartCursor": {
+           "limitToGraph":"g1"
+        },
+        "categoryField": "mes_venta",
+        "categoryAxis": {
+            "axisColor": "#DADADA",
+            "dashLength": 1,
+            "minorGridEnabled": true,
+            "title": "Mes"
+        },
+        "export": {
+            "enabled": true
+        },
+        "dataProvider": datos,
+    });
+    console.log(datos)
+    chart.addListener("rendered", zoomChart);
     zoomChart();
 
     function zoomChart() {

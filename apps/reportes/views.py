@@ -86,8 +86,9 @@ def VentasPorCategoria(request):
 
     hoy = timezone.localdate()
     ayer = hoy - timedelta(days=1)
+    manana = hoy + timedelta(days=1)
 
-    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", manana.strftime('%Y-%m-%d'))
     form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
     if "fecha_inicio" in request.GET:
         form = PeriodoTiempoForm(request.GET)
@@ -117,8 +118,9 @@ def VentasPorCliente(request):
 
     hoy = timezone.localdate()
     ayer = hoy - timedelta(days=1)
+    manana = hoy + timedelta(days=1)
 
-    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", manana.strftime('%Y-%m-%d'))
     form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
     if "fecha_inicio" in request.GET:
         form = PeriodoTiempoForm(request.GET)
@@ -148,8 +150,9 @@ def VentasPorVendedor(request):
 
     hoy = timezone.localdate()
     ayer = hoy - timedelta(days=1)
+    manana = hoy + timedelta(days=1)
 
-    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", manana.strftime('%Y-%m-%d'))
     form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
     if "fecha_inicio" in request.GET:
         form = PeriodoTiempoForm(request.GET)
@@ -190,8 +193,9 @@ def VentasInSitu(request):
 
     hoy = timezone.localdate()
     ayer = hoy - timedelta(days=1)
+    manana = hoy + timedelta(days=1)
 
-    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", hoy.strftime('%Y-%m-%d'))
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", manana.strftime('%Y-%m-%d'))
     form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
     if "fecha_inicio" in request.GET:
         form = PeriodoTiempoForm(request.GET)
@@ -211,4 +215,58 @@ def VentasInSitu(request):
         "fecha_fin" : fecha_fin,
         "datos": list(ventas),
         "titulo": "Ventas in situ",
+    })
+
+@login_required
+@permission_required('reportes.gestionar_reportes')
+def VentasLinea(request):
+    import datetime
+    from datetime import timedelta
+
+    hoy = timezone.localdate()
+    ayer = hoy - timedelta(days=1)
+    manana = hoy + timedelta(days=1)
+
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ayer.strftime('%Y-%m-%d')), request.GET.get("fecha_fin", manana.strftime('%Y-%m-%d'))
+    form = PeriodoTiempoForm(initial={"fecha_inicio": fecha_inicio, "fecha_fin" : fecha_fin, })
+    if "fecha_inicio" in request.GET:
+        form = PeriodoTiempoForm(request.GET)
+        if form.is_valid():
+            ventas = VentasOnline(fecha_inicio, fecha_fin)
+        else:
+            for campo, error in form.errors.items():
+                messages.error(request, error[0])
+            ventas = VentasOnline(fecha_inicio, fecha_fin)
+    else:
+        ventas = VentasOnline(fecha_inicio, fecha_fin)
+    print(list(ventas))
+    return render(request, "reportes/ventas_online.html", {
+        "form": form,
+        "ventas": ventas,
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin" : fecha_fin,
+        "datos": list(ventas),
+        "titulo": "Ventas online",
+    })
+
+@login_required
+@permission_required('reportes.gestionar_reportes')
+def VentasMensualesP(request):
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ""), request.GET.get("fecha_fin", "")
+    form = PeriodoTiempoForm()
+    if "fecha_inicio" in request.GET:
+        form = PeriodoTiempoForm(request.GET)
+        if form.is_valid():
+            datos = VentasMensuales(fecha_inicio, fecha_fin)
+        else:
+            for campo, error in form.errors.items():
+                messages.error(request, error[0])
+            datos = VentasMensuales()
+    else:
+        datos = VentasMensuales()
+    
+    return render(request, "reportes/ventas_mensuales.html", {
+        "form": form,
+        "datos": list(datos),
+        "titulo": "Cantidad de ventas",
     })
