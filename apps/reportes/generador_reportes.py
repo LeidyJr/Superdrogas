@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Sum, Count, Q, F
-from django.db.models.functions import TruncDate
+from django.db.models.functions import TruncDate, TruncMonth
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -99,4 +99,24 @@ def VentasOnline(inicio="", fin=""):
     for id_venta in range(len(ventas)):
         dia = ventas[id_venta]["dia_venta"]
         ventas[id_venta]["dia_venta"] = dia.strftime("%Y-%m-%d")
+    return ventas
+
+
+def VentasMensuales(inicio="", fin=""):
+    from django.db.models.functions import Extract
+    try:
+        ventas = Venta.objects.exclude(Q(terminada=None) | Q(cancelado=True)).filter(fecha__gte=inicio, fecha__lte=fin)
+    except ValidationError as e:
+        ventas = Venta.objects.exclude(Q(terminada=None) | Q(cancelado=True))
+
+    ventas = ventas.order_by() \
+        .annotate(mes_venta=TruncMonth('fecha', output_field=models.DateField())) \
+        .values('mes_venta') \
+        .annotate(total_venta=Count('id')).order_by("mes_venta")
+    
+    for id_venta in range(len(ventas)):
+        mes = ventas[id_venta]["mes_venta"]
+        ventas[id_venta]["mes_venta"] = mes.strftime('%B')
+    ventas = list(ventas)
+    print("------", ventas)
     return ventas

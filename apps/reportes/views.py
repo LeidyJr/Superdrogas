@@ -248,3 +248,25 @@ def VentasLinea(request):
         "datos": list(ventas),
         "titulo": "Ventas online",
     })
+
+@login_required
+@permission_required('reportes.gestionar_reportes')
+def VentasMensualesP(request):
+    fecha_inicio, fecha_fin = request.GET.get("fecha_inicio", ""), request.GET.get("fecha_fin", "")
+    form = PeriodoTiempoForm()
+    if "fecha_inicio" in request.GET:
+        form = PeriodoTiempoForm(request.GET)
+        if form.is_valid():
+            datos = VentasMensuales(fecha_inicio, fecha_fin)
+        else:
+            for campo, error in form.errors.items():
+                messages.error(request, error[0])
+            datos = VentasMensuales()
+    else:
+        datos = VentasMensuales()
+    
+    return render(request, "reportes/ventas_mensuales.html", {
+        "form": form,
+        "datos": list(datos),
+        "titulo": "Cantidad de ventas",
+    })

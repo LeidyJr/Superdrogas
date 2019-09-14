@@ -7,6 +7,7 @@
 {% url 'reportes:disponibilidad_productos' as disponibilidad_productos %}
 {% url 'reportes:ventas_situ' as ventas_situ %}
 {% url 'reportes:ventas_online' as ventas_online %}
+{% url 'reportes:ventas_mensuales' as ventas_mensuales %}
 
 <li class="{% if "reportes/" in request.path %} active {% endif %}has-sub">
     <a href="javascript:;">
@@ -21,6 +22,9 @@
         {% if perms.reportes.gestionar_reportes %}
             <li class="{% if ventas_diarias in request.path %} active {% endif %}">
                 <a href="{% url 'reportes:ventas_diarias' %}">Ventas diarias</a>
+            </li>
+            <li class="{% if ventas_mensuales in request.path %} active {% endif %}">
+                <a href="{% url 'reportes:ventas_mensuales' %}">Ventas mensuales</a>
             </li>
             <li class="{% if ventas_por_productos in request.path %} active {% endif %}">
                 <a href="{% url 'reportes:ventas_por_productos' %}">Ventas por productos</a>
