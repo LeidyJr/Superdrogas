@@ -85,3 +85,18 @@ def VentasSitu(inicio="", fin=""):
         dia = ventas[id_venta]["dia_venta"]
         ventas[id_venta]["dia_venta"] = dia.strftime("%Y-%m-%d")
     return ventas
+
+def VentasOnline(inicio="", fin=""):
+    try:
+        ventas = Venta.objects.exclude(Q(terminada=None) | Q(cancelado=True)).filter(fecha__gte=inicio, fecha__lte=fin, trabajador=None)
+    except ValidationError as e:
+        ventas = Venta.objects.exclude(Q(terminada=None) | Q(cancelado=True))
+
+    ventas = ventas.order_by() \
+        .annotate(dia_venta=TruncDate('fecha', output_field=models.DateField())) \
+        .values('dia_venta').annotate(total=Count('total'))
+    ventas = list(ventas)
+    for id_venta in range(len(ventas)):
+        dia = ventas[id_venta]["dia_venta"]
+        ventas[id_venta]["dia_venta"] = dia.strftime("%Y-%m-%d")
+    return ventas
