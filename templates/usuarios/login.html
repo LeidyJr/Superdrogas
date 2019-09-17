@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load bootstrap4 %}
+{% load socialaccount %}
 {% load static %}
 <!--[if IE 8]> <html lang="es" class="ie8"> <![endif]-->
 <!--[if !IE]><!-->
@@ -73,10 +74,10 @@
                             <button type="submit" class="btn btn-primary btn-block btn-lg">Ingresar</button>
                         </div>
                         <br/>
-                        {% if request.tenant.nombre != "Superdrogas" %}
+                        {% if request.tenant.nombre != "superdrogas" %}
                         <div class="login-buttons">
-                            <a href="#" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i> Acceder con tu cuenta de Google
+                            <a href="{% provider_login_url 'google' %}" class="btn  btn-social btn-google m-t-5 m-b-5">
+                                    <span class="fab fa-google"></span> Ingresa con Google
                             </a>
                         </div>
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
