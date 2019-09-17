@@ -3,4 +3,6 @@ LISTADO_PERMISOS = [
 	"gestionar_usuarios",
 	"gestionar_productos",
 	"gestionar_categorias",
+	"gestionar_ventas",
+	"gestionar_reportes",
 ]

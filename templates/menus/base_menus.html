@@ -1,9 +1,13 @@
 {%  if request.tenant.schema_name == "public" %}
     {% include "menus/empresas.html" %}
 {% else %}
+    {% if perms.categorias.gestionar_productos %}
         {% include "menus/medicamentos.html" %}
+    {% endif %}
         {% include "menus/ventas.html" %}
+    {% if perms.categorias.gestionar_reportes %}
         {% include "menus/reportes.html" %}
+    {% endif %}
     {% if perms.categorias.gestionar_categorias %}
         {% include "menus/categorias.html" %}
     {% endif %}
