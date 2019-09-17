@@ -15,7 +15,7 @@ def Inicio(request):
 
     if request.user.is_authenticated:
         if request.user.rol=="Cliente":
-            return redirect("categorias:inicio_compras")#cambiar x landing de la franquicia ("categorias:landing")
+            return redirect("categorias:inicio_compras")
         else:
             return redirect("categorias:inicio_ventas")
     return redirect("usuarios:login")
@@ -70,7 +70,7 @@ def configurar_llaves_acceso_redes_sociales():
     try:
         SocialApp.objects.get(provider="google")
     except SocialApp.DoesNotExist:
-        google = SocialApp.objects.create(provider="google", name="Google", client_id=settings.GOOGLE["CLIENT_ID"], secret=settings.GOOGLE["SECRET_KEY"])
+        google = SocialApp.objects.create(provider="google", name="Google", client_id=settings.GOOGLE[0]["CLIENT_ID"], secret=settings.GOOGLE[0]["SECRET_KEY"])
         google.sites.add(Site.objects.first())
     except MultipleObjectsReturned:
         pass
