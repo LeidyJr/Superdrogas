@@ -249,7 +249,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-SITE_ID = 2
+SITE_ID = 6
 
 BOOTSTRAP4 = {
     'include_jquery': True,
