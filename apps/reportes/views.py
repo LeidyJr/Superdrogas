@@ -8,6 +8,7 @@ from .generador_reportes import *
 from apps.core.utils import agregar_por
 
 @login_required
+@permission_required('reportes.gestionar_reportes')
 def DetallesVentasDiarias(request):
     from django.db.models import Sum
     hoy = timezone.localdate().strftime('%Y-%m-%d')
@@ -33,6 +34,7 @@ def DetallesVentasDiarias(request):
         'total_ventas': total_ventas,
     })
 
+@login_required
 @permission_required('reportes.gestionar_reportes')
 def VentasPorProductos(request):
     hoy = timezone.localdate().strftime('%Y-%m-%d')
