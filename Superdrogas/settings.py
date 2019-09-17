@@ -249,7 +249,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-SITE_ID = 6
+SITE_ID = 1
 
 BOOTSTRAP4 = {
     'include_jquery': True,
@@ -259,7 +259,7 @@ BOOTSTRAP4 = {
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = 'usuarios:login'
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_REDIRECT_URL = 'medicamentos:listado'
+LOGIN_REDIRECT_URL = 'usuarios:login'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 DOMAIN = '.superdrogas.ga'
