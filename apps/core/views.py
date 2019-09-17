@@ -6,15 +6,19 @@ from apps.usuarios.models import Usuario
 def Inicio(request):
     Usuario.crear_grupos()
     Usuario.crear_usuario_inicial()
+    configurar_llaves_acceso_redes_sociales()
 
     if request.tenant.schema_name == "public":
         if not request.user.is_authenticated:
-            return redirect("usuarios:login")
+            return redirect("landing")
         return redirect("empresas:listado")
 
-    if not request.user.is_authenticated:
-        return redirect("usuarios:login")#cambiar x landing de la franquicia ("categorias:landing")
-    return redirect(request.user.obtener_pagina_inicio())
+    if request.user.is_authenticated:
+        if request.user.rol=="Cliente":
+            return redirect("categorias:inicio_compras")#cambiar x landing de la franquicia ("categorias:landing")
+        else:
+            return redirect("categorias:inicio_ventas")
+    return redirect("usuarios:login")
 
 
 def Landing(request):
@@ -43,3 +47,30 @@ def Landing(request):
     return render(request, "core/inicio.html", {
         "form": form,
     })
+
+from allauth.account.signals import user_signed_up
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+
+@receiver(user_signed_up)
+def usuario_logueado_red_social(sender, request, user, **kwargs):
+    from django.contrib.auth.models import Group
+    user.rol = "Cliente"
+    user.save()
+    grupo = Group.objects.get(name="Cliente")
+    grupo.user_set.add(user)
+
+def configurar_llaves_acceso_redes_sociales():
+    from django.conf import settings
+    from django.contrib.sites.models import Site
+    from django.core.exceptions import MultipleObjectsReturned
+
+    from allauth.socialaccount.models import SocialLogin, SocialToken, SocialApp
+
+    try:
+        SocialApp.objects.get(provider="google")
+    except SocialApp.DoesNotExist:
+        google = SocialApp.objects.create(provider="google", name="Google", client_id=settings.GOOGLE["CLIENT_ID"], secret=settings.GOOGLE["SECRET_KEY"])
+        google.sites.add(Site.objects.first())
+    except MultipleObjectsReturned:
+        pass
