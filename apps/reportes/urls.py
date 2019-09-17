@@ -10,4 +10,8 @@ urlpatterns = [
 	url(regex=r"^ventas-por-cliente$", view=views.VentasPorCliente, name="ventas_por_cliente"),
 	url(regex=r"^ventas-por-vendedor$", view=views.VentasPorVendedor, name="ventas_por_vendedor"),
 	url(regex=r"^ventas-diarias$", view=views.VentasDiariasP, name="ventas_diarias"),
+	url(regex=r"^ventas-mensuales$", view=views.VentasMensualesP, name="ventas_mensuales"),
+	url(regex=r"^ventas-situ$", view=views.VentasInSitu, name="ventas_situ"),
+	url(regex=r"^ventas-online$", view=views.VentasLinea, name="ventas_online"),
+	url(regex=r"^disponibilidad-productos$", view=views.DisponibilidadProductos, name="disponibilidad_productos"),
  ]

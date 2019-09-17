@@ -141,10 +141,11 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'social_django',
     'rest_framework',
     'simple_history',
+    'social_django',
 ]
 PUBLIC_APPS = [
     'django_tenants',
@@ -248,7 +249,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-SITE_ID = 1
+SITE_ID = 6
 
 BOOTSTRAP4 = {
     'include_jquery': True,
@@ -269,6 +270,12 @@ EMAIL_HOST_PASSWORD = 'superdrogas2019'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Superdrogas <superdrogasfranquicias@gmail.com>'#
+
+
+GOOGLE = {
+        "CLIENT_ID": "673632278604-9d3qrniqijtb08c9rd58f8ftmapq1cb3.apps.googleusercontent.com",
+        "SECRET_KEY": "eDLQL2CV_kKl5b3E6j7G5Qjz"
+    },
 
 ADMINS = (
     ('Leidy', 'rivera.leidy@correounivalle.edu.co'),
